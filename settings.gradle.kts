@@ -16,3 +16,5 @@ rootProject.name = "Design Color Palette"
 include(":app")
 include(":data")
 include(":domain")
+include(":feature:sliders")
+include(":feature:palette")
