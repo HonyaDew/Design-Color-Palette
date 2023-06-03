@@ -1,11 +1,11 @@
 package com.honey.designcolorpalette.ui.main
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -13,16 +13,20 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.honey.designcolorpalette.ui.main.navigation.TopLevelDestination
+import com.honey.designcolorpalette.ui.screen.palette.navigation.navigateToPalette
+import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
+import com.honey.designcolorpalette.ui.screen.sliders.navigation.navigateToSliders
+import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersRoute
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun rememberDcpAppState(
     windowSizeClass: WindowSizeClass,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navHostController: NavHostController = rememberNavController(),
-) : DcpAppState{
-    return remember(navHostController, coroutineScope, windowSizeClass){
-        DcpAppState(navHostController, coroutineScope, windowSizeClass)
+    navController: NavHostController = rememberNavController(),
+): DcpAppState {
+    return remember(navController, coroutineScope, windowSizeClass) {
+        DcpAppState(navController, coroutineScope, windowSizeClass)
     }
 }
 
@@ -32,15 +36,38 @@ class DcpAppState(
     val coroutineScope: CoroutineScope,
     val windowSizeClass: WindowSizeClass
 ) {
+    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
+
     val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-//    val currentTopLevelDestination: TopLevelDestination?
-//        @Composable get() = when (currentDestination?.route) {
-//            forYouNavigationRoute -> FOR_YOU
-//            bookmarksRoute -> BOOKMARKS
-//            interestsRoute -> INTERESTS
-//            else -> null
-//        }
+    val currentTopLevelDestination: TopLevelDestination?
+        @Composable get() = when (currentDestination?.route) {
+            paletteRoute -> TopLevelDestination.PALETTE
+            slidersRoute -> TopLevelDestination.SLIDERS
+            else -> null
+        }
+
+    val showBottomBar: Boolean
+        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+
+    val showNavRail: Boolean
+        get() = !showBottomBar
+
+    fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
+        val topLevelNavOptions = navOptions {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+
+        when (topLevelDestination) {
+            TopLevelDestination.PALETTE -> navController.navigateToPalette(topLevelNavOptions)
+            TopLevelDestination.SLIDERS -> navController.navigateToSliders(topLevelNavOptions)
+        }
+    }
+
 }

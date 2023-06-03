@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.DesignColorPalette" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.DesignColorPalette" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+    <style name="PlatformAdjusted.Theme.Dcp" parent="Theme.DesignColorPalette">
+        <item name="android:statusBarColor">@color/purple_200</item>
+    </style>
 </resources>

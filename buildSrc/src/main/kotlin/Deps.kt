@@ -25,12 +25,14 @@ object Deps {
             const val activityCompose = "1.4.0"
             const val androidMaterial = "1.6.0"
             const val composeCompiler = "1.4.7"
+            const val accompanist = "0.30.1"
         }
 
         const val coreKts = "androidx.core:core-ktx:${Version.coreKtx}"
         const val appCompat = "androidx.appcompat:appcompat:${Version.appCompat}"
         const val activityCompose = "androidx.activity:activity-compose:${Version.activityCompose}"
         const val androidMaterial = "com.google.android.material:material:${Version.androidMaterial}"
+        const val accompanist = "com.google.accompanist:accompanist-systemuicontroller:${Version.accompanist}"
     }
 
     object Lifecycle{

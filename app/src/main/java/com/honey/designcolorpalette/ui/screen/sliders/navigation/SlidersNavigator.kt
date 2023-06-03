@@ -12,7 +12,7 @@ fun NavController.navigateToSliders(navOptions: NavOptions? = null){
     this.navigate(slidersRoute, navOptions)
 }
 
-fun NavGraphBuilder.slidersScreen(onColorClick : (color: Color)-> Unit){
+fun NavGraphBuilder.slidersScreen(onColorClick : (color: String)-> Unit){
     composable(route = slidersRoute){
         SlidersRoute(onColorClick = onColorClick)
     }

@@ -60,6 +60,7 @@ dependencies {
     implementation(Deps.Core.appCompat)
     implementation(Deps.Core.androidMaterial)
     implementation(Deps.Core.activityCompose)
+    implementation(Deps.Core.accompanist)
 
     implementation(Deps.Compose.uiTooling)
     implementation(Deps.Compose.uiToolingPreview)

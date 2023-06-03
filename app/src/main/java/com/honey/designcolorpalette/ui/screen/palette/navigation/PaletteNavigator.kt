@@ -13,7 +13,7 @@ fun NavController.navigateToPalette(navOptions: NavOptions? = null){
     this.navigate(paletteRoute, navOptions)
 }
 
-fun NavGraphBuilder.paletteScreen(onColorClick : (color: Color) -> Unit){
+fun NavGraphBuilder.paletteScreen(onColorClick : (color: String) -> Unit){
     composable(route = paletteRoute){
         PaletteRoute(onColorClick = onColorClick)
     }
