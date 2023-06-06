@@ -2,20 +2,21 @@ package com.honey.designcolorpalette.ui.screen.color.navigation
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
+import com.honey.designcolorpalette.model.ColorInfo
 
 const val colorRoute = "color_route"
-const val colorString = "color_string"
+const val colorInfoArg = "color_info"
 
 
-fun NavController.navigateToColor(color: String){
+fun NavController.navigateToColor(color: ColorInfo){
     this.navigate("$colorRoute/$color")
 }
 
 fun NavGraphBuilder.colorScreen(){
     composable(
-        route = "$colorRoute/{$colorString}",
+        route = "$colorRoute/{$colorInfoArg}",
         arguments = listOf(
-            navArgument(colorString) { type = NavType.StringType}
+            navArgument(colorInfoArg) { type = NavType.StringType}
         )
     ){
         ColorRoute()

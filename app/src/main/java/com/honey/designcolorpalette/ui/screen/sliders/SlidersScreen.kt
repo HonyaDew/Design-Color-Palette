@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
+import com.honey.designcolorpalette.model.ColorInfo
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersEffect
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersEvent
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersState
@@ -15,7 +16,7 @@ fun SlidersScreen(
     state: State<SlidersState>,
     effect : SharedFlow<SlidersEffect?>,
     onEventSend: (event: SlidersEvent) -> Unit,
-    onColorClick: (color: String) -> Unit
+    onColorClick: (color: ColorInfo) -> Unit
 ){
     val coroutine = rememberCoroutineScope()
     when(val state = state.value){

@@ -20,5 +20,22 @@ fun String.color(): Color {
     return Color(components[0], components[1], components[2], components[3])
 }
 
+fun Color.toHexString(): String {
+    return String.format("#%08X", this.toArgb())
+}
+
+fun Color.saturation(): String {
+    val red = this.red
+    val green = this.green
+    val blue = this.blue
+
+    val maxChannel = maxOf(red, green, blue)
+    val minChannel = minOf(red, green, blue)
+
+    val saturation = (maxChannel - minChannel) / maxChannel.toFloat() * 100
+
+    return saturation.toInt().toString()
+}
+
 
 

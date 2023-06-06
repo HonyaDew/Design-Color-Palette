@@ -5,6 +5,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
+import com.honey.designcolorpalette.model.ColorInfo
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEffect
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEvent
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteState
@@ -16,7 +17,7 @@ fun PaletteScreen(
     state: State<PaletteState>,
     effect: SharedFlow<PaletteEffect?>,
     onEventSend: (event: PaletteEvent) -> Unit,
-    onColorClick: (color: String) -> Unit
+    onColorClick: (color: ColorInfo) -> Unit
 ) {
 
     val coroutine = rememberCoroutineScope()
