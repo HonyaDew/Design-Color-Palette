@@ -3,11 +3,7 @@ package com.honey.designcolorpalette.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
@@ -33,6 +29,30 @@ private val LightColorScheme = lightColorScheme(
     background = Color.White,
     onBackground = Color.Black
 )
+
+@Composable
+fun colorSelect(
+    saturation: Int = 100,
+    inverse : Boolean = false,
+    darkTheme: Boolean = isSystemInDarkTheme()
+): Color{
+    val dark = if (inverse) !darkTheme else darkTheme
+    return if (!dark){
+        when(saturation){
+            90 -> {White90}
+            80 -> {White80}
+            70 -> {White70}
+            else -> {Color.White}
+        }
+    } else {
+        when(saturation){
+            90-> {Black90}
+            80-> {Black80}
+            70-> {Black70}
+            else -> {Color.Black}
+        }
+    }
+}
 
 @Composable
 fun DcpTheme(
