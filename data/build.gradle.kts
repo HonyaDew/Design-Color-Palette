@@ -41,6 +41,8 @@ dependencies {
     implementation(Deps.Core.appCompat)
     implementation(Deps.Core.androidMaterial)
 
+    implementation(Deps.Json.serialization)
+
     implementation(Deps.Room.ktx)
     ksp(Deps.Room.compiler)
     implementation(Deps.Room.runtime)

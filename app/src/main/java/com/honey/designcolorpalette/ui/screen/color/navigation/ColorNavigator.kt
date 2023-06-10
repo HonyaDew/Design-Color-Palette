@@ -2,7 +2,7 @@ package com.honey.designcolorpalette.ui.screen.color.navigation
 
 import androidx.navigation.*
 import androidx.navigation.compose.composable
-import com.honey.designcolorpalette.model.ColorInfo
+import com.honey.domain.model.ColorInfo
 
 const val colorRoute = "color_route"
 const val colorInfoArg = "color_info"

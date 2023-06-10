@@ -1,10 +1,7 @@
 package com.honey.designcolorpalette.ui.main.view
 
-import android.telephony.UiccCardInfo
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -12,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
@@ -22,14 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.extencion.color
-import com.honey.designcolorpalette.extencion.saturation
 import com.honey.designcolorpalette.extencion.string
 import com.honey.designcolorpalette.extencion.toHexString
-import com.honey.designcolorpalette.model.ColorInfo
-import com.honey.designcolorpalette.model.ColorOfMaterial
-import com.honey.designcolorpalette.model.Palette
-import com.honey.designcolorpalette.ui.theme.Purple40
-import com.honey.designcolorpalette.ui.theme.White90
+import com.honey.domain.model.ColorInfo
+import com.honey.domain.model.ColorOfMaterial
+import com.honey.domain.model.Palette
 import com.honey.designcolorpalette.ui.theme.colorSelect
 
 @Composable
@@ -96,7 +89,7 @@ fun PreviewDcpColorCard() {
         color = ColorInfo(
             value = Color(0xFFF44336).string(),
             name = "500",
-            palette = Palette.Material(color = ColorOfMaterial.RED)
+            palette = Palette.Material(subPalette = ColorOfMaterial.RED)
         ),
         onColorClick = {}
     )

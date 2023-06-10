@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
-import com.honey.designcolorpalette.model.ColorInfo
+import com.honey.domain.model.ColorInfo
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersEffect
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersEvent
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersState

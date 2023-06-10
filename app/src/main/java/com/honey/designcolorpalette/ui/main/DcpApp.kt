@@ -6,11 +6,14 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.ui.main.navigation.DcpNavHost
 import com.honey.designcolorpalette.ui.main.view.DcpBackground
 import com.honey.designcolorpalette.ui.main.view.DcpBottomBar
 import com.honey.designcolorpalette.ui.main.view.DcpNavRail
+import com.honey.designcolorpalette.ui.screen.dialog.SettingsDialogRoute
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -18,7 +21,12 @@ fun DcpApp(
     windowSizeClass: WindowSizeClass,
     appState: DcpAppState = rememberDcpAppState(windowSizeClass = windowSizeClass)
 ){
-    DcpBackground() {
+    DcpBackground {
+
+        if (appState.showSettingsDialog.value){
+            SettingsDialogRoute(onDismiss = { appState.setShowSettingsDialog(false) })
+        }
+
         Scaffold(
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onBackground,
@@ -60,7 +68,15 @@ fun DcpApp(
                             title = { Text(text = stringResource(id = destination.titleId)) },
                             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                 containerColor = Color.Transparent
-                            )
+                            ),
+                            actions = {
+                                IconButton(onClick = { appState.setShowSettingsDialog(true) }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_settings),
+                                        contentDescription = "Settings"
+                                    )
+                                }
+                            }
                         )
                     }
 

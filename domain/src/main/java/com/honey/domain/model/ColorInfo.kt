@@ -1,23 +1,25 @@
-package com.honey.designcolorpalette.model
+package com.honey.domain.model
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import com.honey.designcolorpalette.extencion.color
-import com.honey.designcolorpalette.extencion.string
+import kotlinx.serialization.Serializable
+
 
 data class ColorInfo(
     val value: String,
     val name: String,
     val palette: Palette
 )
-sealed class Palette {
+
+@Serializable
+sealed class Palette() {
+    @Serializable
     data class Material(
-        //Subclass
-        val color: ColorOfMaterial
+        val subPalette: ColorOfMaterial
     ): Palette()
+    @Serializable
     object FlatUI: Palette()
 }
 
+@Serializable
 enum class ColorOfMaterial(
     val preview: String
 ) {
@@ -42,7 +44,7 @@ enum class ColorOfMaterial(
     BLUE_GRAY(preview = "Color(0.3764706, 0.49019608, 0.54509807, 1.0)"),
 }
 
-private fun main(){
-    //simple convert colors to DcpColorString
-    println(Color(0xFF009688).string())
-}
+//private fun main(){
+//    //simple convert colors to DcpColorString
+//    println(Color(0xFF009688).string())
+//}

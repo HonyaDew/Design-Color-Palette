@@ -3,7 +3,10 @@ object Deps {
     object Plugins {
         const val application = "com.android.application"
         const val library = "com.android.library"
+        const val javaLibraty = "java-library"
         const val kotlinAndroid = "org.jetbrains.kotlin.android"
+        const val kotlinJvm = "org.jetbrains.kotlin.jvm"
+        const val serialization = "org.jetbrains.kotlin.plugin.serialization"
         const val ksp = "com.google.devtools.ksp"
 
     }
@@ -12,10 +15,12 @@ object Deps {
         const val versionGradle = "7.4.1"
         const val versionKotlin = "1.8.10"
         const val versionKsp = "1.8.21-1.0.11"
+        const val versionSerialization = "1.5.1"
 
         const val androidGradlePlugin = "com.android.tools.build:gradle:$versionGradle"
         const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionKotlin"
         const val kspGradlePlugin = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:$versionKsp"
+        const val serializationGradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:$versionSerialization"
     }
 
     object Core{
@@ -67,6 +72,17 @@ object Deps {
         const val runtime = "androidx.room:room-runtime:$version"
         const val ktx = "androidx.room:room-ktx:$version"
         const val compiler = "androidx.room:room-compiler:$version"
+    }
+
+    object Json{
+        object Version{
+            const val gson = "2.8.8"
+            const val moshi = "1.14.0"
+            const val serialization = "1.5.1"
+        }
+        const val moshi = "com.squareup.moshi:moshi-kotlin:${Version.moshi}"
+        const val gson = "com.google.code.gson:gson:${Version.gson}"
+        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.serialization}"
     }
 
     object Koin {

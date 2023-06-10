@@ -2,10 +2,7 @@ package com.honey.designcolorpalette.ui.main
 
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -18,6 +15,9 @@ import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.navigateToSliders
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersRoute
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @Composable
 fun rememberDcpAppState(
@@ -54,6 +54,11 @@ class DcpAppState(
 
     val showNavRail: Boolean
         get() = !showBottomBar
+
+    //TODO idk this looks ugly and I don't know for what
+    private val _showSettingsDialog = mutableStateOf(false)
+    val showSettingsDialog : State<Boolean> = _showSettingsDialog
+    fun setShowSettingsDialog(show: Boolean) { _showSettingsDialog.value = show }
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {

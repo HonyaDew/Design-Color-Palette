@@ -1,11 +1,10 @@
 package com.honey.designcolorpalette.ui.screen.sliders.navigation
 
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.honey.designcolorpalette.model.ColorInfo
+import com.honey.domain.model.ColorInfo
 
 const val slidersRoute = "sliders_route"
 
