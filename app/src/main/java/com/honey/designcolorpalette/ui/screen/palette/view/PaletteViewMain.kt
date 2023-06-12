@@ -92,7 +92,7 @@ fun PaletteViewMain(
                     .align(Alignment.BottomEnd)
                     .padding(bottom = 12.dp, end = 12.dp)
                     .size(64.dp),
-                border = BorderStroke(width = 2.dp, color = colorSelect(70, inverse = true)),
+                border = BorderStroke(width = 2.dp, color = state.palette.subPalette.preview.color()),
                 colors = IconButtonDefaults.outlinedIconButtonColors(
                     containerColor = colorSelect(90),
                     contentColor = colorSelect(saturation = 90, inverse = true)
