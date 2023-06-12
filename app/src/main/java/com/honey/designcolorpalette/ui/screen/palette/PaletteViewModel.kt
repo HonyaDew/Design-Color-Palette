@@ -12,13 +12,15 @@ import com.honey.domain.model.Palette
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEffect
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEvent
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteState
+import com.honey.domain.usecase.GetColorByPaletteUseCase
 import com.honey.domain.usecase.GetSettingsUseCase
 import com.honey.domain.usecase.PutSettingsUseCase
 import kotlinx.coroutines.launch
 
 class PaletteViewModel(
     private val getSettings : GetSettingsUseCase,
-    private val putSettings : PutSettingsUseCase
+    private val putSettings : PutSettingsUseCase,
+    private val getColorsByPalette: GetColorByPaletteUseCase
 ) : BaseViewModel<PaletteEvent, PaletteState, PaletteEffect>(initialState =  PaletteState.Loading) {
 
     init {

@@ -14,7 +14,6 @@ class SettingsRepositoryImpl (private val sharedPreferences: SharedPreferences):
 
     override fun putUserSettings(editableSettings: EditableSettings): Boolean {
         val jsonString = Json.encodeToString(editableSettings)
-        Log.d("MyLog", "$jsonString")
         sharedPreferences.edit().putString("settings", jsonString).apply()
         return true
     }

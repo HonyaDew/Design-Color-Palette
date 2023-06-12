@@ -20,7 +20,8 @@ val appModule = module {
     factory<PaletteViewModel> {
         PaletteViewModel(
             getSettings = get(),
-            putSettings = get()
+            putSettings = get(),
+            getColorsByPalette = get()
         )
     }
     factory<SettingsViewModel>{
