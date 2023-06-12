@@ -33,6 +33,5 @@ fun DcpNavHost(
         )
         //Not sure for this good idea to put not top-level-destination here, but anyway TODO
         colorScreen()
-
     }
 }

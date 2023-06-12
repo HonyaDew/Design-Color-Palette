@@ -9,4 +9,6 @@
     <string name="loading">Loading</string>
     <string name="material">Material</string>
     <string name="flatUI">Flat UI</string>
+
+    <string name="colors_of_material">Colors of Material</string>
 </resources>

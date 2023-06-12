@@ -28,11 +28,13 @@ import com.honey.designcolorpalette.ui.theme.colorSelect
 @Composable
 fun DcpColorCard(
     color: ColorInfo,
-    onColorClick: (color: ColorInfo) -> Unit
+    onColorClick: (color: ColorInfo) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     Card(
+        modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = colorSelect(90)),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(2.dp)

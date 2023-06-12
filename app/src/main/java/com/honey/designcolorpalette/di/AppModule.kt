@@ -19,11 +19,11 @@ val appModule = module {
 
     factory<PaletteViewModel> {
         PaletteViewModel(
-            getSettings = get()
+            getSettings = get(),
+            putSettings = get()
         )
     }
     factory<SettingsViewModel>{
-        Log.d("MyLog","SettingsViewModel init")
         SettingsViewModel(
             getSettings = get(),
             putSettings = get()

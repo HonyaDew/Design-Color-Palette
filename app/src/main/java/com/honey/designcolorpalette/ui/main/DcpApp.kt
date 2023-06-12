@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -14,6 +17,8 @@ import com.honey.designcolorpalette.ui.main.view.DcpBackground
 import com.honey.designcolorpalette.ui.main.view.DcpBottomBar
 import com.honey.designcolorpalette.ui.main.view.DcpNavRail
 import com.honey.designcolorpalette.ui.screen.dialog.SettingsDialogRoute
+
+val LocalActiveColor = compositionLocalOf<Boolean> { false }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -42,49 +47,54 @@ fun DcpApp(
                 }
             }
         ){padding ->
-            //NavRail > TopBar priority, so it's here.
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .consumeWindowInsets(padding)
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Horizontal
-                        )
-                    )
+            CompositionLocalProvider(
+                LocalActiveColor provides appState.showSettingsDialog.value
             ) {
-                if (appState.showNavRail){
-                    DcpNavRail(
-                        destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = appState::navigateToTopLevelDestination,
-                        currentDestination = appState.currentDestination
-                    )
-                }
-                Column {
-                    val destination = appState.currentTopLevelDestination
-                    if (destination != null){
-                        CenterAlignedTopAppBar(
-                            title = { Text(text = stringResource(id = destination.titleId)) },
-                            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                containerColor = Color.Transparent
-                            ),
-                            actions = {
-                                IconButton(onClick = { appState.setShowSettingsDialog(true) }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_settings),
-                                        contentDescription = "Settings"
-                                    )
-                                }
-                            }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .consumeWindowInsets(padding)
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing.only(
+                                WindowInsetsSides.Horizontal
+                            )
+                        )
+                ) {
+                    if (appState.showNavRail){
+                        DcpNavRail(
+                            destinations = appState.topLevelDestinations,
+                            onNavigateToDestination = appState::navigateToTopLevelDestination,
+                            currentDestination = appState.currentDestination
                         )
                     }
+                    Column {
+                        val destination = appState.currentTopLevelDestination
+                        if (destination != null){
+                            CenterAlignedTopAppBar(
+                                title = { Text(text = stringResource(id = destination.titleId)) },
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                    containerColor = Color.Transparent
+                                ),
+                                actions = {
+                                    IconButton(onClick = { appState.setShowSettingsDialog(true) }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_settings),
+                                            contentDescription = "Settings"
+                                        )
+                                    }
+                                }
+                            )
+                        }
 
-                    DcpNavHost(
-                        navController = appState.navController
-                    )
+                        DcpNavHost(
+                            navController = appState.navController
+                        )
+                    }
                 }
             }
+            //NavRail > TopBar priority, so it's here.
         }
     }
 }

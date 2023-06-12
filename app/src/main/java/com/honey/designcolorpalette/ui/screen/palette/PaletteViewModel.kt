@@ -1,7 +1,10 @@
 package com.honey.designcolorpalette.ui.screen.palette
 
+import android.util.Log
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.viewModelScope
 import com.honey.designcolorpalette.base.BaseViewModel
+import com.honey.designcolorpalette.showSettingsState
 import com.honey.designcolorpalette.extencion.string
 import com.honey.domain.model.ColorInfo
 import com.honey.domain.model.ColorOfMaterial
@@ -10,14 +13,20 @@ import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEffect
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEvent
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteState
 import com.honey.domain.usecase.GetSettingsUseCase
+import com.honey.domain.usecase.PutSettingsUseCase
+import kotlinx.coroutines.launch
 
 class PaletteViewModel(
-    private val getSettings : GetSettingsUseCase
+    private val getSettings : GetSettingsUseCase,
+    private val putSettings : PutSettingsUseCase
 ) : BaseViewModel<PaletteEvent, PaletteState, PaletteEffect>(initialState =  PaletteState.Loading) {
 
     init {
-        //TODO Load previous
-        performLoadPalette(palette = Palette.Material(subPalette = ColorOfMaterial.RED))
+        viewModelScope.launch {
+            showSettingsState.collect(){ open->
+                performLoadPalette(getSettings.invoke().palette)
+            }
+        }
     }
 
     override fun obtainEvent(event: PaletteEvent) {
@@ -32,7 +41,13 @@ class PaletteViewModel(
     }
 
     private fun reduce(event: PaletteEvent, state: PaletteState.Show){
-
+        when(event){
+            is PaletteEvent.SelectSubPalette -> {
+                putSettings.invoke(getSettings.invoke().copy(palette = event.palette))
+                performLoadPalette(event.palette)
+            }
+            else -> {}
+        }
     }
 
     private fun performLoadPalette(palette: Palette){

@@ -4,10 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
+import com.honey.designcolorpalette.ui.main.LocalActiveColor
 import com.honey.domain.model.ColorInfo
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEffect
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEvent
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteState
+import com.honey.designcolorpalette.ui.screen.palette.view.PaletteViewLoading
+import com.honey.designcolorpalette.ui.screen.palette.view.PaletteViewMain
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
@@ -20,15 +23,27 @@ fun PaletteScreen(
 ) {
     val coroutine = rememberCoroutineScope()
 
-    when(val state = state.value){
-        is PaletteState.Loading -> {}
-        else -> {}
+    when (val state = state.value) {
+        is PaletteState.Loading -> {
+            PaletteViewLoading(state = state)
+        }
+
+        is PaletteState.Show -> {
+            PaletteViewMain(
+                state = state,
+                onColorClick = onColorClick,
+                onSelectSubPalette = { palette ->
+                    onEventSend.invoke(PaletteEvent.SelectSubPalette(palette))
+                }
+            )
+        }
     }
+
 
     SideEffect {
         coroutine.launch {
-            effect.collect(){effect ->
-                when(effect){
+            effect.collect() { effect ->
+                when (effect) {
 
                     else -> {}
                 }

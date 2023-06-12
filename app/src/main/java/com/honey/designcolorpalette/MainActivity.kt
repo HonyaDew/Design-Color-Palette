@@ -11,12 +11,16 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.honey.designcolorpalette.ui.main.DcpApp
 import com.honey.designcolorpalette.ui.theme.DcpTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class,ExperimentalMaterial3Api::class)
+lateinit var showSettingsState: MutableStateFlow<Boolean>
+
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            showSettingsState = MutableStateFlow(false)
             val systemUiController = rememberSystemUiController()
             systemUiController.setSystemBarsColor(Color.Transparent)
 

@@ -9,15 +9,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.honey.designcolorpalette.showSettingsState
 import com.honey.designcolorpalette.ui.main.navigation.TopLevelDestination
 import com.honey.designcolorpalette.ui.screen.palette.navigation.navigateToPalette
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.navigateToSliders
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersRoute
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 @Composable
 fun rememberDcpAppState(
@@ -58,7 +56,11 @@ class DcpAppState(
     //TODO idk this looks ugly and I don't know for what
     private val _showSettingsDialog = mutableStateOf(false)
     val showSettingsDialog : State<Boolean> = _showSettingsDialog
-    fun setShowSettingsDialog(show: Boolean) { _showSettingsDialog.value = show }
+    fun setShowSettingsDialog(show: Boolean) {
+        _showSettingsDialog.value = show
+        showSettingsState.value = show
+    }
+
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {
@@ -74,5 +76,5 @@ class DcpAppState(
             TopLevelDestination.SLIDERS -> navController.navigateToSliders(topLevelNavOptions)
         }
     }
-
 }
+
