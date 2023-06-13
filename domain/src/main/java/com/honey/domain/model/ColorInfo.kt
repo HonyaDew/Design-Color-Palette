@@ -17,6 +17,12 @@ sealed class Palette() {
     ): Palette()
     @Serializable
     object FlatUI: Palette()
+    @Serializable
+    object Social: Palette()
+    @Serializable
+    object Metro: Palette()
+    @Serializable
+    object HTML: Palette()
 }
 
 @Serializable
