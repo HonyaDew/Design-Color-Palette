@@ -43,8 +43,3 @@ enum class ColorOfMaterial(
     GREY(preview = "Color(0.61960787, 0.61960787, 0.61960787, 1.0)"),
     BLUE_GRAY(preview = "Color(0.3764706, 0.49019608, 0.54509807, 1.0)"),
 }
-
-//private fun main(){
-//    //simple convert colors to DcpColorString
-//    println(Color(0xFF009688).string())
-//}

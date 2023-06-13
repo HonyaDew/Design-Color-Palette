@@ -1,5 +1,6 @@
 package com.honey.color
 
+import com.honey.color.datasource.extencion.toDataModule
 import com.honey.color.datasource.extencion.toDomainModule
 import com.honey.color.datasource.internal.ColorDao
 import com.honey.color.datasource.internal.ColorDatabase
@@ -12,5 +13,10 @@ class ColorRepositoryImpl(
 ): ColorRepository {
     override suspend fun getColorsByPalette(palette: Palette): List<ColorInfo> {
         return dao.getColorsByPalette(palette).toDomainModule()
+    }
+
+    override suspend fun fillColors(colors: List<ColorInfo>): Boolean {
+        dao.fillColors(colors.toDataModule())
+        return true
     }
 }
