@@ -38,6 +38,22 @@ fun SettingsView(
             selected = settings.palette is Palette.FlatUI,
             onClick = {onChangePalette.invoke(Palette.FlatUI)}
         )
+        SettingsRadioButton(
+            text = stringResource(id = R.string.social),
+            selected = settings.palette is Palette.Social,
+            onClick = {onChangePalette.invoke(Palette.Social)}
+        )
+        SettingsRadioButton(
+            text = stringResource(id = R.string.metro),
+            selected = settings.palette is Palette.Metro,
+            onClick = {onChangePalette.invoke(Palette.Metro)}
+        )
+        SettingsRadioButton(
+            text = stringResource(id = R.string.html),
+            selected = settings.palette is Palette.HTML,
+            onClick = {onChangePalette.invoke(Palette.HTML)}
+        )
+
     }
 }
 

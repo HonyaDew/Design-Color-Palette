@@ -11,4 +11,7 @@
     <string name="flatUI">Flat UI</string>
 
     <string name="colors_of_material">Colors of Material</string>
+    <string name="social">Social</string>
+    <string name="metro">Metro</string>
+    <string name="html">HTML</string>
 </resources>

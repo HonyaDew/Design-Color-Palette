@@ -1,9 +1,11 @@
 package com.honey.designcolorpalette.ui.screen.palette
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
+import com.honey.designcolorpalette.showSettingsState
 import com.honey.designcolorpalette.ui.main.LocalActiveColor
 import com.honey.domain.model.ColorInfo
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEffect
@@ -12,6 +14,7 @@ import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteState
 import com.honey.designcolorpalette.ui.screen.palette.view.PaletteViewLoading
 import com.honey.designcolorpalette.ui.screen.palette.view.PaletteViewMain
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Composable
@@ -39,6 +42,13 @@ fun PaletteScreen(
         }
     }
 
+    SideEffect {
+        coroutine.launch {
+            showSettingsState.collect(){show->
+                onEventSend.invoke(PaletteEvent.UpdatePalette)
+            }
+        }
+    }
 
     SideEffect {
         coroutine.launch {

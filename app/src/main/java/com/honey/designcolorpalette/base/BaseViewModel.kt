@@ -8,8 +8,7 @@ interface ViewEvent
 interface ViewState
 interface ViewEffect
 
-abstract class BaseViewModel<Event: ViewEvent, UiState: ViewState, Effect: ViewEffect>(initialState: UiState):
-    ViewModel() {
+abstract class BaseViewModel<Event: ViewEvent, UiState: ViewState, Effect: ViewEffect>(initialState: UiState): ViewModel() {
     abstract fun obtainEvent(event: Event)
 
     private val _viewState = MutableStateFlow<UiState>(initialState)
