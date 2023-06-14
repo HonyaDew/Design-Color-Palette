@@ -11,12 +11,5 @@ import com.honey.domain.repository.ColorRepository
 class ColorRepositoryImpl(
     private val dao: ColorDao
 ): ColorRepository {
-    override suspend fun getColorsByPalette(palette: Palette): List<ColorInfo> {
-        return dao.getColorsByPalette(palette).toDomainModule()
-    }
 
-    override suspend fun fillColors(colors: List<ColorInfo>): Boolean {
-        dao.fillColors(colors.toDataModule())
-        return true
-    }
 }

@@ -8,7 +8,9 @@ import com.honey.color.datasource.internal.ColorDao
 import com.honey.color.datasource.internal.ColorDatabase
 import com.honey.color.datasource.internal.Constance
 import com.honey.domain.repository.ColorRepository
+import com.honey.domain.repository.PaletteRepository
 import com.honey.domain.repository.SettingsRepository
+import com.honey.palette.PaletteRepositoryImpl
 import com.honey.settings.SettingsRepositoryImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -22,6 +24,10 @@ val dataModule = module {
 
     single<SharedPreferences> {
         androidContext().getSharedPreferences("default", Context.MODE_PRIVATE)
+    }
+
+    single<PaletteRepository>{
+        PaletteRepositoryImpl()
     }
 
     single<ColorDatabase> {

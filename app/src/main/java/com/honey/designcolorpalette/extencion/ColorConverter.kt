@@ -2,7 +2,6 @@ package com.honey.designcolorpalette.extencion
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.core.graphics.toColorInt
 
 
 fun Color.string(): String {

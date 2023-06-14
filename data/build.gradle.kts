@@ -43,6 +43,8 @@ dependencies {
 
     implementation(Deps.Json.serialization)
 
+    implementation(Deps.Compose.dataGraphics)
+
     implementation(Deps.Room.ktx)
     ksp(Deps.Room.compiler)
     implementation(Deps.Room.runtime)

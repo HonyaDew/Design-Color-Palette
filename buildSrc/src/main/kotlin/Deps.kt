@@ -52,11 +52,15 @@ object Deps {
     object Compose {
         const val version = "1.4.0-beta01"
         const val versionMaterial = "1.0.1"
+        const val versionData = "1.4.3"
 
         const val composeMaterial = "androidx.compose.material3:material3:$versionMaterial"
         const val composeMaterialWindow = "androidx.compose.material3:material3-window-size-class:$versionMaterial"
         const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
         const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
+
+        //Using only in data module, bc in it module no need all compose.
+        const val dataGraphics = "androidx.compose.ui:ui-graphics:$versionData"
     }
 
     object Navigation {

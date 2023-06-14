@@ -4,6 +4,4 @@ import com.honey.domain.model.ColorInfo
 import com.honey.domain.model.Palette
 
 interface ColorRepository {
-    suspend fun getColorsByPalette(palette: Palette) : List<ColorInfo>
-    suspend fun fillColors(colors: List<ColorInfo>) : Boolean
 }
