@@ -7,7 +7,6 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.honey.color.datasource.internal.Constance
 import com.honey.domain.model.Palette
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Entity(tableName = Constance.TABLE_NAME)
@@ -26,10 +25,10 @@ data class ColorInfoData(
 class PaletteTypeConverter {
     @TypeConverter
     fun fromDatabaseValue(value: String): Palette {
-        return Json.decodeFromString(value)
+        return Json.decodeFromString(Palette.serializer(),value)
     }
     @TypeConverter
     fun toDatabaseValue(palette: Palette): String {
-        return Json.encodeToString(palette)
+        return Json.encodeToString(Palette.serializer(), palette)
     }
 }

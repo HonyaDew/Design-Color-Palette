@@ -47,6 +47,7 @@ fun DcpApp(
                 }
             }
         ){padding ->
+            //NavRail > TopBar priority, so second here.
             CompositionLocalProvider(
                 LocalActiveColor provides appState.showSettingsDialog.value
             ) {
@@ -94,7 +95,6 @@ fun DcpApp(
                     }
                 }
             }
-            //NavRail > TopBar priority, so it's here.
         }
     }
 }

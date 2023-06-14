@@ -9,9 +9,9 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun SlidersRoute(
-    onColorClick : (color: ColorInfo) -> Unit
+    onColorClick : (color: ColorInfo) -> Unit,
+    viewModel: SlidersViewModel = getViewModel<SlidersViewModel>()
 ) {
-    val viewModel = getViewModel<SlidersViewModel>()
 
     SlidersScreen(
         state = viewModel.getViewState().collectAsState(),

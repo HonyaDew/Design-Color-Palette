@@ -9,9 +9,9 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun PaletteRoute(
-    onColorClick : (color: ColorInfo) -> Unit
+    onColorClick : (color: ColorInfo) -> Unit,
+    viewModel : PaletteViewModel = getViewModel<PaletteViewModel>()
 ) {
-    val viewModel = getViewModel<PaletteViewModel>()
 
     PaletteScreen(
         state = viewModel.getViewState().collectAsState(),

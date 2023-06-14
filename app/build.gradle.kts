@@ -74,6 +74,8 @@ dependencies {
     implementation(Deps.Navigation.navigationCompose)
     implementation(Deps.Navigation.lifecycleViewModelCompose)
 
+    implementation(Deps.Json.serialization)
+
     implementation(Deps.Room.runtime)
     implementation(Deps.Room.ktx)
     implementation(Deps.Room.compiler)

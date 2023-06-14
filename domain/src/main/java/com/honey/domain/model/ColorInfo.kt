@@ -2,7 +2,7 @@ package com.honey.domain.model
 
 import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class ColorInfo(
     val value: String,
     val name: String,

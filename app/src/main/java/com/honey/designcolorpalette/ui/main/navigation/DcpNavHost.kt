@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.honey.designcolorpalette.ui.screen.color.navigation.colorScreen
-import com.honey.designcolorpalette.ui.screen.color.navigation.navigateToColor
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteScreen
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersScreen
@@ -23,15 +21,14 @@ fun DcpNavHost(
     ) {
         paletteScreen(
             onColorClick = {color ->
-                navController.navigateToColor(color = color)
+
             }
         )
         slidersScreen(
             onColorClick = {color ->
-                navController.navigateToColor(color = color)
+
             }
         )
-        //Not sure for this good idea to put not top-level-destination here, but anyway TODO
-        colorScreen()
+
     }
 }
