@@ -3,18 +3,17 @@ package com.honey.designcolorpalette.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.honey.color.ColorRepositoryImpl
-import com.honey.color.datasource.internal.ColorDao
-import com.honey.color.datasource.internal.ColorDatabase
-import com.honey.color.datasource.internal.Constance
-import com.honey.domain.repository.ColorRepository
+import com.honey.saved.datasource.internal.Constance
 import com.honey.domain.repository.PaletteRepository
+import com.honey.domain.repository.SavedRepository
 import com.honey.domain.repository.SettingsRepository
 import com.honey.palette.PaletteRepositoryImpl
+import com.honey.saved.SavedRepositoryImpl
+import com.honey.saved.datasource.internal.SavedDao
+import com.honey.saved.datasource.internal.SavedDatabase
 import com.honey.settings.SettingsRepositoryImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import kotlin.math.sin
 
 val dataModule = module {
 
@@ -30,21 +29,22 @@ val dataModule = module {
         PaletteRepositoryImpl()
     }
 
-    single<ColorDatabase> {
+    single<SavedDatabase> {
         Room.databaseBuilder(
             context = androidContext(),
-            klass = ColorDatabase::class.java,
+            klass = SavedDatabase::class.java,
             name = Constance.DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
 
-    single<ColorDao> {
-        get<ColorDatabase>().colorDao()
+    single<SavedDao> {
+        get<SavedDatabase>().savedDao()
     }
 
-    single <ColorRepository>{
-        ColorRepositoryImpl(
+    single<SavedRepository> {
+        SavedRepositoryImpl(
             dao = get()
         )
     }
+
 }

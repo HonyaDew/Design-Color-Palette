@@ -6,23 +6,19 @@ import kotlinx.serialization.Serializable
 data class ColorInfo(
     val value: String,
     val name: String,
-    val palette: Palette
+    val palette: Palette = Palette.Custom
 )
 
 @Serializable
 sealed class Palette() {
-    @Serializable
-    data class Material(
+    @Serializable data class Material(
         val subPalette: ColorOfMaterial
     ): Palette()
-    @Serializable
-    object FlatUI: Palette()
-    @Serializable
-    object Social: Palette()
-    @Serializable
-    object Metro: Palette()
-    @Serializable
-    object HTML: Palette()
+    @Serializable object FlatUI: Palette()
+    @Serializable object Social: Palette()
+    @Serializable object Metro: Palette()
+    @Serializable object HTML: Palette()
+    @Serializable object Custom : Palette()
 }
 
 @Serializable

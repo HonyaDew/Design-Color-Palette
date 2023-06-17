@@ -1,20 +1,20 @@
-package com.honey.color.datasource.model
+package com.honey.saved.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.honey.color.datasource.internal.Constance
+import com.honey.saved.datasource.internal.Constance
 import com.honey.domain.model.Palette
 import kotlinx.serialization.json.Json
 
-@Entity(tableName = Constance.TABLE_NAME)
+@Entity(tableName = Constance.COLOR_TABLE_NAME)
 @TypeConverters(PaletteTypeConverter::class)
 data class ColorInfoData(
-    @ColumnInfo(name = "value")
-    val value: String,
     @PrimaryKey(autoGenerate = false)
+    val value: String,
+    @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "palette")
     val palette: Palette
