@@ -122,7 +122,8 @@ fun PortraitSlidersViewShow(
         OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(0.4f),
+                .weight(0.4f)
+                .defaultMinSize(minHeight = 128.dp),
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(width = 2.dp, color = colorSelect()),
             content = {},

@@ -30,6 +30,7 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color.Black
 )
 
+//Using this color select only for reason - we can use only black and white
 @Composable
 fun colorSelect(
     saturation: Int = 100,
