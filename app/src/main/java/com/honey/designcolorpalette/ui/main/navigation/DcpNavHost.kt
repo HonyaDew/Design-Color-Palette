@@ -10,8 +10,8 @@ import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersScreen
 
 @Composable
 fun DcpNavHost(
-    navController:NavHostController,
-    modifier : Modifier = Modifier,
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
     startDestination: String = paletteRoute,
 ) {
     NavHost(

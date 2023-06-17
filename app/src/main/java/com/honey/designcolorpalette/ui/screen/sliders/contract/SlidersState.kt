@@ -1,23 +1,45 @@
 package com.honey.designcolorpalette.ui.screen.sliders.contract
 
+import androidx.compose.ui.graphics.Color
 import com.honey.designcolorpalette.base.ViewState
-import java.util.concurrent.Flow
 
 sealed class SlidersState : ViewState {
     object Loading: SlidersState()
-    data class Show(val slidersValues: SlidersType)
+    data class Show(
+        val type: SlidersType,
+        val sliderOne : Float = 0.3f,
+        val sliderTwo : Float = 0.5f,
+        val sliderThree : Float = 0.7f,
+        val sliderAlpha : Float = 1f,
+    ): SlidersState()
 }
 
-sealed class SlidersType {
-    data class SliderRGBA(
-        val red: Int, // 0..255
-        val green : Int, // 0..255
-        val blue: Int, // 0..255
-        val alpha: Float //0..1
-    ) : SlidersType()
-    data class SliderHSV(
-        val hue : Int, //0..360
-        val saturation: Float, //0..1
-        val value: Float //0..1
+enum class SlidersType (
+    val assetOfFirst : SliderAsset,
+    val assetOfSecond : SliderAsset,
+    val assetOfThird : SliderAsset,
+    val assetOfAlpha : SliderAsset,
+) {
+    RGB(
+        assetOfFirst = SliderAsset(color = Color.Red, name = "R", steps = 360),
+        assetOfSecond = SliderAsset(color = Color.Green, name = "G", steps = 100),
+        assetOfThird = SliderAsset(color = Color.Blue, name = "B", steps = 255),
+        assetOfAlpha = SliderAsset(color = null, name = "A", steps = 100)
+    ),
+
+    HSV(
+        assetOfFirst = SliderAsset(color = Color.Yellow, name = "H", steps = 360),
+        assetOfSecond = SliderAsset(color = Color.Yellow, name = "S", steps = 100),
+        assetOfThird = SliderAsset(color = Color.Yellow, name = "V", steps = 100),
+        assetOfAlpha = SliderAsset(color = null, name = "A", steps = 100)
     )
+
 }
+
+data class SliderAsset (
+    val color: Color? = null,
+    val name: String = "",
+    val steps : Int = 100
+)
+
+

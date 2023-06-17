@@ -6,7 +6,6 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -47,11 +46,10 @@ fun DcpApp(
                 }
             }
         ){padding ->
-            //NavRail > TopBar priority, so second here.
             CompositionLocalProvider(
                 LocalActiveColor provides appState.showSettingsDialog.value
             ) {
-
+                //NavRail > TopBar priority, so second here.
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
