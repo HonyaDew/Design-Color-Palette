@@ -16,4 +16,9 @@
     <string name="html">HTML</string>
 
     <string name="click_to_copy">Click to copy</string>
+    <string name="colors">Colors</string>
+    <string name="tab_of_saved_colors">Color</string>
+    <string name="tab_of_small_color_scheme">Small color scheme</string>
+    <string name="tab_of_big_color_cheme">Big color scheme</string>
+    <string name="saved">Saved</string>
 </resources>

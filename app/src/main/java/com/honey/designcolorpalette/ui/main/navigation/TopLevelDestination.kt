@@ -12,14 +12,20 @@ enum class TopLevelDestination(
 ) {
     PALETTE(
         titleId = R.string.app_name,
-        selectedButtonId = R.drawable.ic_palette,
-        unSelectedButtonId = R.drawable.ic_palette_outlined,
+        selectedButtonId = R.drawable.ic_palette_24,
+        unSelectedButtonId = R.drawable.ic_palette_outlined_24,
         iconTextId = R.string.palette
     ),
     SLIDERS(
         titleId = R.string.sliders ,
-        selectedButtonId = R.drawable.ic_palette,
-        unSelectedButtonId = R.drawable.ic_palette_outlined,
+        selectedButtonId = R.drawable.ic_sliders_thick_24,
+        unSelectedButtonId = R.drawable.ic_sliders_thin_24,
         iconTextId = R.string.sliders
+    ),
+    SAVED(
+        titleId = R.string.saved,
+        selectedButtonId = R.drawable.ic_saved_24,
+        unSelectedButtonId = R.drawable.ic_saved_outlined_24,
+        iconTextId = R.string.saved
     )
 }

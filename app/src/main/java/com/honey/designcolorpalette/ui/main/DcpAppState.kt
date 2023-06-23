@@ -13,6 +13,8 @@ import com.honey.designcolorpalette.showSettingsState
 import com.honey.designcolorpalette.ui.main.navigation.TopLevelDestination
 import com.honey.designcolorpalette.ui.screen.palette.navigation.navigateToPalette
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
+import com.honey.designcolorpalette.ui.screen.saved.navigation.navigateToSaved
+import com.honey.designcolorpalette.ui.screen.saved.navigation.savedRoute
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.navigateToSliders
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersRoute
 import kotlinx.coroutines.CoroutineScope
@@ -44,6 +46,7 @@ class DcpAppState(
         @Composable get() = when (currentDestination?.route) {
             paletteRoute -> TopLevelDestination.PALETTE
             slidersRoute -> TopLevelDestination.SLIDERS
+            savedRoute -> TopLevelDestination.SAVED
             else -> null
         }
 
@@ -74,6 +77,7 @@ class DcpAppState(
         when (topLevelDestination) {
             TopLevelDestination.PALETTE -> navController.navigateToPalette(topLevelNavOptions)
             TopLevelDestination.SLIDERS -> navController.navigateToSliders(topLevelNavOptions)
+            TopLevelDestination.SAVED -> navController.navigateToSaved(topLevelNavOptions)
         }
     }
 }

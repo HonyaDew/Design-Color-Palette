@@ -29,12 +29,13 @@ import com.honey.designcolorpalette.ui.theme.colorSelect
 fun DcpColorCard(
     color: ColorInfo,
     onColorClick: (color: ColorInfo) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteColor : ((color: ColorInfo) -> Unit)? = null,
+    clipboardManager: ClipboardManager = LocalClipboardManager.current
 ) {
-    val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
     Card(
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(minWidth = 96.dp),
         colors = CardDefaults.cardColors(containerColor = colorSelect(90)),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(2.dp)
@@ -42,13 +43,32 @@ fun DcpColorCard(
         OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth()
-                .defaultMinSize(minHeight = 128.dp, minWidth = 96.dp)
+                .defaultMinSize(minHeight = 128.dp)
                 .clickable { onColorClick.invoke(color) },
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(width = 2.dp, color = colorSelect()),
-            content = {},
             colors = CardDefaults.cardColors(containerColor = color.value.color()),
-            elevation = CardDefaults.cardElevation(2.dp)
+            elevation = CardDefaults.cardElevation(2.dp),
+            content = {
+                onDeleteColor?.let {delete->
+                    FilledIconButton(
+                        onClick = { delete.invoke(color) },
+                        modifier = Modifier
+                            .padding(top = 6.dp, end = 6.dp)
+                            .size(24.dp)
+                            .align(Alignment.End),
+                        colors = IconButtonDefaults.filledIconButtonColors(
+                            containerColor = colorSelect(),
+                            contentColor = colorSelect(saturation = 90,inverse = true)
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_close_24),
+                            contentDescription = "Delete"
+                        )
+                    }
+                }
+            }
         )
         Row(
             modifier = Modifier
@@ -86,13 +106,14 @@ fun DcpColorCard(
 
 @Preview
 @Composable
-fun PreviewDcpColorCard() {
+private fun PreviewDcpColorCard() {
     DcpColorCard(
         color = ColorInfo(
             value = Color(0xFFF44336).string(),
             name = "500",
             palette = Palette.Material(subPalette = ColorOfMaterial.RED)
         ),
-        onColorClick = {}
+        onColorClick = {},
+        onDeleteColor = {}
     )
 }

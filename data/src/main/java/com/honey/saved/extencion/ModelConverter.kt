@@ -2,7 +2,7 @@ package com.honey.saved.extencion
 
 import com.honey.saved.model.ColorInfoData
 import com.honey.domain.model.ColorInfo
-import com.honey.domain.model.CustomPaletteInfo
+import com.honey.domain.model.SavedColorScheme
 import com.honey.saved.model.CustomPaletteInfoData
 
 fun ColorInfo.toDataModule(): ColorInfoData {
@@ -29,25 +29,25 @@ fun List<ColorInfoData>.colorsToDomainModule():List<ColorInfo> {
     }
 }
 
-fun CustomPaletteInfo.toDataModule(): CustomPaletteInfoData{
+fun SavedColorScheme.toDataModule(): CustomPaletteInfoData{
     return CustomPaletteInfoData(
         colors, name, source
     )
 }
 
-fun CustomPaletteInfoData.toDomainModule(): CustomPaletteInfo{
-    return CustomPaletteInfo(
+fun CustomPaletteInfoData.toDomainModule(): SavedColorScheme{
+    return SavedColorScheme(
         colors, name, source
     )
 }
 
-fun List<CustomPaletteInfo>.palettesToDataModule(): List<CustomPaletteInfoData>{
+fun List<SavedColorScheme>.palettesToDataModule(): List<CustomPaletteInfoData>{
     return map{customPaletteInfo ->
         customPaletteInfo.toDataModule()
     }
 }
 
-fun List<CustomPaletteInfoData>.palettesToDomainModule(): List<CustomPaletteInfo>{
+fun List<CustomPaletteInfoData>.palettesToDomainModule(): List<SavedColorScheme>{
     return map { customPaletteInfoData ->
         customPaletteInfoData.toDomainModule()
     }

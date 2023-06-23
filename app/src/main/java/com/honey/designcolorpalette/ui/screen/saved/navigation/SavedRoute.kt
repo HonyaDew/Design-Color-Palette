@@ -1,6 +1,7 @@
 package com.honey.designcolorpalette.ui.screen.saved.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import com.honey.designcolorpalette.ui.screen.saved.SavedScreen
 import com.honey.designcolorpalette.ui.screen.saved.SavedViewModel
@@ -18,4 +19,9 @@ fun SavedRoute(
         onEventSend = {event -> viewModel.obtainEvent(event)},
         onColorClick = onColorClick
     )
+
+    //Notify a viewModel for User navigated here
+    LaunchedEffect(Unit){
+        viewModel.loadColorSchemes()
+    }
 }

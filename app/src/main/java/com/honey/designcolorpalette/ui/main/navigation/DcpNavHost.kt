@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteScreen
+import com.honey.designcolorpalette.ui.screen.saved.navigation.savedScreen
 import com.honey.designcolorpalette.ui.screen.sliders.navigation.slidersScreen
 
 @Composable
@@ -29,6 +30,10 @@ fun DcpNavHost(
 
             }
         )
+        savedScreen (
+            onColorClick = {color ->
 
+            }
+        )
     }
 }
