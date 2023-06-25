@@ -7,19 +7,19 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.honey.saved.datasource.internal.Constance
 import com.honey.domain.model.ColorInfo
-import com.honey.domain.model.CustomPaletteSources
+import com.honey.domain.model.ColorSchemeSource
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 
 @Entity(tableName = Constance.PALETTE_TABLE_NAME)
 @TypeConverters(ColorInfoConverter::class, SourceConverter::class)
-data class CustomPaletteInfoData(
+data class CustomColorSchemeData(
     @PrimaryKey(autoGenerate = false)
     val colors : List<ColorInfo>,
     @ColumnInfo(name = "name")
     val name : String,
     @ColumnInfo(name = "source")
-    val source: CustomPaletteSources
+    val source: ColorSchemeSource
 )
 
 class ColorInfoConverter{
@@ -40,10 +40,10 @@ class ColorInfoConverter{
 
 class SourceConverter {
     @TypeConverter
-    fun fromDatabaseValue(value: String) : CustomPaletteSources =
-        Json.decodeFromString(CustomPaletteSources.serializer(), value)
+    fun fromDatabaseValue(value: String) : ColorSchemeSource =
+        Json.decodeFromString(ColorSchemeSource.serializer(), value)
 
     @TypeConverter
-    fun toDatabaseValue(source: CustomPaletteSources) : String =
-        Json.encodeToString(CustomPaletteSources.serializer(), source)
+    fun toDatabaseValue(source: ColorSchemeSource) : String =
+        Json.encodeToString(ColorSchemeSource.serializer(), source)
 }

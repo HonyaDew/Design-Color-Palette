@@ -2,6 +2,7 @@ package com.honey.designcolorpalette.ui.screen.sliders.contract
 
 import androidx.compose.ui.graphics.Color
 import com.honey.designcolorpalette.base.ViewState
+import com.honey.domain.model.ColorInfo
 
 sealed class SlidersState : ViewState {
     object Loading: SlidersState()
@@ -11,6 +12,7 @@ sealed class SlidersState : ViewState {
         val sliderTwo : Float = 0.5f,
         val sliderThree : Float = 0.7f,
         val sliderAlpha : Float = 1f,
+        val colorsToSave: List<ColorInfo> = emptyList()
     ): SlidersState()
 }
 

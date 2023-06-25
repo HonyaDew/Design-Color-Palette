@@ -3,17 +3,17 @@ package com.honey.domain.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SavedColorScheme(
+data class CustomColorScheme(
     val colors: List<ColorInfo>,
     val name: String,
-    val source: CustomPaletteSources = CustomPaletteSources.Created
+    val source: ColorSchemeSource = ColorSchemeSource.Created
 )
 
 @Serializable
-sealed class CustomPaletteSources{
-    @Serializable object Created : CustomPaletteSources()
-    @Serializable object FromHarmony : CustomPaletteSources()
-    @Serializable object BasicAsset : CustomPaletteSources()
+sealed class ColorSchemeSource{
+    @Serializable object Created : ColorSchemeSource()
+    @Serializable object FromHarmony : ColorSchemeSource()
+    @Serializable object BasicAsset : ColorSchemeSource()
 }
 
 sealed class ColorSchemeFilters{

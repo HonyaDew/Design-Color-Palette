@@ -1,11 +1,10 @@
 package com.honey.domain.usecase
 
-import com.honey.domain.model.ColorInfo
 import com.honey.domain.model.ColorSchemeFilters
-import com.honey.domain.model.SavedColorScheme
+import com.honey.domain.model.CustomColorScheme
 
 class FilterColorSchemeUseCase {
-    fun invoke(colorSchemes : List<SavedColorScheme>, filter: ColorSchemeFilters): List<SavedColorScheme> {
+    fun invoke(colorSchemes : List<CustomColorScheme>, filter: ColorSchemeFilters): List<CustomColorScheme> {
         return when (filter){
             ColorSchemeFilters.SingleColor -> {
                 colorSchemes.filter { colorScheme ->

@@ -40,7 +40,10 @@ fun SlidersScreen(
                             SlidersType.HSV -> {SlidersEvent.SelectHSV}
                         }
                     )
-                }
+                },
+                onSaveColorScheme = {colorScheme -> onEventSend.invoke(SlidersEvent.SaveColorScheme(colorScheme)) },
+                onAddToSaveList = {color -> onEventSend.invoke(SlidersEvent.AddColorToSaveList(color)) },
+                onRemoveFromToSaveList = {color -> onEventSend.invoke(SlidersEvent.RemoveColorFromToSaveList(color)) }
             )
         }
 

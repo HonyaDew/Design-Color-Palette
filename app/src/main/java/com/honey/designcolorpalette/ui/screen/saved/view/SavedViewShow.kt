@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,15 +36,14 @@ import com.honey.designcolorpalette.ui.screen.saved.view.part.SavedColorSchemeCa
 import com.honey.designcolorpalette.ui.screen.saved.view.part.SavedMiniColorCard
 import com.honey.designcolorpalette.ui.theme.colorSelect
 import com.honey.domain.model.ColorInfo
-import com.honey.domain.model.SavedColorScheme
+import com.honey.domain.model.CustomColorScheme
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SavedViewShow(
     state: SavedState.Show,
-    onDeleteClick: (colorScheme: SavedColorScheme) -> Unit,
-    onOpenColorScheme: (colorScheme: SavedColorScheme) -> Unit,
+    onDeleteClick: (colorScheme: CustomColorScheme) -> Unit,
+    onOpenColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     onDismissOpen: () -> Unit,
     onChangeTab: (newTab: SavedTabs) -> Unit
 ) {
@@ -71,9 +69,9 @@ fun SavedViewShow(
 //TODO MAKE THIS REAL HORIZONTAL_PAGER, USING rememberPagerState and others
 @Composable
 private fun SavedPager(
-    colorSchemes : List<SavedColorScheme>,
-    onDeleteClick: (colorScheme: SavedColorScheme) -> Unit,
-    onOpenColorScheme: (colorScheme: SavedColorScheme) -> Unit,
+    colorSchemes : List<CustomColorScheme>,
+    onDeleteClick: (colorScheme: CustomColorScheme) -> Unit,
+    onOpenColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box( modifier = modifier) {
@@ -82,7 +80,10 @@ private fun SavedPager(
                 item {
                     if (colorScheme.colors.size == 1) {
                         DcpColorCard(
-                            color = colorScheme.colors[0],
+                            color = ColorInfo(
+                                value = colorScheme.colors[0].value,
+                                name = colorScheme.name
+                            ),
                             onColorClick = {onOpenColorScheme.invoke(colorScheme)},
                             onDeleteColor = {onDeleteClick.invoke(colorScheme)},
                             modifier = Modifier.padding(8.dp)
@@ -104,7 +105,7 @@ private fun SavedPager(
 
 @Composable
 private fun SavedDialog(
-    colorScheme: SavedColorScheme,
+    colorScheme: CustomColorScheme,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -175,13 +176,13 @@ private fun PreviewSavedViewShow(){
     SavedViewShow(
         state = SavedState.Show(
             colorsToShow = listOf(
-                SavedColorScheme(
+                CustomColorScheme(
                     colors = listOf(
                         ColorInfo(value = Color.Green.string(),name = "test color")
                     ),
                     name = "test color scheme"
                 ),
-                SavedColorScheme(
+                CustomColorScheme(
                     colors = listOf(
                         ColorInfo(value = Color.Green.string(),name = "test color"),
                         ColorInfo(value = Color.Yellow.string(),name = "test color"),
@@ -189,7 +190,7 @@ private fun PreviewSavedViewShow(){
                     ),
                     name = "test color scheme2"
                 ),
-                SavedColorScheme(
+                CustomColorScheme(
                     colors = listOf(
                         ColorInfo(value = Color.Green.string(),name = "test color"),
                         ColorInfo(value = Color.Yellow.string(),name = "test color"),
@@ -201,7 +202,7 @@ private fun PreviewSavedViewShow(){
                 )
             ),
             selectedTab = SavedTabs.ONE_COLOR,
-            openedColorScheme = SavedColorScheme(
+            openedColorScheme = CustomColorScheme(
                 colors = listOf(
                     ColorInfo(value = Color.Green.string(),name = "test color"),
                     ColorInfo(value = Color.Yellow.string(),name = "test color"),

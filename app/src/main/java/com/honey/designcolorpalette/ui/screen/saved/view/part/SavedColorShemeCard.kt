@@ -37,15 +37,15 @@ import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.extencion.toHexString
 import com.honey.designcolorpalette.ui.theme.colorSelect
 import com.honey.domain.model.ColorInfo
-import com.honey.domain.model.SavedColorScheme
+import com.honey.domain.model.CustomColorScheme
 import com.honey.designcolorpalette.extencion.color
 import com.honey.palette.extencion.string
 
 @Composable
 fun SavedColorSchemeCard(
-    paletteInfo: SavedColorScheme,
-    onPaletteClick: (palette: SavedColorScheme) -> Unit,
-    onDeletePalette: (palette: SavedColorScheme) -> Unit,
+    paletteInfo: CustomColorScheme,
+    onPaletteClick: (palette: CustomColorScheme) -> Unit,
+    onDeletePalette: (palette: CustomColorScheme) -> Unit,
     modifier: Modifier = Modifier,
     clipboardManager: ClipboardManager = LocalClipboardManager.current
 ) {
@@ -165,7 +165,7 @@ fun SavedColorSchemeCard(
 @Composable
 private fun PreviewSavedPaletteCard() {
     SavedColorSchemeCard(
-        paletteInfo = SavedColorScheme(
+        paletteInfo = CustomColorScheme(
             colors = listOf(
                 ColorInfo(value = Color(0xFFE53935).string(), name = "XD"),
                 ColorInfo(value = Color(0xFF512DA8).string(), name = "XD"),
@@ -182,7 +182,7 @@ private fun PreviewSavedPaletteCard() {
 @Composable
 private fun PreviewSavedPaletteCard2() {
     SavedColorSchemeCard(
-        paletteInfo = SavedColorScheme(
+        paletteInfo = CustomColorScheme(
             colors = listOf(
                 ColorInfo(value = Color(0xFFE53935).string(), name = "XD"),
                 ColorInfo(value = Color(0xFFE0A935).string(), name = "XD"),

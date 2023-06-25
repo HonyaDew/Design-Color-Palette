@@ -12,7 +12,11 @@ val appModule = module {
 
 
     factory<SlidersViewModel> {
-        SlidersViewModel()
+        SlidersViewModel(
+            saveColorScheme = get(),
+            addColorToList = get(),
+            removeColorFromList = get()
+        )
     }
 
     factory<PaletteViewModel> {
@@ -31,7 +35,8 @@ val appModule = module {
     factory<SavedViewModel> {
         SavedViewModel(
             getAllSavedColorScheme = get(),
-            filterColorScheme = get()
+            filterColorScheme = get(),
+            deleteColorScheme = get()
         )
     }
 }

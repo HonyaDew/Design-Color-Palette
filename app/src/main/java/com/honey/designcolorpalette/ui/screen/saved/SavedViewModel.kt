@@ -7,7 +7,8 @@ import com.honey.designcolorpalette.ui.screen.saved.contact.SavedEvent
 import com.honey.designcolorpalette.ui.screen.saved.contact.SavedState
 import com.honey.designcolorpalette.ui.screen.saved.model.SavedTabs
 import com.honey.domain.model.ColorSchemeFilters
-import com.honey.domain.model.SavedColorScheme
+import com.honey.domain.model.CustomColorScheme
+import com.honey.domain.usecase.DeleteColorSchemeUseCase
 import com.honey.domain.usecase.FilterColorSchemeUseCase
 import com.honey.domain.usecase.GetAllColorSchemeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +16,11 @@ import kotlinx.coroutines.launch
 
 class SavedViewModel(
     private val getAllSavedColorScheme: GetAllColorSchemeUseCase,
-    private val filterColorScheme: FilterColorSchemeUseCase
+    private val filterColorScheme: FilterColorSchemeUseCase,
+    private val deleteColorScheme: DeleteColorSchemeUseCase
 ) : BaseViewModel<SavedEvent, SavedState, SavedEffect>(initialState = SavedState.Loading) {
 
-    private val allColorSchemesState = MutableStateFlow<List<SavedColorScheme>?>(null)
+    private val allColorSchemesState = MutableStateFlow<List<CustomColorScheme>?>(null)
 
     init {
         setObserver()
@@ -49,12 +51,14 @@ class SavedViewModel(
         }
     }
 
-    private fun performDeleteColor(colorScheme: SavedColorScheme) {
-        // TODO Send DeleteRequest to Database
-        loadColorSchemes()
+    private fun performDeleteColor(colorScheme: CustomColorScheme) {
+        viewModelScope.launch {
+            deleteColorScheme.invoke(colorScheme)
+            loadColorSchemes()
+        }
     }
 
-    private fun performOpenScheme(state: SavedState.Show, colorScheme: SavedColorScheme? = null ) {
+    private fun performOpenScheme(state: SavedState.Show, colorScheme: CustomColorScheme? = null ) {
         viewState = state.copy(openedColorScheme = colorScheme)
     }
 

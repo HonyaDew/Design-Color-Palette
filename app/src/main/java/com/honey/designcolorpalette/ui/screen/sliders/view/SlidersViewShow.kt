@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -23,35 +26,41 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
-import androidx.compose.ui.unit.sp
 import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.extencion.color
+import com.honey.designcolorpalette.extencion.string
 import com.honey.designcolorpalette.extencion.toHexString
 import com.honey.designcolorpalette.ui.main.view.DcpSlider
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersState
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersType
 import com.honey.designcolorpalette.ui.theme.colorSelect
+import com.honey.domain.model.ColorInfo
+import com.honey.domain.model.CustomColorScheme
 import kotlin.math.roundToInt
 
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun SlidersViewShow(
     state: SlidersState.Show,
@@ -60,10 +69,14 @@ fun SlidersViewShow(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
 ) {
     val context = LocalContext.current
     val activity = context as Activity
-    val portraitMode : Boolean = activity.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+    val portraitMode: Boolean =
+        activity.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     val totalColor = getColorBySliders(
         state.type,
         state.sliderOne,
@@ -87,6 +100,9 @@ fun SlidersViewShow(
                 onThirdSliderChange = onThirdSliderChange,
                 onAlphaSliderChange = onAlphaSliderChange,
                 onChangeSlidersType = onChangeSlidersType,
+                onAddToSaveList = onAddToSaveList,
+                onSaveColorScheme = onSaveColorScheme,
+                onRemoveFromToSaveList = onRemoveFromToSaveList,
                 modifier = Modifier.padding(8.dp)
             )
         } else {
@@ -98,6 +114,9 @@ fun SlidersViewShow(
                 onThirdSliderChange = onThirdSliderChange,
                 onAlphaSliderChange = onAlphaSliderChange,
                 onChangeSlidersType = onChangeSlidersType,
+                onAddToSaveList = onAddToSaveList,
+                onSaveColorScheme = onSaveColorScheme,
+                onRemoveFromToSaveList = onRemoveFromToSaveList,
                 modifier = Modifier.padding(8.dp)
             )
         }
@@ -105,7 +124,7 @@ fun SlidersViewShow(
 }
 
 @Composable
-fun PortraitSlidersViewShow(
+private fun PortraitSlidersViewShow(
     state: SlidersState.Show,
     totalColor: Color,
     onFirstSliderChange: (newValue: Float) -> Unit,
@@ -113,12 +132,22 @@ fun PortraitSlidersViewShow(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
     ) {
+        if (state.colorsToSave.isNotEmpty()){
+            SlidersRowToSave(
+                state = state,
+                onSaveColorScheme = onSaveColorScheme,
+                onRemoveFromToSaveList = onRemoveFromToSaveList
+            )
+        }
         OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth()
@@ -143,7 +172,8 @@ fun PortraitSlidersViewShow(
                 onSecondSliderChange = onSecondSliderChange,
                 onThirdSliderChange = onThirdSliderChange,
                 onAlphaSliderChange = onAlphaSliderChange,
-                onChangeSlidersType = onChangeSlidersType
+                onChangeSlidersType = onChangeSlidersType,
+                onAddToSaveList = onAddToSaveList,
             )
             Spacer(modifier = Modifier.size(32.dp))
         }
@@ -151,31 +181,42 @@ fun PortraitSlidersViewShow(
 }
 
 @Composable
-fun LandscapeSlidersViewShow(
+private fun LandscapeSlidersViewShow(
     state: SlidersState.Show,
-    totalColor : Color,
+    totalColor: Color,
     onFirstSliderChange: (newValue: Float) -> Unit,
     onSecondSliderChange: (newValue: Float) -> Unit,
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
-    Row(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
-        OutlinedCard(
+    Row(modifier = modifier.fillMaxSize()) {
+        Column(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(0.5f),
-            shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(width = 2.dp, color = colorSelect()),
-            content = {},
-            colors = CardDefaults.cardColors(containerColor = totalColor),
-            elevation = CardDefaults.cardElevation(2.dp)
-        )
+                .weight(0.5f)
+            ) {
+            if (state.colorsToSave.isNotEmpty()){
+                SlidersRowToSave(
+                    state = state,
+                    onSaveColorScheme = onSaveColorScheme,
+                    onRemoveFromToSaveList = onRemoveFromToSaveList
+                )
+            }
+            OutlinedCard(
+                modifier = Modifier
+                    .fillMaxSize(),
+                shape = RoundedCornerShape(16.dp),
+                border = BorderStroke(width = 2.dp, color = colorSelect()),
+                content = {},
+                colors = CardDefaults.cardColors(containerColor = totalColor),
+                elevation = CardDefaults.cardElevation(2.dp)
+            )
+        }
         Column(
             modifier = Modifier
                 .weight(0.5f)
@@ -192,7 +233,8 @@ fun LandscapeSlidersViewShow(
                     onSecondSliderChange = onSecondSliderChange,
                     onThirdSliderChange = onThirdSliderChange,
                     onAlphaSliderChange = onAlphaSliderChange,
-                    onChangeSlidersType = onChangeSlidersType
+                    onChangeSlidersType = onChangeSlidersType,
+                    onAddToSaveList = onAddToSaveList
                 )
                 Spacer(modifier = Modifier.size(32.dp))
             }
@@ -205,8 +247,9 @@ fun LandscapeSlidersViewShow(
 @Composable
 private fun CopyAndStatsSliders(
     state: SlidersState.Show,
-    totalColor: Color
-){
+    totalColor: Color,
+    clipboardManager: ClipboardManager = LocalClipboardManager.current
+) {
     Column {
         Row(
             modifier = Modifier
@@ -214,13 +257,14 @@ private fun CopyAndStatsSliders(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val rgbaOrHsv = when(state.type){
+            val rgbaOrHsv = when (state.type) {
                 SlidersType.RGB -> {
                     "${(state.sliderOne * 255).roundToInt()}," +
                             "${(state.sliderTwo * 255).roundToInt()}," +
                             "${(state.sliderThree * 255).roundToInt()}," +
                             "${(state.sliderAlpha * 100).roundToInt()}"
                 }
+
                 SlidersType.HSV -> {
                     "${(state.sliderOne * 360).roundToInt()}," +
                             "${(state.sliderTwo * 100).roundToInt()}," +
@@ -229,10 +273,9 @@ private fun CopyAndStatsSliders(
                 }
             }
             val hex = totalColor.toHexString()
-            val clipboardManager: ClipboardManager = LocalClipboardManager.current
 
             Button(
-                onClick = { clipboardManager.setText(AnnotatedString(buildString { append(rgbaOrHsv) }))},
+                onClick = { clipboardManager.setText(AnnotatedString(buildString { append(rgbaOrHsv) })) },
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier
                     .weight(0.6f)
@@ -245,7 +288,7 @@ private fun CopyAndStatsSliders(
             }
             Spacer(modifier = Modifier.weight(0.05f))
             Button(
-                onClick = { clipboardManager.setText(AnnotatedString(buildString { append(hex) }))},
+                onClick = { clipboardManager.setText(AnnotatedString(buildString { append(hex) })) },
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier
                     .weight(0.6f)
@@ -268,18 +311,37 @@ private fun SlidersCell(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
-        Button(
-            colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(end = 8.dp),
-            onClick = {
-                onChangeSlidersType.invoke(if (state.type == SlidersType.RGB) SlidersType.HSV else SlidersType.RGB)
-            }) {
-            Text(text = if (state.type == SlidersType.RGB) "HSV" else "RGB")
+        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
+                modifier = Modifier.padding(start = 8.dp),
+                onClick = { onAddToSaveList.invoke(
+                    ColorInfo(
+                        value = getColorBySliders(
+                            state.type,
+                            state.sliderOne,
+                            state.sliderTwo,
+                            state.sliderThree,
+                            state.sliderAlpha).string(),
+                        name = ""
+                    )
+                ) }
+            ) {
+                Text(text = stringResource(id = R.string.to_save))
+            }
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
+                modifier = Modifier
+                    .padding(end = 8.dp),
+                onClick = {
+                    onChangeSlidersType.invoke(if (state.type == SlidersType.RGB) SlidersType.HSV else SlidersType.RGB)
+                }) {
+                Text(text = if (state.type == SlidersType.RGB) "HSV" else "RGB")
+            }
         }
         DcpSlider(
             value = state.sliderOne,
@@ -310,6 +372,85 @@ private fun SlidersCell(
             leadingName = state.type.assetOfAlpha.name
         )
 
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SlidersRowToSave(
+    state: SlidersState.Show,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
+    showNameField: MutableState<Boolean> = remember{ mutableStateOf(false)},
+    textNameField: MutableState<String> = remember{ mutableStateOf("")}
+) {
+    Column {
+        Row(modifier = Modifier.padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+            OutlinedCard(
+                modifier = Modifier.fillMaxWidth(0.8f),
+                shape = RoundedCornerShape(16.dp),
+                border = BorderStroke(width = 2.dp, color = colorSelect()),
+                elevation = CardDefaults.cardElevation(2.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                ) {
+                    state.colorsToSave.forEach { colorInfo ->
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .background(colorInfo.value.color())
+                                .height(48.dp)
+                                .clickable { onRemoveFromToSaveList.invoke(colorInfo) }
+                        )
+                    }
+                }
+            }
+            val arrowIconResId = if (showNameField.value) R.drawable.ic_arrow_to_bottom else R.drawable.ic_arrow_to_end
+            IconButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    showNameField.value = !showNameField.value
+                }
+            ) {
+                Icon(painter = painterResource(id = arrowIconResId), contentDescription = "Arrow")
+            }
+        }
+        if (showNameField.value){
+            Row(modifier = Modifier.padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                OutlinedTextField(
+                    value = textNameField.value,
+                    onValueChange = {newValue ->
+                        textNameField.value = newValue
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        unfocusedBorderColor = colorSelect(saturation = 90),
+                        focusedBorderColor = colorSelect(saturation = 70),
+                        focusedLabelColor = colorSelect(saturation = 70)
+                    ),
+                    label = {
+                        Text(text = stringResource(id = R.string.name_color_scheme))
+                    }
+                )
+                IconButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        onSaveColorScheme.invoke(
+                            CustomColorScheme(
+                                colors = state.colorsToSave,
+                                name = textNameField.value,
+                            )
+                        )
+                    }
+                ) {
+                    Icon(painter = painterResource(id = R.drawable.ic_save_24), contentDescription = "Save")
+                }
+            }
+        }
     }
 }
 
@@ -359,12 +500,24 @@ private fun getColorBySliders(
 private fun PreviewSliderViewShow() {
 
     SlidersViewShow(
-        state = SlidersState.Show(type = SlidersType.RGB),
+        state = SlidersState.Show(
+            type = SlidersType.RGB,
+            colorsToSave = listOf(
+                ColorInfo(value = Color.Green.string(), name = ""),
+                ColorInfo(value = Color.Yellow.string(), name = ""),
+                ColorInfo(value = Color.Red.string(), name = ""),
+                ColorInfo(value = Color.Transparent.string(), name = ""),
+                ColorInfo(value = Color.Black.string(), name = ""),
+            )
+        ),
         onAlphaSliderChange = {},
         onFirstSliderChange = {},
         onSecondSliderChange = {},
         onThirdSliderChange = {},
-        onChangeSlidersType = {}
+        onChangeSlidersType = {},
+        onAddToSaveList = {},
+        onSaveColorScheme = {},
+        onRemoveFromToSaveList = {}
     )
 
 }

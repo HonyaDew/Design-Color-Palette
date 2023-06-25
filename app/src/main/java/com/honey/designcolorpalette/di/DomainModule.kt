@@ -1,12 +1,14 @@
 package com.honey.designcolorpalette.di
 
-import android.util.Log
-import com.honey.designcolorpalette.app.modules
+import com.honey.domain.usecase.AddColorToListUseCase
+import com.honey.domain.usecase.DeleteColorSchemeUseCase
 import com.honey.domain.usecase.FilterColorSchemeUseCase
 import com.honey.domain.usecase.GetAllColorSchemeUseCase
 import com.honey.domain.usecase.GetColorByPaletteUseCase
 import com.honey.domain.usecase.GetSettingsUseCase
 import com.honey.domain.usecase.PutSettingsUseCase
+import com.honey.domain.usecase.RemoveColorFromListUseCase
+import com.honey.domain.usecase.SaveColorSchemeUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -24,12 +26,26 @@ val domainModule = module {
     }
 
     factory<GetAllColorSchemeUseCase> {
-        GetAllColorSchemeUseCase(
-            savedRepository = get()
-        )
+        GetAllColorSchemeUseCase(savedRepository = get())
     }
 
     factory<FilterColorSchemeUseCase> {
         FilterColorSchemeUseCase()
+    }
+
+    factory<DeleteColorSchemeUseCase> {
+        DeleteColorSchemeUseCase(savedRepository = get())
+    }
+
+    factory<SaveColorSchemeUseCase> {
+        SaveColorSchemeUseCase(savedRepository = get())
+    }
+
+    factory<AddColorToListUseCase> {
+        AddColorToListUseCase()
+    }
+
+    factory<RemoveColorFromListUseCase> {
+        RemoveColorFromListUseCase()
     }
 }

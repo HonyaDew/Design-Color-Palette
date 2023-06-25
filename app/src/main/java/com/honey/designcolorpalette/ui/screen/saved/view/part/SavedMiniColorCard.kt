@@ -46,7 +46,17 @@ fun SavedMiniColorCard(
     Card(
         modifier = modifier
             .widthIn(min = 64.dp, max = 128.dp)
-            .clickable {  },
+            .clickable {
+                clipboardManager.setText(
+                    AnnotatedString(buildString {
+                        append(
+                            color.value
+                                .color()
+                                .toHexString()
+                        )
+                    })
+                )
+            },
         colors = CardDefaults.cardColors(containerColor = colorSelect(90)),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(2.dp)
