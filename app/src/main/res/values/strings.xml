@@ -24,6 +24,11 @@
     <string name="tab_of_big_color_cheme">Big color scheme</string>
     <string name="to_save">Move to Save</string>
     <string name="name_color_scheme">Name of Color Scheme</string>
+    <string name="complimentary">Complimentary</string>
+    <string name="split_complimentary">Split complimentary</string>
+    <string name="analogus">Analogus</string>
+    <string name="triadic">Triadic</string>
+    <string name="tetradic">Tetradic</string>
 
 
 </resources>

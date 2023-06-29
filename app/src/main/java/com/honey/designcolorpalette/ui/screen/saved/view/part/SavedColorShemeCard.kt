@@ -67,7 +67,6 @@ fun SavedColorSchemeCard(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        //TODO try remove a 2.dp
                         .defaultMinSize(minHeight = 128.dp)
                 ) {
                     paletteInfo.colors.forEach { colorInfo ->
@@ -145,7 +144,10 @@ fun SavedColorSchemeCard(
                 ) {
                     Column {
                         Text(text = paletteInfo.name, fontWeight = FontWeight.SemiBold)
-                        Text(text = paletteInfo.colors.size.toString() + " " + stringResource(id = R.string.colors))
+                        Text(
+                            text = paletteInfo.colors.size.toString() + " " + stringResource(id = R.string.colors),
+                            maxLines = 1
+                        )
                     }
                     IconButton(onClick = { onPaletteClick.invoke(paletteInfo) }) {
                         Icon(

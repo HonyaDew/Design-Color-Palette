@@ -2,6 +2,9 @@ package com.honey.designcolorpalette.extencion
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import com.honey.designcolorpalette.ui.screen.harmony.contract.HarmonyMode
+import com.honyadew.harmony_color_picker.HsvColor
+import kotlin.math.roundToInt
 
 
 fun Color.string(): String {
@@ -34,6 +37,32 @@ fun Color.saturation(): String {
     val saturation = (maxChannel - minChannel) / maxChannel.toFloat() * 100
 
     return saturation.toInt().toString()
+}
+
+fun Color.toStringRGBA(): String {
+    return (red * 255).roundToInt().toString() + "," +
+            (green* 255).roundToInt().toString() + "," +
+            (blue* 255).roundToInt().toString() + "," +
+            (alpha* 100).roundToInt().toString()
+}
+
+fun Color.toStringRGB(): String {
+    return (red * 255).roundToInt().toString() + "," +
+            (green* 255).roundToInt().toString() + "," +
+            (blue* 255).roundToInt().toString()
+}
+
+fun Color.getFullHarmony(harmony: HarmonyMode): List<Color>{
+    val hsvColor = HsvColor.from(this)
+    val hsvAdditional = when (harmony){
+        HarmonyMode.COMPLIMENTARY -> {hsvColor.getComplementaryColor()}
+        HarmonyMode.SPLIT_COMPLIMENTARY -> {hsvColor.getSplitComplementaryColors()}
+        HarmonyMode.ANALOGOUS -> {hsvColor.getAnalagousColors()}
+        HarmonyMode.TRIADIC -> {hsvColor.getTriadicColors()}
+        HarmonyMode.TETRADIC -> {hsvColor.getTetradicColors()}
+    }
+    val additional = hsvAdditional.map { it.toColor() }
+    return listOf(this) + additional
 }
 
 

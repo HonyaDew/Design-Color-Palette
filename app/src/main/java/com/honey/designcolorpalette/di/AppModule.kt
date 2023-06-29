@@ -40,6 +40,8 @@ val appModule = module {
         )
     }
     factory<HarmonyViewModel> {
-        HarmonyViewModel()
+        HarmonyViewModel(
+            saveColorScheme = get()
+        )
     }
 }

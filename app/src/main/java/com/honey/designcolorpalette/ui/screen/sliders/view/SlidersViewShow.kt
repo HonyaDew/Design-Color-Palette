@@ -31,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -52,6 +53,7 @@ import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.extencion.color
 import com.honey.designcolorpalette.extencion.string
 import com.honey.designcolorpalette.extencion.toHexString
+import com.honey.designcolorpalette.extencion.toStringRGBA
 import com.honey.designcolorpalette.ui.main.view.DcpSlider
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersState
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersType
@@ -73,10 +75,9 @@ fun SlidersViewShow(
     onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
 ) {
-    val context = LocalContext.current
-    val activity = context as Activity
     val portraitMode: Boolean =
-        activity.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        (LocalContext.current as Activity)
+            .resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     val totalColor = getColorBySliders(
         state.type,
         state.sliderOne,
@@ -258,12 +259,7 @@ private fun CopyAndStatsSliders(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             val rgbaOrHsv = when (state.type) {
-                SlidersType.RGB -> {
-                    "${(state.sliderOne * 255).roundToInt()}," +
-                            "${(state.sliderTwo * 255).roundToInt()}," +
-                            "${(state.sliderThree * 255).roundToInt()}," +
-                            "${(state.sliderAlpha * 100).roundToInt()}"
-                }
+                SlidersType.RGB -> {totalColor.toStringRGBA()}
 
                 SlidersType.HSV -> {
                     "${(state.sliderOne * 360).roundToInt()}," +
@@ -423,15 +419,17 @@ private fun SlidersRowToSave(
                 OutlinedTextField(
                     value = textNameField.value,
                     onValueChange = {newValue ->
-                        textNameField.value = newValue
+                        if (newValue.length < 21) textNameField.value = newValue
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.8f),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        unfocusedBorderColor = colorSelect(saturation = 90),
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = colorSelect(saturation = 70),
-                        focusedLabelColor = colorSelect(saturation = 70)
+                        unfocusedBorderColor = colorSelect(saturation = 90),
+                        focusedLabelColor = colorSelect(saturation = 70),
+                        cursorColor = colorSelect(saturation = 90, inverse = true)
                     ),
+                    singleLine = true,
                     label = {
                         Text(text = stringResource(id = R.string.name_color_scheme))
                     }

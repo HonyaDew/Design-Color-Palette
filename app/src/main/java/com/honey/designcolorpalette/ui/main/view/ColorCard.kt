@@ -81,7 +81,8 @@ fun DcpColorCard(
                 Text(
                     text = color.name,
                     color = colorSelect(inverse = true),
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1
                 )
                 Text(text = color.value.color().toHexString(), color = colorSelect(inverse = true))
             }

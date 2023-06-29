@@ -50,6 +50,7 @@ fun SavedViewShow(
 
     Box(modifier = Modifier.fillMaxSize()){
         state.openedColorScheme?.let { colorScheme ->
+            //TODO, add a way to edit name (for example pass here nullable function)
             SavedDialog(colorScheme = colorScheme, onDismiss = onDismissOpen)
         }
         Column {
