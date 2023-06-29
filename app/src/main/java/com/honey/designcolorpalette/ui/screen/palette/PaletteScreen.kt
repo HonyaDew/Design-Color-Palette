@@ -11,6 +11,7 @@ import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEvent
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteState
 import com.honey.designcolorpalette.ui.screen.palette.view.PaletteViewLoading
 import com.honey.designcolorpalette.ui.screen.palette.view.PaletteViewShow
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
@@ -19,9 +20,9 @@ fun PaletteScreen(
     state: State<PaletteState>,
     effect: SharedFlow<PaletteEffect?>,
     onEventSend: (event: PaletteEvent) -> Unit,
-    onColorClick: (color: ColorInfo) -> Unit
+    onColorClick: (color: ColorInfo) -> Unit,
+    coroutine : CoroutineScope = rememberCoroutineScope()
 ) {
-    val coroutine = rememberCoroutineScope()
 
     when (val state = state.value) {
         is PaletteState.Loading -> {

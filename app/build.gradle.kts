@@ -28,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -41,7 +41,9 @@ android {
         kotlinCompilerExtensionVersion = Deps.Core.Version.composeCompiler
     }
     packagingOptions {
-        exclude("META-INF/gradle/incremental.annotation.processors")
+        resources {
+            excludes += setOf("META-INF/gradle/incremental.annotation.processors")
+        }
     }
 
     configurations {
@@ -82,6 +84,8 @@ dependencies {
 
     implementation(Deps.Koin.koin)
     implementation(Deps.Koin.compose)
+
+    implementation(Deps.Thirdparty.colorWheel)
 
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.roboeletric)

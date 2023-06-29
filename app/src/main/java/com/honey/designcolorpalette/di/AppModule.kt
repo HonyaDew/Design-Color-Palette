@@ -2,6 +2,7 @@ package com.honey.designcolorpalette.di
 
 import android.util.Log
 import com.honey.designcolorpalette.ui.screen.dialog.SettingsViewModel
+import com.honey.designcolorpalette.ui.screen.harmony.HarmonyViewModel
 import com.honey.designcolorpalette.ui.screen.palette.PaletteViewModel
 import com.honey.designcolorpalette.ui.screen.saved.SavedViewModel
 import com.honey.designcolorpalette.ui.screen.sliders.SlidersViewModel
@@ -9,7 +10,6 @@ import com.honey.domain.usecase.GetSettingsUseCase
 import org.koin.dsl.module
 
 val appModule = module {
-
 
     factory<SlidersViewModel> {
         SlidersViewModel(
@@ -38,5 +38,8 @@ val appModule = module {
             filterColorScheme = get(),
             deleteColorScheme = get()
         )
+    }
+    factory<HarmonyViewModel> {
+        HarmonyViewModel()
     }
 }

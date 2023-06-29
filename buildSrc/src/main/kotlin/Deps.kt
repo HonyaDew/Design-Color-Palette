@@ -12,8 +12,8 @@ object Deps {
     }
 
     object ClassPath {
-        const val versionGradle = "7.4.1"
-        const val versionKotlin = "1.8.10"
+        const val versionGradle = "8.0.2"
+        const val versionKotlin = "1.8.20"
         const val versionKsp = "1.8.21-1.0.11"
         const val versionSerialization = "1.5.1"
 
@@ -51,7 +51,7 @@ object Deps {
 
     object Compose {
         const val version = "1.4.0-beta01"
-        const val versionMaterial = "1.0.1"
+        const val versionMaterial = "1.1.1"
         const val versionData = "1.4.3"
 
         const val composeMaterial = "androidx.compose.material3:material3:$versionMaterial"
@@ -81,10 +81,8 @@ object Deps {
     object Json{
         object Version{
             const val gson = "2.8.8"
-            const val moshi = "1.14.0"
             const val serialization = "1.5.1"
         }
-        const val moshi = "com.squareup.moshi:moshi-kotlin:${Version.moshi}"
         const val gson = "com.google.code.gson:gson:${Version.gson}"
         const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.serialization}"
     }
@@ -95,6 +93,14 @@ object Deps {
 
         const val koin = "io.insert-koin:koin-android:$version"
         const val compose = "io.insert-koin:koin-androidx-compose:$versionCompose"
+    }
+
+    object Thirdparty{
+        object Version {
+            const val colorWheel = "1.1.3"
+        }
+
+        const val colorWheel = "com.github.honyadew:circular-color-picker-compose:${Version.colorWheel}"
     }
 
     object Test {

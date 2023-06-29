@@ -27,5 +27,11 @@ enum class TopLevelDestination(
         selectedButtonId = R.drawable.ic_saved_24,
         unSelectedButtonId = R.drawable.ic_saved_outlined_24,
         iconTextId = R.string.saved
+    ),
+    HARMONY(
+        titleId = R.string.harmony,
+        selectedButtonId = R.drawable.ic_harmony_24,
+        unSelectedButtonId = R.drawable.ic_harmony_outlined_24,
+        iconTextId = R.string.harmony
     )
 }
