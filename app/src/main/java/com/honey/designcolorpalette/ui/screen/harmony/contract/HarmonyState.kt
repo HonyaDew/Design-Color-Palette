@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.base.ViewState
-import com.honyadew.harmony_color_picker.harmony.ColorHarmonyMode
+import com.honyadew.harmony_color_picker.model.ColorHarmonyMode
 
 sealed class HarmonyState : ViewState {
     object Loading : HarmonyState()

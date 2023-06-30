@@ -2,6 +2,7 @@ package com.honey.designcolorpalette.ui.screen.harmony.view
 
 import android.app.Activity
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -9,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -67,8 +69,9 @@ import com.honey.domain.model.ColorInfo
 import com.honey.domain.model.ColorSchemeSource
 import com.honey.domain.model.CustomColorScheme
 import com.honyadew.harmony_color_picker.HarmonyColorPicker
-import com.honyadew.harmony_color_picker.HsvColor
-import com.honyadew.harmony_color_picker.harmony.ColorPickerDefaults
+import com.honyadew.harmony_color_picker.model.ColorPickerDefaults
+import com.honyadew.harmony_color_picker.model.HsvColor
+import com.honyadew.harmony_color_picker.model.SliderPosition
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -135,13 +138,13 @@ private fun PortraitHarmonyViewShow(
                 roundedCornerShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
             )
             Column(
-                modifier = Modifier
+                modifier = Modifier.padding(horizontal = 4.dp)
                     .weight(0.75f)
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth()
             ) {
                 Card(
-                    modifier = modifier,
+                    modifier = Modifier,
                     colors = CardDefaults.cardColors(containerColor = colorSelect(90)),
                     shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp),
                     elevation = CardDefaults.cardElevation(2.dp)
@@ -168,12 +171,18 @@ private fun PortraitHarmonyViewShow(
                     harmonyMode = HarmonyMode.values()[page].colorHarmonyMode,
                     value = HsvColor.from(state.harmoniesValue[page]),
                     onValueChanged = { newValue ->
+                        Log.d("MyLog", "NewValue -> $newValue")
                         onColorValueChanged.invoke(newValue.toColor(), HarmonyMode.values()[page])
                     },
-                    showBrightnessBar = true,
-                    colors = ColorPickerDefaults.harmonyColors(
-                        brightnessBarColor = colorSelect(saturation = 70, inverse = true),
+                    brightnessBarPosition = SliderPosition.BOTTOM,
+                    alphaBarPosition = SliderPosition.BOTTOM,
+                    colors = ColorPickerDefaults.colors(
+                        brightnessBarColor = colorSelect(saturation = 70, darkTheme = true),
+                        alphaBarColor = colorSelect(saturation = 70, inverse = true, darkTheme = true)
                     ),
+                    paddings = ColorPickerDefaults.paddings(allPaddingValues = PaddingValues(
+                      end = 16.dp, start = 16.dp, top = 4.dp
+                    )),
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -242,10 +251,15 @@ private fun LandscapeHarmonyViewShow(
                 onValueChanged = { newValue ->
                     onColorValueChanged.invoke(newValue.toColor(), HarmonyMode.values()[page])
                 },
-                showBrightnessBar = true,
-                colors = ColorPickerDefaults.harmonyColors(
-                    brightnessBarColor = colorSelect(saturation = 70, inverse = true),
+                brightnessBarPosition = SliderPosition.END,
+                alphaBarPosition = SliderPosition.END,
+                colors = ColorPickerDefaults.colors(
+                    brightnessBarColor = colorSelect(saturation = 70, darkTheme = true),
+                    alphaBarColor = colorSelect(saturation = 70, inverse = true, darkTheme = true)
                 ),
+                paddings = ColorPickerDefaults.paddings(allPaddingValues = PaddingValues(
+                    end = 16.dp, top = 4.dp, bottom = 8.dp
+                )),
                 modifier = Modifier.weight(0.5f)
             )
         }

@@ -97,7 +97,7 @@ object Deps {
 
     object Thirdparty{
         object Version {
-            const val colorWheel = "1.1.5"
+            const val colorWheel = "2.0.2"
         }
 
         const val colorWheel = "com.github.honyadew:circular-color-picker-compose:${Version.colorWheel}"

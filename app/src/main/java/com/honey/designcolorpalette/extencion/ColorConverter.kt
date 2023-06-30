@@ -3,7 +3,7 @@ package com.honey.designcolorpalette.extencion
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import com.honey.designcolorpalette.ui.screen.harmony.contract.HarmonyMode
-import com.honyadew.harmony_color_picker.HsvColor
+import com.honyadew.harmony_color_picker.model.HsvColor
 import kotlin.math.roundToInt
 
 
