@@ -76,7 +76,7 @@ private fun SavedPager(
     modifier: Modifier = Modifier,
 ) {
     Box( modifier = modifier) {
-        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 700.dp)){
+        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 512.dp)){
             colorSchemes.forEach {colorScheme ->
                 item {
                     if (colorScheme.colors.size == 1) {

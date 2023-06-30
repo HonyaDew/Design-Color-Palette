@@ -258,7 +258,7 @@ private fun LandscapeHarmonyViewShow(
                     alphaBarColor = colorSelect(saturation = 70, inverse = true, darkTheme = true)
                 ),
                 paddings = ColorPickerDefaults.paddings(allPaddingValues = PaddingValues(
-                    end = 16.dp, top = 4.dp, bottom = 8.dp
+                    end = 16.dp, top = 4.dp, bottom = 8.dp, start = 16.dp
                 )),
                 modifier = Modifier.weight(0.5f)
             )
