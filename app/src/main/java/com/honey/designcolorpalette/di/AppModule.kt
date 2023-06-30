@@ -1,8 +1,10 @@
 package com.honey.designcolorpalette.di
 
 import android.util.Log
+import android.widget.ImageView
 import com.honey.designcolorpalette.ui.screen.dialog.SettingsViewModel
 import com.honey.designcolorpalette.ui.screen.harmony.HarmonyViewModel
+import com.honey.designcolorpalette.ui.screen.image.ImageViewModel
 import com.honey.designcolorpalette.ui.screen.palette.PaletteViewModel
 import com.honey.designcolorpalette.ui.screen.saved.SavedViewModel
 import com.honey.designcolorpalette.ui.screen.sliders.SlidersViewModel
@@ -43,5 +45,8 @@ val appModule = module {
         HarmonyViewModel(
             saveColorScheme = get()
         )
+    }
+    factory<ImageViewModel> {
+        ImageViewModel()
     }
 }

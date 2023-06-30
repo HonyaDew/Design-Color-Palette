@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.honey.designcolorpalette.ui.screen.harmony.navigation.harmonyScreen
+import com.honey.designcolorpalette.ui.screen.image.navigation.imageScreen
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteScreen
 import com.honey.designcolorpalette.ui.screen.saved.navigation.savedScreen
@@ -31,6 +32,9 @@ fun DcpNavHost(
             onColorClick = {color -> }
         )
         harmonyScreen (
+            onColorClick = {color -> }
+        )
+        imageScreen (
             onColorClick = {color -> }
         )
     }

@@ -13,6 +13,8 @@ import com.honey.designcolorpalette.showSettingsState
 import com.honey.designcolorpalette.ui.main.navigation.TopLevelDestination
 import com.honey.designcolorpalette.ui.screen.harmony.navigation.harmonyRoute
 import com.honey.designcolorpalette.ui.screen.harmony.navigation.navigateToHarmony
+import com.honey.designcolorpalette.ui.screen.image.navigation.imageRoute
+import com.honey.designcolorpalette.ui.screen.image.navigation.navigateToImage
 import com.honey.designcolorpalette.ui.screen.palette.navigation.navigateToPalette
 import com.honey.designcolorpalette.ui.screen.palette.navigation.paletteRoute
 import com.honey.designcolorpalette.ui.screen.saved.navigation.navigateToSaved
@@ -50,6 +52,7 @@ class DcpAppState(
             slidersRoute -> TopLevelDestination.SLIDERS
             savedRoute -> TopLevelDestination.SAVED
             harmonyRoute -> TopLevelDestination.HARMONY
+            imageRoute -> TopLevelDestination.IMAGE
             else -> null
         }
 
@@ -82,6 +85,7 @@ class DcpAppState(
             TopLevelDestination.SLIDERS -> navController.navigateToSliders(topLevelNavOptions)
             TopLevelDestination.SAVED -> navController.navigateToSaved(topLevelNavOptions)
             TopLevelDestination.HARMONY -> navController.navigateToHarmony(topLevelNavOptions)
+            TopLevelDestination.IMAGE -> navController.navigateToImage(topLevelNavOptions)
         }
     }
 }

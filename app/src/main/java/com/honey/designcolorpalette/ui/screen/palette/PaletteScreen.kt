@@ -55,7 +55,7 @@ fun PaletteScreen(
     SideEffect {
         coroutine.launch {
             showSettingsState.collect(){show->
-                onEventSend.invoke(PaletteEvent.UpdatePalette)
+                if (!show) onEventSend.invoke(PaletteEvent.UpdatePalette)
             }
         }
     }
