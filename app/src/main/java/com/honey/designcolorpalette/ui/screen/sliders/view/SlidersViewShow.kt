@@ -33,7 +33,6 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -55,6 +54,7 @@ import com.honey.designcolorpalette.extencion.string
 import com.honey.designcolorpalette.extencion.toHexString
 import com.honey.designcolorpalette.extencion.toStringRGBA
 import com.honey.designcolorpalette.ui.main.view.DcpSlider
+import com.honey.designcolorpalette.ui.main.view.RowToSave
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersState
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersType
 import com.honey.designcolorpalette.ui.theme.colorSelect
@@ -139,12 +139,11 @@ private fun PortraitSlidersViewShow(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         if (state.colorsToSave.isNotEmpty()){
-            SlidersRowToSave(
-                state = state,
+            RowToSave(
+                colorsToSave = state.colorsToSave,
                 onSaveColorScheme = onSaveColorScheme,
                 onRemoveFromToSaveList = onRemoveFromToSaveList
             )
@@ -202,8 +201,8 @@ private fun LandscapeSlidersViewShow(
                 .weight(0.5f)
             ) {
             if (state.colorsToSave.isNotEmpty()){
-                SlidersRowToSave(
-                    state = state,
+                RowToSave(
+                    colorsToSave = state.colorsToSave,
                     onSaveColorScheme = onSaveColorScheme,
                     onRemoveFromToSaveList = onRemoveFromToSaveList
                 )
@@ -372,85 +371,7 @@ private fun SlidersCell(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SlidersRowToSave(
-    state: SlidersState.Show,
-    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
-    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
-    showNameField: MutableState<Boolean> = remember{ mutableStateOf(false)},
-    textNameField: MutableState<String> = remember{ mutableStateOf("")}
-) {
-    Column {
-        Row(modifier = Modifier.padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            OutlinedCard(
-                modifier = Modifier.fillMaxWidth(0.8f),
-                shape = RoundedCornerShape(16.dp),
-                border = BorderStroke(width = 2.dp, color = colorSelect()),
-                elevation = CardDefaults.cardElevation(2.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp)
-                ) {
-                    state.colorsToSave.forEach { colorInfo ->
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .background(colorInfo.value.color())
-                                .height(48.dp)
-                                .clickable { onRemoveFromToSaveList.invoke(colorInfo) }
-                        )
-                    }
-                }
-            }
-            val arrowIconResId = if (showNameField.value) R.drawable.ic_arrow_to_bottom else R.drawable.ic_arrow_to_end
-            IconButton(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {
-                    showNameField.value = !showNameField.value
-                }
-            ) {
-                Icon(painter = painterResource(id = arrowIconResId), contentDescription = "Arrow")
-            }
-        }
-        if (showNameField.value){
-            Row(modifier = Modifier.padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(
-                    value = textNameField.value,
-                    onValueChange = {newValue ->
-                        if (newValue.length < 21) textNameField.value = newValue
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth(0.8f),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = colorSelect(saturation = 70),
-                        unfocusedBorderColor = colorSelect(saturation = 90),
-                        focusedLabelColor = colorSelect(saturation = 70),
-                        cursorColor = colorSelect(saturation = 90, inverse = true)
-                    ),
-                    singleLine = true,
-                    label = {
-                        Text(text = stringResource(id = R.string.name_color_scheme))
-                    }
-                )
-                IconButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        onSaveColorScheme.invoke(
-                            CustomColorScheme(
-                                colors = state.colorsToSave,
-                                name = textNameField.value,
-                            )
-                        )
-                    }
-                ) {
-                    Icon(painter = painterResource(id = R.drawable.ic_save_24), contentDescription = "Save")
-                }
-            }
-        }
-    }
-}
+
 
 private fun getColorBySliders(
     slidersType: SlidersType,

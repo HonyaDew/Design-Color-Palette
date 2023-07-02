@@ -47,6 +47,10 @@ val appModule = module {
         )
     }
     factory<ImageViewModel> {
-        ImageViewModel()
+        ImageViewModel(
+            saveColorScheme = get(),
+            addColorToList = get(),
+            removeColorFromList = get()
+        )
     }
 }

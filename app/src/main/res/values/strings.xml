@@ -30,6 +30,7 @@
     <string name="triadic">Triadic</string>
     <string name="tetradic">Tetradic</string>
     <string name="image">Image</string>
+    <string name="extracted_colors">Extracted colors</string>
 
 
 </resources>

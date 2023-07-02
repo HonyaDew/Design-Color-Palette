@@ -86,6 +86,7 @@ dependencies {
     implementation(Deps.Koin.compose)
 
     implementation(Deps.Thirdparty.colorWheel)
+    implementation(Deps.Thirdparty.imagePicker)
 
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.roboeletric)

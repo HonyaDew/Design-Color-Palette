@@ -14,6 +14,8 @@ sealed class ColorSchemeSource{
     @Serializable object Created : ColorSchemeSource()
     @Serializable object FromHarmony : ColorSchemeSource()
     @Serializable object BasicAsset : ColorSchemeSource()
+    @Serializable object ExtractAuto : ColorSchemeSource()
+    @Serializable object ExtractManual : ColorSchemeSource()
 }
 
 sealed class ColorSchemeFilters{

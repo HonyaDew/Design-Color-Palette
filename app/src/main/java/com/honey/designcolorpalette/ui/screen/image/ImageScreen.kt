@@ -8,6 +8,7 @@ import com.honey.designcolorpalette.ui.screen.image.contract.ImageEffect
 import com.honey.designcolorpalette.ui.screen.image.contract.ImageEvent
 import com.honey.designcolorpalette.ui.screen.image.contract.ImageState
 import com.honey.designcolorpalette.ui.screen.image.view.ImageViewLoading
+import com.honey.designcolorpalette.ui.screen.image.view.ImageViewShow
 import com.honey.domain.model.ColorInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharedFlow
@@ -24,6 +25,23 @@ fun ImageScreen(
     when(val state = state.value){
         is ImageState.Loading -> {
             ImageViewLoading(state = state)
+        }
+        is ImageState.Show -> {
+            ImageViewShow(
+                state = state,
+                onSaveColorScheme = {colorScheme ->
+                    onEventSend.invoke(ImageEvent.SaveColorScheme(colorScheme))
+                },
+                onRemoveFromToSave = { colorInfo ->
+                    onEventSend.invoke(ImageEvent.RemoveFromToSave(colorInfo))
+                },
+                onMoveToSave = { colorInfo ->
+                    onEventSend.invoke(ImageEvent.MoveToSave(colorInfo))
+                },
+                onChangeSelectedColor = {color ->
+                    onEventSend.invoke(ImageEvent.SelectColor(color))
+                }
+            )
         }
     }
 
