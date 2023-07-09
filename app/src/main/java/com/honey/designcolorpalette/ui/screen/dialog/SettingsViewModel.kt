@@ -31,10 +31,13 @@ class SettingsViewModel(
     private fun reduce(event: SettingsEvent, state: SettingsState.Show){
         when(event){
             is SettingsEvent.SelectPalette -> {
-                viewState = SettingsState.Show(EditableSettings(palette = event.palette))
-                putSettings.invoke(settings = EditableSettings(palette = event.palette))
+                viewState = SettingsState.Show(state.settings.copy(palette = event.palette))
+                putSettings.invoke(settings = state.settings.copy(palette = event.palette))
             }
-            else -> {}
+            is SettingsEvent.SelectTheme -> {
+                viewState = SettingsState.Show(state.settings.copy(themeConfig = event.theme))
+                putSettings.invoke(settings = state.settings.copy(themeConfig = event.theme))
+            }
         }
     }
 }

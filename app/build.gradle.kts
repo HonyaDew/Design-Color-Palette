@@ -85,8 +85,11 @@ dependencies {
     implementation(Deps.Koin.koin)
     implementation(Deps.Koin.compose)
 
+    implementation(Deps.Thirdparty.imageCrop)
     implementation(Deps.Thirdparty.colorWheel)
     implementation(Deps.Thirdparty.imagePicker)
+    implementation(Deps.Thirdparty.paletteApi)
+    implementation(Deps.Thirdparty.splashScreen)
 
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.roboeletric)

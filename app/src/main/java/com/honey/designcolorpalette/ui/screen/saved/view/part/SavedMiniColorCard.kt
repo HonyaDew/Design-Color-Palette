@@ -29,7 +29,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.extencion.color
 import com.honey.designcolorpalette.extencion.string
@@ -41,6 +43,7 @@ import com.honey.domain.model.ColorInfo
 fun SavedMiniColorCard(
     color: ColorInfo,
     modifier: Modifier = Modifier,
+    hexFontWeight: TextUnit = 14.sp,
     clipboardManager: ClipboardManager = LocalClipboardManager.current
 ) {
     Card(
@@ -74,8 +77,19 @@ fun SavedMiniColorCard(
         Text(
             text = color.value.color().toHexString(),
             color = colorSelect(inverse = true),
-            modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 4.dp)
+            modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 4.dp),
+            fontWeight = FontWeight.SemiBold,
+            fontSize = hexFontWeight
         )
+        if (color.name.isNotEmpty()){
+            Text(
+                text = color.name,
+                color = colorSelect(inverse = true),
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 4.dp),
+                maxLines = 1,
+                fontSize = 10.sp
+            )
+        }
 
     }
 }
@@ -86,7 +100,7 @@ private fun PreviewSavedMiniColorCard(){
     SavedMiniColorCard(
         color = ColorInfo(
             value = Color.Green.string(),
-            name = "Green"
+            name = "on dark vibrant"
         )
     )
 }

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
-import com.honey.designcolorpalette.showSettingsState
+import com.honey.designcolorpalette.main.showSettingsState
 import com.honey.domain.model.ColorInfo
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEffect
 import com.honey.designcolorpalette.ui.screen.palette.contract.PaletteEvent
@@ -54,7 +54,7 @@ fun PaletteScreen(
     //Perform reload palettes, when settings dialog is closing
     SideEffect {
         coroutine.launch {
-            showSettingsState.collect(){show->
+            showSettingsState.collect(){ show->
                 if (!show) onEventSend.invoke(PaletteEvent.UpdatePalette)
             }
         }

@@ -99,10 +99,16 @@ object Deps {
         object Version {
             const val colorWheel = "2.0.2"
             const val imagePicker = "1.0.2"
+            const val imageCrop = "4.5.0"
+            const val paletteApi = "1.0.0"
+            const val splashScreen = "1.0.1"
         }
 
+        const val imageCrop = "com.vanniktech:android-image-cropper:${Version.imageCrop}"
         const val colorWheel = "com.github.honyadew:circular-color-picker-compose:${Version.colorWheel}"
         const val imagePicker = "com.github.skydoves:colorpicker-compose:${Version.imagePicker}"
+        const val paletteApi = "androidx.palette:palette:${Version.paletteApi}"
+        const val splashScreen = "androidx.core:core-splashscreen:${Version.splashScreen}"
     }
 
     object Test {

@@ -6,11 +6,13 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
+import com.honey.designcolorpalette.main.isDarkTheme
 
 private val DarkColorScheme = darkColorScheme(
     primary = Color.Black,
@@ -35,7 +37,7 @@ private val LightColorScheme = lightColorScheme(
 fun colorSelect(
     saturation: Int = 100,
     inverse : Boolean = false,
-    darkTheme: Boolean = isSystemInDarkTheme()
+    darkTheme: Boolean = isDarkTheme
 ): Color{
     val dark = if (inverse) !darkTheme else darkTheme
     return if (!dark){
@@ -54,6 +56,7 @@ fun colorSelect(
         }
     }
 }
+
 
 @Composable
 fun DcpTheme(

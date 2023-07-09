@@ -2,6 +2,8 @@ package com.honey.designcolorpalette.di
 
 import android.util.Log
 import android.widget.ImageView
+import com.honey.designcolorpalette.main.MainActivity
+import com.honey.designcolorpalette.main.MainActivityViewModel
 import com.honey.designcolorpalette.ui.screen.dialog.SettingsViewModel
 import com.honey.designcolorpalette.ui.screen.harmony.HarmonyViewModel
 import com.honey.designcolorpalette.ui.screen.image.ImageViewModel
@@ -51,6 +53,11 @@ val appModule = module {
             saveColorScheme = get(),
             addColorToList = get(),
             removeColorFromList = get()
+        )
+    }
+    factory<MainActivityViewModel> {
+        MainActivityViewModel(
+            getSettings = get()
         )
     }
 }

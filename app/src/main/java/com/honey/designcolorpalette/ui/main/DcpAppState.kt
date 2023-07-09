@@ -9,7 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.honey.designcolorpalette.showSettingsState
+import com.honey.designcolorpalette.main.showSettingsState
 import com.honey.designcolorpalette.ui.main.navigation.TopLevelDestination
 import com.honey.designcolorpalette.ui.screen.harmony.navigation.harmonyRoute
 import com.honey.designcolorpalette.ui.screen.harmony.navigation.navigateToHarmony

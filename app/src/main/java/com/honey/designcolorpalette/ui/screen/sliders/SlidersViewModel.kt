@@ -1,6 +1,9 @@
 package com.honey.designcolorpalette.ui.screen.sliders
 
+import android.graphics.Bitmap
 import android.util.Log
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.viewModelScope
 import com.honey.designcolorpalette.base.BaseViewModel
 import com.honey.designcolorpalette.ui.screen.sliders.contract.SlidersEffect
@@ -58,5 +61,32 @@ class SlidersViewModel(
             }
         }
     }
-
 }
+//fun extractColorsFromBitmap(bitmap: Bitmap): Map<String, String> {
+//    return mapOf(
+//        "vibrant" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().vibrantSwatch
+//        ),
+//        "darkVibrant" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().darkVibrantSwatch
+//        ),
+//        "onDarkVibrant" to parseBodyColor(
+//            color = Palette.from(bitmap).generate().darkVibrantSwatch?.bodyTextColor
+//        ),
+//        "lightVibrant" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().lightVibrantSwatch
+//        ),
+//        "domainSwatch" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().dominantSwatch
+//        ),
+//        "mutedSwatch" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().mutedSwatch
+//        ),
+//        "lightMuted" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().lightMutedSwatch
+//        ),
+//        "darkMuted" to parseColorSwatch(
+//            color = Palette.from(bitmap).generate().darkMutedSwatch
+//        ),
+//    )
+//}

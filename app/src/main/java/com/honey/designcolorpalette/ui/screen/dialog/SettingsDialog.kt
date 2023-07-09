@@ -72,6 +72,9 @@ fun SettingsDialog(
                                 settings = state.settings,
                                 onChangePalette = { palette ->
                                     onEventSend.invoke(SettingsEvent.SelectPalette(palette = palette))
+                                },
+                                onChangeThemeConfig = {themeConfig ->
+                                    onEventSend.invoke(SettingsEvent.SelectTheme(themeConfig))
                                 }
                             )
                         }

@@ -1,7 +1,5 @@
 package com.honey.designcolorpalette.ui.screen.dialog.view
 
-import android.icu.util.UniversalTimeScale
-import android.text.Editable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
@@ -19,12 +17,14 @@ import com.honey.designcolorpalette.R
 import com.honey.designcolorpalette.ui.theme.colorSelect
 import com.honey.domain.model.ColorOfMaterial
 import com.honey.domain.model.EditableSettings
+import com.honey.domain.model.ThemeConfig
 import com.honey.domain.model.Palette
 
 @Composable
 fun SettingsView(
     settings: EditableSettings,
-    onChangePalette: (palette: Palette) -> Unit
+    onChangePalette: (palette: Palette) -> Unit,
+    onChangeThemeConfig: (themeConfig: ThemeConfig) -> Unit
 ) {
     SettingsSectionTitle(text = stringResource(id = R.string.palette))
     Column(modifier = Modifier.selectableGroup()) {
@@ -53,8 +53,26 @@ fun SettingsView(
             selected = settings.palette is Palette.HTML,
             onClick = {onChangePalette.invoke(Palette.HTML)}
         )
-
     }
+    SettingsSectionTitle(text = stringResource(id = R.string.theme_preference))
+    Column(modifier = Modifier.selectableGroup()) {
+        SettingsRadioButton(
+            text = stringResource(id = R.string.light),
+            selected = settings.themeConfig == ThemeConfig.LIGHT,
+            onClick = { onChangeThemeConfig.invoke(ThemeConfig.LIGHT) }
+        )
+        SettingsRadioButton(
+            text = stringResource(id = R.string.dark),
+            selected = settings.themeConfig == ThemeConfig.DARK,
+            onClick = { onChangeThemeConfig.invoke(ThemeConfig.DARK) }
+        )
+        SettingsRadioButton(
+            text = stringResource(id = R.string.default_theme),
+            selected = settings.themeConfig == ThemeConfig.DEFAULT,
+            onClick = { onChangeThemeConfig.invoke(ThemeConfig.DEFAULT) }
+        )
+    }
+
 }
 
 @Composable
