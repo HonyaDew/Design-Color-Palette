@@ -3,6 +3,8 @@ package com.honey.designcolorpalette.ui.screen.harmony.view
 import android.app.Activity
 import android.content.res.Configuration
 import android.util.Log
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -39,6 +41,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +49,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
@@ -409,18 +413,29 @@ private fun SwapNameSaveRow(
     showNameField: MutableState<Boolean> = remember{ mutableStateOf(false)},
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.animateContentSize(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        val rotate = remember { Animatable(0f) }
+        LaunchedEffect(showNameField.value){
+            rotate.animateTo(
+                targetValue = if (showNameField.value) 90f else 0f
+            )
+        }
         IconButton(
             modifier = Modifier
                 .weight(0.15f)
                 .height(36.dp),
-            onClick = { showNameField.value = !showNameField.value }
+            onClick = {
+                showNameField.value = !showNameField.value
+            }
         ) {
-            val arrowIconResId = if (showNameField.value) R.drawable.ic_arrow_to_bottom else R.drawable.ic_arrow_to_end
-            Icon(painter = painterResource(id = arrowIconResId), contentDescription = "Show")
+            Icon(
+                painter = painterResource(id = R.drawable.ic_arrow_to_end),
+                contentDescription = "Arrow",
+                modifier = Modifier.graphicsLayer(rotationZ = rotate.value)
+            )
         }
         if (showNameField.value){
             OutlinedTextField(

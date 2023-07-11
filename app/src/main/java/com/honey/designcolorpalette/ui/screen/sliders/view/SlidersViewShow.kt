@@ -141,13 +141,11 @@ private fun PortraitSlidersViewShow(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        if (state.colorsToSave.isNotEmpty()){
-            RowToSave(
-                colorsToSave = state.colorsToSave,
-                onSaveColorScheme = onSaveColorScheme,
-                onRemoveFromToSaveList = onRemoveFromToSaveList
-            )
-        }
+        RowToSave(
+            colorsToSave = state.colorsToSave,
+            onSaveColorScheme = onSaveColorScheme,
+            onRemoveFromToSaveList = onRemoveFromToSaveList
+        )
         OutlinedCard(
             modifier = Modifier
                 .fillMaxWidth()
@@ -200,13 +198,11 @@ private fun LandscapeSlidersViewShow(
             modifier = Modifier
                 .weight(0.5f)
             ) {
-            if (state.colorsToSave.isNotEmpty()){
-                RowToSave(
-                    colorsToSave = state.colorsToSave,
-                    onSaveColorScheme = onSaveColorScheme,
-                    onRemoveFromToSaveList = onRemoveFromToSaveList
-                )
-            }
+            RowToSave(
+                colorsToSave = state.colorsToSave,
+                onSaveColorScheme = onSaveColorScheme,
+                onRemoveFromToSaveList = onRemoveFromToSaveList
+            )
             OutlinedCard(
                 modifier = Modifier
                     .fillMaxSize(),

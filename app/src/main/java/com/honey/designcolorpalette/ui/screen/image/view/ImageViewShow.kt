@@ -6,39 +6,36 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.draggable
-import androidx.compose.foundation.gestures.rememberDraggableState
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -50,24 +47,37 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.skydoves.colorpicker.compose.ColorPickerController
@@ -88,7 +98,10 @@ import com.honey.domain.model.ColorInfo
 import com.honey.domain.model.ColorSchemeSource
 import com.honey.domain.model.CustomColorScheme
 import com.honey.domain.model.ExtractColor
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ImageViewShow(
     state: ImageState.Show,
@@ -157,20 +170,26 @@ fun ImageViewShow(
                 pickerController = pickerController
             )
         }
-        if (showDropDownMenu.value){
+        AnimatedVisibility(
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .align(
+                    if (portraitMode) Alignment.TopStart else Alignment.TopEnd
+                ),
+            visible = showDropDownMenu.value,
+            enter = scaleIn(),
+            exit = scaleOut()
+        ) {
             DropDownMenu(
-                modifier = Modifier
-                    .padding(top = 16.dp)
-                    .align(
-                        if (portraitMode) Alignment.TopStart else Alignment.TopEnd
-                    ),
                 extractedColors = state.extractedColors,
-                onSaveColorScheme = {colorScheme ->
+                onSaveColorScheme = { colorScheme ->
                     onSaveColorScheme.invoke(colorScheme)
                     showDropDownMenu.value = false
-                }
+                },
+                onCloseDropDownMenu = {showDropDownMenu.value = false}
             )
         }
+
     }
 }
 
@@ -225,13 +244,11 @@ fun PortraitImageViewShow(
                         .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    if (state.colorsToSave.isNotEmpty()){
-                        RowToSave(
-                            colorsToSave = state.colorsToSave,
-                            onSaveColorScheme = onSaveColorScheme,
-                            onRemoveFromToSaveList = onRemoveFromToSave
-                        )
-                    }
+                    RowToSave(
+                        colorsToSave = state.colorsToSave,
+                        onSaveColorScheme = onSaveColorScheme,
+                        onRemoveFromToSaveList = onRemoveFromToSave
+                    )
                     FunctionalRow(
                         modifier = Modifier.fillMaxHeight(),
                         selectedColor = state.selectedColor,
@@ -298,13 +315,11 @@ fun LandscapeImageViewShow(
                         .padding(8.dp),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    if (state.colorsToSave.isNotEmpty()){
-                        RowToSave(
-                            colorsToSave = state.colorsToSave,
-                            onSaveColorScheme = onSaveColorScheme,
-                            onRemoveFromToSaveList = onRemoveFromToSave
-                        )
-                    }
+                    RowToSave(
+                        colorsToSave = state.colorsToSave,
+                        onSaveColorScheme = onSaveColorScheme,
+                        onRemoveFromToSaveList = onRemoveFromToSave
+                    )
 
                     FunctionalRow(
                         modifier = Modifier.fillMaxHeight(),
@@ -432,14 +447,23 @@ fun TabOfDropDownMenu(
         colors = CardDefaults.cardColors(containerColor = colorSelect(saturation = 90))
     ) {
         Row {
-            val arrowIconResId = if (showDropDownMenu)R.drawable.ic_arrow_to_bottom else R.drawable.ic_arrow_to_end
+            val rotate = remember { Animatable(0f) }
+            LaunchedEffect(showDropDownMenu){
+                rotate.animateTo(
+                    targetValue = if (showDropDownMenu) 90f else 0f
+                )
+            }
             IconButton(
                 modifier = Modifier.weight(0.1f),
                 onClick = {
                     onOpenDropDownMenu.invoke(!showDropDownMenu)
                 }
             ) {
-                Icon(painter = painterResource(id = arrowIconResId), contentDescription = "Arrow")
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_to_end),
+                    contentDescription = "Arrow",
+                    modifier = Modifier.graphicsLayer(rotationZ = rotate.value)
+                )
             }
             OutlinedCard(
                 modifier = Modifier.weight(0.6f),
@@ -486,7 +510,9 @@ fun DropDownMenu(
     modifier: Modifier = Modifier,
     extractedColors: List<ExtractColor>,
     onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
-    textNameField: MutableState<String> = remember{ mutableStateOf("") }
+    onCloseDropDownMenu: () -> Unit,
+    textNameField: MutableState<String> = remember{ mutableStateOf("") },
+    focusRequester: FocusRequester = FocusRequester(),
 ) {
     OutlinedCard(
         modifier = modifier
@@ -528,13 +554,15 @@ fun DropDownMenu(
                 }
             }
             Row(modifier = Modifier.padding(bottom = 4.dp, start = 4.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                val colorInfoList = extractedColors.map { ColorInfo(value = it.color, stringResource(id = it.stringId)) }
                 OutlinedTextField(
                     value = textNameField.value,
                     onValueChange = {newValue ->
                         if (newValue.length < 21) textNameField.value = newValue
                     },
                     modifier = Modifier
-                        .fillMaxWidth(0.8f),
+                        .fillMaxWidth(0.8f)
+                        .focusRequester(focusRequester),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = colorSelect(saturation = 70),
                         unfocusedBorderColor = colorSelect(saturation = 80),
@@ -544,9 +572,20 @@ fun DropDownMenu(
                     singleLine = true,
                     label = {
                         Text(text = stringResource(id = R.string.name_color_scheme))
-                    }
+                    },
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions (
+                        onDone = {
+                            onSaveColorScheme.invoke(
+                                CustomColorScheme(
+                                    colors = colorInfoList,
+                                    name = textNameField.value,
+                                    source = ColorSchemeSource.ExtractAuto
+                                )
+                            )
+                        },
+                    )
                 )
-                val colorInfoList = extractedColors.map { ColorInfo(value = it.color, stringResource(id = it.stringId)) }
                 IconButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
@@ -563,7 +602,14 @@ fun DropDownMenu(
                 }
             }
         }
+    }
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+        delay(500)
 
+    }
+    BackHandler {
+        onCloseDropDownMenu.invoke()
     }
 }
 

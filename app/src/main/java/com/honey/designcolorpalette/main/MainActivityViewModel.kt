@@ -20,8 +20,6 @@ class MainActivityViewModel(
     val viewState : StateFlow<MainActivityState> = _viewState.asStateFlow()
 
     init {
-        _viewState.value = MainActivityState.Show(editableSettings = getSettings.invoke())
-
         viewModelScope.launch {
             showSettingsState.collect(){
                 _viewState.value = MainActivityState.Show(editableSettings = getSettings.invoke())
