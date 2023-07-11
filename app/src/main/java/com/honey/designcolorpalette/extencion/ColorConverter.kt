@@ -55,8 +55,8 @@ fun Color.toStringRGB(): String {
 fun Color.getFullHarmony(harmony: HarmonyMode): List<Color>{
     val hsvColor = HsvColor.from(this)
     val hsvAdditional = when (harmony){
-        HarmonyMode.COMPLIMENTARY -> {hsvColor.getComplementaryColor()}
-        HarmonyMode.SPLIT_COMPLIMENTARY -> {hsvColor.getSplitComplementaryColors()}
+        HarmonyMode.COMPLEMENTARY -> {hsvColor.getComplementaryColor()}
+        HarmonyMode.SPLIT_COMPLEMENTARY -> {hsvColor.getSplitComplementaryColors()}
         HarmonyMode.ANALOGOUS -> {hsvColor.getAnalagousColors()}
         HarmonyMode.TRIADIC -> {hsvColor.getTriadicColors()}
         HarmonyMode.TETRADIC -> {hsvColor.getTetradicColors()}
