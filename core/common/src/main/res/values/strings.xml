@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vibrant">Vibrant</string>
+    <string name="dark_vibrant">Dark vibrant</string>
+    <string name="on_dark_vibrant">On dark vibrant</string>
+    <string name="light_vibrant">Light vibrant</string>
+    <string name="domain_vibrant">Domain vibrant</string>
+    <string name="muted_swatch">Muted swatch</string>
+    <string name="light_muted">Light muted</string>
+    <string name="dark_muted">Dark muted</string>
+</resources>

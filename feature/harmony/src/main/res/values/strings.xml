@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="name_color_scheme">Name of Color Scheme</string>
+    <string name="complimentary">Complimentary</string>
+    <string name="split_complimentary">Split complimentary</string>
+    <string name="analogus">Analogus</string>
+    <string name="triadic">Triadic</string>
+    <string name="tetradic">Tetradic</string>
+</resources>

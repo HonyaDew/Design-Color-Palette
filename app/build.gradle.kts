@@ -55,8 +55,18 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
+    implementation(project(":core:common"))
+
+    implementation(project(":feature:harmony"))
+    implementation(project(":feature:image"))
+    implementation(project(":feature:palette"))
+    implementation(project(":feature:saved"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:sliders"))
 
     implementation(Deps.Core.coreKts)
     implementation(Deps.Core.appCompat)
@@ -86,14 +96,13 @@ dependencies {
     implementation(Deps.Koin.compose)
 
     implementation(Deps.Thirdparty.imageCrop)
-    implementation(Deps.Thirdparty.colorWheel)
     implementation(Deps.Thirdparty.imagePicker)
     implementation(Deps.Thirdparty.paletteApi)
     implementation(Deps.Thirdparty.splashScreen)
 
     testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.roboeletric)
     testImplementation(Deps.Test.mockk)
+    testImplementation(Deps.Test.roboeletric)
     testImplementation(Deps.Test.okHttp3MockWebServer)
     androidTestImplementation(Deps.Test.androidJunit)
     androidTestImplementation(Deps.Test.espressoCore)

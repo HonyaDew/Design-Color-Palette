@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Settings</string>
+    <string name="ok">OK</string>
+    <string name="loading">Loading</string>
+    <string name="material">Material</string>
+    <string name="flatUI">Flat UI</string>
+
+    <string name="palette">Palette</string>
+
+    <string name="colors_of_material">Colors of Material</string>
+    <string name="social">Social</string>
+    <string name="metro">Metro</string>
+    <string name="html">HTML</string>
+
+    <string name="theme_preference">Theme preference</string>
+    <string name="dark">Dark</string>
+    <string name="default_theme">Default</string>
+    <string name="light">Light</string>
+</resources>

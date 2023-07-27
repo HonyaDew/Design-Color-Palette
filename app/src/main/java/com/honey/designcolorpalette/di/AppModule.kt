@@ -1,16 +1,8 @@
 package com.honey.designcolorpalette.di
 
-import android.util.Log
-import android.widget.ImageView
-import com.honey.designcolorpalette.main.MainActivity
-import com.honey.designcolorpalette.main.MainActivityViewModel
-import com.honey.designcolorpalette.ui.screen.dialog.SettingsViewModel
-import com.honey.designcolorpalette.ui.screen.harmony.HarmonyViewModel
-import com.honey.designcolorpalette.ui.screen.image.ImageViewModel
-import com.honey.designcolorpalette.ui.screen.palette.PaletteViewModel
-import com.honey.designcolorpalette.ui.screen.saved.SavedViewModel
-import com.honey.designcolorpalette.ui.screen.sliders.SlidersViewModel
-import com.honey.domain.usecase.GetSettingsUseCase
+import com.honey.designcolorpalette.MainActivityViewModel
+import com.honyadew.palette.PaletteViewModel
+import com.honyadew.sliders.SlidersViewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -23,33 +15,33 @@ val appModule = module {
         )
     }
 
-    factory<PaletteViewModel> {
+    factory<com.honyadew.palette.PaletteViewModel> {
         PaletteViewModel(
             getSettings = get(),
             putSettings = get(),
             getColorsByPalette = get()
         )
     }
-    factory<SettingsViewModel>{
-        SettingsViewModel(
+    factory<com.honyadew.settings.SettingsViewModel>{
+        com.honyadew.settings.SettingsViewModel(
             getSettings = get(),
             putSettings = get()
         )
     }
-    factory<SavedViewModel> {
-        SavedViewModel(
+    factory<com.honyadew.saved.SavedViewModel> {
+        com.honyadew.saved.SavedViewModel(
             getAllSavedColorScheme = get(),
             filterColorScheme = get(),
             deleteColorScheme = get()
         )
     }
-    factory<HarmonyViewModel> {
-        HarmonyViewModel(
+    factory<com.honyadew.harmony.HarmonyViewModel> {
+        com.honyadew.harmony.HarmonyViewModel(
             saveColorScheme = get()
         )
     }
-    factory<ImageViewModel> {
-        ImageViewModel(
+    factory<com.honyadew.image.ImageViewModel> {
+        com.honyadew.image.ImageViewModel(
             saveColorScheme = get(),
             addColorToList = get(),
             removeColorFromList = get()
