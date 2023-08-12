@@ -40,10 +40,7 @@ class SlidersViewModel(
             SlidersEvent.SelectRGB -> {viewState =state.copy(type = SlidersType.RGB)}
             SlidersEvent.SelectHSV -> {viewState =state.copy(type = SlidersType.HSV)}
             is SlidersEvent.AddColorToSaveList -> {
-                Log.d("MyLog", "now is list -> ${state.colorsToSave}")
                 viewState = state.copy(colorsToSave = state.colorsToSave.addColor(event.color))
-                Log.d("MyLog", "aft is list -> ${state.colorsToSave}")
-
             }
             is SlidersEvent.RemoveColorFromToSaveList -> {
                 viewState = state.copy(colorsToSave = state.colorsToSave.removeColor(event.color))
