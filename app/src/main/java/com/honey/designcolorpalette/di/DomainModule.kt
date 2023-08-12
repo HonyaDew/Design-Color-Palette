@@ -1,6 +1,5 @@
 package com.honey.designcolorpalette.di
 
-import com.honey.domain.usecase.AddColorToListUseCase
 import com.honey.domain.usecase.DeleteColorSchemeUseCase
 import com.honey.domain.usecase.FilterColorSchemeUseCase
 import com.honey.domain.usecase.GetAllColorSchemeUseCase
@@ -39,9 +38,4 @@ val domainModule = module {
     factory<SaveColorSchemeUseCase> {
         SaveColorSchemeUseCase(savedRepository = get())
     }
-
-    factory<AddColorToListUseCase> {
-        AddColorToListUseCase()
-    }
-
 }

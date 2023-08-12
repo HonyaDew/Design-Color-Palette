@@ -6,15 +6,14 @@ import com.honyadew.base.BaseViewModel
 import com.honyadew.sliders.contract.SlidersEffect
 import com.honyadew.sliders.contract.SlidersEvent
 import com.honyadew.sliders.contract.SlidersState
-import com.honey.domain.usecase.AddColorToListUseCase
 import com.honey.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.extencion.addColor
 import com.honyadew.extencion.removeColor
 import com.honyadew.sliders.model.SlidersType
 import kotlinx.coroutines.launch
 
 class SlidersViewModel(
-    private val saveColorScheme: SaveColorSchemeUseCase,
-    private val addColorToList: AddColorToListUseCase,
+    private val saveColorScheme: SaveColorSchemeUseCase
 ) : BaseViewModel<SlidersEvent, SlidersState, SlidersEffect>(initialState = SlidersState.Loading){
 
     init {
@@ -42,7 +41,7 @@ class SlidersViewModel(
             SlidersEvent.SelectHSV -> {viewState =state.copy(type = SlidersType.HSV)}
             is SlidersEvent.AddColorToSaveList -> {
                 Log.d("MyLog", "now is list -> ${state.colorsToSave}")
-                viewState = state.copy(colorsToSave = addColorToList.invoke(state.colorsToSave, event.color))
+                viewState = state.copy(colorsToSave = state.colorsToSave.addColor(event.color))
                 Log.d("MyLog", "aft is list -> ${state.colorsToSave}")
 
             }

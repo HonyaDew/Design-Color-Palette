@@ -6,16 +6,15 @@ import com.honyadew.base.BaseViewModel
 import com.honyadew.image.contract.ImageEffect
 import com.honyadew.image.contract.ImageEvent
 import com.honyadew.image.contract.ImageState
-import com.honey.domain.usecase.AddColorToListUseCase
 import com.honey.domain.usecase.SaveColorSchemeUseCase
 import com.honey.image.R
+import com.honyadew.extencion.addColor
 import com.honyadew.extencion.removeColor
 import com.honyadew.extencion.string
 import kotlinx.coroutines.launch
 
 class ImageViewModel(
-    private val saveColorScheme: SaveColorSchemeUseCase,
-    private val addColorToList: AddColorToListUseCase,
+    private val saveColorScheme: SaveColorSchemeUseCase
 ) : BaseViewModel<ImageEvent, ImageState, ImageEffect>(initialState = ImageState.Loading) {
     init {
         viewState = ImageState.Show(
@@ -66,7 +65,7 @@ class ImageViewModel(
                 viewState = state.copy(colorsToSave = state.colorsToSave.removeColor(event.color))
             }
             is ImageEvent.MoveToSave -> {
-                viewState = state.copy(colorsToSave = addColorToList.invoke(state.colorsToSave, event.color))
+                viewState = state.copy(colorsToSave = state.colorsToSave.addColor(event.color))
             }
             is ImageEvent.SaveColorScheme -> {
                 viewModelScope.launch {
