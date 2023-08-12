@@ -6,6 +6,7 @@ object Config {
     const val versionName = "1.0"
     const val appName = "com.honey.designcolorpalette"
     const val dataName = "com.honey.data"
+    const val databaseName = "com.honey.database"
     const val commonName = "com.honey.common"
     const val designsystemName = "com.honey.designsystem"
     const val domainName = "com.honey.domain"

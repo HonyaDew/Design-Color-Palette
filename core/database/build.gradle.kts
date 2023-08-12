@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.fir.expressions.FirEmptyArgumentList.arguments
+import org.jetbrains.kotlin.fir.resolve.calls.ResolvedCallArgument.DefaultArgument.arguments
+import org.jetbrains.kotlin.resolve.calls.model.ResolvedCallArgument.DefaultArgument.arguments
+
 plugins {
     id(Deps.Plugins.library)
     id(Deps.Plugins.kotlinAndroid)
@@ -5,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = Config.dataName
+    namespace = Config.databaseName
     compileSdk = Config.compileSdk
 
     defaultConfig {
@@ -31,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -40,17 +47,13 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 }
 
 dependencies {
-    implementation(project(":core:domain"))
     implementation(project(":core:model"))
-    implementation(project(":core:database"))
-
-    implementation(Deps.Core.coreKts)
-    implementation(Deps.Core.appCompat)
-    implementation(Deps.Core.androidMaterial)
 
     implementation(Deps.Json.serialization)
 
-    implementation(Deps.Compose.dataGraphics)
+    implementation(Deps.Room.ktx)
+    ksp(Deps.Room.compiler)
+    implementation(Deps.Room.runtime)
 
     testImplementation(Deps.Test.jUnit)
     testImplementation(Deps.Test.mockitoCore)

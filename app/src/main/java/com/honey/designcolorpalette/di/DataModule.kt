@@ -3,15 +3,15 @@ package com.honey.designcolorpalette.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.honey.saved.datasource.internal.Constance
 import com.honey.domain.repository.PaletteRepository
 import com.honey.domain.repository.SavedRepository
 import com.honey.domain.repository.SettingsRepository
 import com.honey.palette.PaletteRepositoryImpl
 import com.honey.saved.SavedRepositoryImpl
-import com.honey.saved.datasource.internal.SavedDao
-import com.honey.saved.datasource.internal.SavedDatabase
 import com.honey.settings.SettingsRepositoryImpl
+import com.honyadew.database.Constance.DATABASE_NAME
+import com.honyadew.database.DcpDatabase
+import com.honyadew.database.dao.SavedDao
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -29,16 +29,16 @@ val dataModule = module {
         PaletteRepositoryImpl()
     }
 
-    single<SavedDatabase> {
+    single<DcpDatabase> {
         Room.databaseBuilder(
             context = androidContext(),
-            klass = SavedDatabase::class.java,
-            name = Constance.DATABASE_NAME
+            klass = DcpDatabase::class.java,
+            name = DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
 
     single<SavedDao> {
-        get<SavedDatabase>().savedDao()
+        get<DcpDatabase>().savedDao()
     }
 
     single<SavedRepository> {
@@ -46,5 +46,4 @@ val dataModule = module {
             dao = get()
         )
     }
-
 }

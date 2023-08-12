@@ -17,31 +17,31 @@ class PaletteRepositoryImpl : PaletteRepository {
 
     override fun getColorsByPalette(palette: com.honyadew.model.Palette): List<com.honyadew.model.ColorInfo> {
         return when(palette){
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.RED) -> { Material.red }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.PINK) -> { Material.pink }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.PURPLE) -> { Material.purple }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.DEEP_PURPLE) -> { Material.deepPurple }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.INDIGO) -> { Material.indigo }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.BLUE) -> { Material.blue }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.LIGHT_BLUE) -> { Material.lightBlue }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.CYAN) -> { Material.cyan }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.TEAL) -> { Material.teal }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.GREEN) -> { Material.green }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.LIGHT_GREEN) -> { Material.lightGreen }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.LIME) -> { Material.lime }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.YELLOW) -> { Material.yellow }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.AMBER) -> { Material.amber }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.ORANGE) -> { Material.orange }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.DEEP_ORANGE) -> { Material.deepOrange }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.BROWN) -> { Material.brown }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.GREY) -> { Material.grey }
-            com.honyadew.model.Palette.Material(com.honyadew.model.ColorOfMaterial.BLUE_GRAY) -> { Material.blueGray }
-            com.honyadew.model.Palette.FlatUI -> { FlatUI.palette }
-            com.honyadew.model.Palette.Social -> { Social.palette }
-            com.honyadew.model.Palette.Metro -> { Metro.palette }
-            com.honyadew.model.Palette.HTML -> { HTML.palette }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.RED) -> { Material.red }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.PINK) -> { Material.pink }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.PURPLE) -> { Material.purple }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.DEEP_PURPLE) -> { Material.deepPurple }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.INDIGO) -> { Material.indigo }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.BLUE) -> { Material.blue }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.LIGHT_BLUE) -> { Material.lightBlue }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.CYAN) -> { Material.cyan }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.TEAL) -> { Material.teal }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.GREEN) -> { Material.green }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.LIGHT_GREEN) -> { Material.lightGreen }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.LIME) -> { Material.lime }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.YELLOW) -> { Material.yellow }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.AMBER) -> { Material.amber }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.ORANGE) -> { Material.orange }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.DEEP_ORANGE) -> { Material.deepOrange }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.BROWN) -> { Material.brown }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.GREY) -> { Material.grey }
+            Palette.Material(com.honyadew.model.ColorOfMaterial.BLUE_GRAY) -> { Material.blueGray }
+            Palette.FlatUI -> { FlatUI.palette }
+            Palette.Social -> { Social.palette }
+            Palette.Metro -> { Metro.palette }
+            Palette.HTML -> { HTML.palette }
             else -> {
-                emptyList<com.honyadew.model.ColorInfo>()
+                emptyList<ColorInfo>()
             }
         }
     }

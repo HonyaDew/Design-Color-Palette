@@ -53,9 +53,9 @@ android {
         }
     }
 }
-
 dependencies {
     implementation(project(":core:data"))
+    implementation(project(":core:database"))
     implementation(project(":core:domain"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:model"))
@@ -100,14 +100,20 @@ dependencies {
     implementation(Deps.Thirdparty.paletteApi)
     implementation(Deps.Thirdparty.splashScreen)
 
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.mockk)
-    testImplementation(Deps.Test.roboeletric)
-    testImplementation(Deps.Test.okHttp3MockWebServer)
-    androidTestImplementation(Deps.Test.androidJunit)
-    androidTestImplementation(Deps.Test.espressoCore)
-    androidTestImplementation(Deps.Test.composeJunit)
-    debugImplementation(Deps.Test.composeDebugTooling)
-    debugImplementation(Deps.Test.composeDebugManifest)
+    testImplementation(Deps.Test.jUnit)
+    testImplementation(Deps.Test.mockitoCore)
+    testImplementation(Deps.Test.mockitoKotlin)
+    testImplementation(Deps.Test.mockitoInline)
+    testRuntimeOnly(Deps.Test.mockitoRuntimeOnly)
+
+//    testImplementation(Deps.Test.junit)
+//    testImplementation(Deps.Test.mockk)
+//    testImplementation(Deps.Test.roboeletric)
+//    testImplementation(Deps.Test.okHttp3MockWebServer)
+//    androidTestImplementation(Deps.Test.androidJunit)
+//    androidTestImplementation(Deps.Test.espressoCore)
+//    androidTestImplementation(Deps.Test.composeJunit)
+//    debugImplementation(Deps.Test.composeDebugTooling)
+//    debugImplementation(Deps.Test.composeDebugManifest)
 
 }

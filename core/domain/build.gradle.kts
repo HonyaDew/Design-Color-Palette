@@ -19,4 +19,11 @@ dependencies {
     implementation(project(":core:model"))
     //TODO try to remove with plugins too
     implementation(Deps.Json.serialization)
+
+    testImplementation(Deps.Test.jUnit)
+    testImplementation(Deps.Test.mockitoCore)
+    testImplementation(Deps.Test.mockitoKotlin)
+    testImplementation(Deps.Test.mockitoInline)
+    testImplementation(Deps.Test.suspendTests)
+    testRuntimeOnly(Deps.Test.mockitoRuntimeOnly)
 }

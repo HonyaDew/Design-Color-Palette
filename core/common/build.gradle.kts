@@ -52,14 +52,9 @@ dependencies{
 
     implementation(Deps.Thirdparty.paletteApi)
 
-    // TODO Do something with tests. (in all modules)
-    testImplementation(Deps.Test.junit)
-    testImplementation(Deps.Test.mockk)
-    testImplementation(Deps.Test.roboeletric)
-    testImplementation(Deps.Test.okHttp3MockWebServer)
-    androidTestImplementation(Deps.Test.androidJunit)
-    androidTestImplementation(Deps.Test.espressoCore)
-    androidTestImplementation(Deps.Test.composeJunit)
-    debugImplementation(Deps.Test.composeDebugTooling)
-    debugImplementation(Deps.Test.composeDebugManifest)
+    testImplementation(Deps.Test.jUnit)
+    testImplementation(Deps.Test.mockitoCore)
+    testImplementation(Deps.Test.mockitoKotlin)
+    testImplementation(Deps.Test.mockitoInline)
+    testRuntimeOnly(Deps.Test.mockitoRuntimeOnly)
 }

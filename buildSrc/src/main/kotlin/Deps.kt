@@ -112,23 +112,35 @@ object Deps {
     }
 
     object Test {
-        object Version {
-            const val junit = "1.1.1"
-            const val androidxJunit = "1.1.3"
-            const val roboeletric = "4.6.1"
-            const val mockk = "1.12.4"
-            const val okHttp3MockWebServer = "4.9.2"
-            const val espressoCore = "3.4.0"
+        object Version{
+            const val jUnit = "5.8.2"
+            const val mockito = "4.0.0"
+            const val coroutine = "1.7.3"
         }
-        const val junit = "junit:junit:${Version.junit}"
-        const val androidJunit = "androidx.test.ext:junit:${Version.junit}"
-        const val roboeletric = "org.robolectric:robolectric:${Version.roboeletric}"
-        const val mockk = "io.mockk:mockk:${Version.mockk}"
-        const val okHttp3MockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.okHttp3MockWebServer}"
-        const val espressoCore = "androidx.test.espresso:espresso-core:${Version.espressoCore}"
-        const val composeJunit = "androidx.compose.ui:ui-test-junit4:${Compose.version}"
-        const val composeDebugTooling = "androidx.compose.ui:ui-tooling:${Compose.version}"
-        const val composeDebugManifest= "androidx.compose.ui:ui-test-manifest:${Compose.version}"
-    }
+        const val jUnit = "org.junit.jupiter:junit-jupiter:${Version.jUnit}"
+        const val mockitoCore = "org.mockito:mockito-core:${Version.mockito}"
+        const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${Version.mockito}"
+        const val mockitoInline = "org.mockito:mockito-inline:${Version.mockito}"
+        const val mockitoRuntimeOnly = "org.junit.platform:junit-platform-launcher"
+        const val suspendTests = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutine}"
 
+        //TODO delete for no need
+//        object Version {
+//            const val junit = "1.1.1"
+//            const val androidxJunit = "1.1.3"
+//            const val roboeletric = "4.6.1"
+//            const val mockk = "1.12.4"
+//            const val okHttp3MockWebServer = "4.9.2"
+//            const val espressoCore = "3.4.0"
+//        }
+//        const val junit = "junit:junit:${Version.junit}"
+//        const val androidJunit = "androidx.test.ext:junit:${Version.junit}"
+//        const val roboeletric = "org.robolectric:robolectric:${Version.roboeletric}"
+//        const val mockk = "io.mockk:mockk:${Version.mockk}"
+//        const val okHttp3MockWebServer = "com.squareup.okhttp3:mockwebserver:${Version.okHttp3MockWebServer}"
+//        const val espressoCore = "androidx.test.espresso:espresso-core:${Version.espressoCore}"
+//        const val composeJunit = "androidx.compose.ui:ui-test-junit4:${Compose.version}"
+//        const val composeDebugTooling = "androidx.compose.ui:ui-tooling:${Compose.version}"
+//        const val composeDebugManifest= "androidx.compose.ui:ui-test-manifest:${Compose.version}"
+    }
 }

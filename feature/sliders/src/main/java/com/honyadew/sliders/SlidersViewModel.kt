@@ -7,15 +7,14 @@ import com.honyadew.sliders.contract.SlidersEffect
 import com.honyadew.sliders.contract.SlidersEvent
 import com.honyadew.sliders.contract.SlidersState
 import com.honey.domain.usecase.AddColorToListUseCase
-import com.honey.domain.usecase.RemoveColorFromListUseCase
 import com.honey.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.extencion.removeColor
 import com.honyadew.sliders.model.SlidersType
 import kotlinx.coroutines.launch
 
 class SlidersViewModel(
     private val saveColorScheme: SaveColorSchemeUseCase,
     private val addColorToList: AddColorToListUseCase,
-    private val removeColorFromList: RemoveColorFromListUseCase
 ) : BaseViewModel<SlidersEvent, SlidersState, SlidersEffect>(initialState = SlidersState.Loading){
 
     init {
@@ -48,7 +47,7 @@ class SlidersViewModel(
 
             }
             is SlidersEvent.RemoveColorFromToSaveList -> {
-                viewState = state.copy(colorsToSave = removeColorFromList.invoke(state.colorsToSave, event.color))
+                viewState = state.copy(colorsToSave = state.colorsToSave.removeColor(event.color))
             }
             is SlidersEvent.SaveColorScheme -> {
                 viewModelScope.launch {
