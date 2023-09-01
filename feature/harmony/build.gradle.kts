@@ -74,5 +74,6 @@ dependencies {
     testImplementation(Deps.Test.mockitoCore)
     testImplementation(Deps.Test.mockitoKotlin)
     testImplementation(Deps.Test.mockitoInline)
+    testImplementation(Deps.Test.suspendTests)
     testRuntimeOnly(Deps.Test.mockitoRuntimeOnly)
 }

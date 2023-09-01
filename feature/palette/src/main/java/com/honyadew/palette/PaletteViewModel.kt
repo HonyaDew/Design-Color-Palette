@@ -7,6 +7,7 @@ import com.honyadew.palette.contract.PaletteState
 import com.honey.domain.usecase.GetColorByPaletteUseCase
 import com.honey.domain.usecase.GetSettingsUseCase
 import com.honey.domain.usecase.PutSettingsUseCase
+import com.honyadew.model.Palette
 
 class PaletteViewModel(
     private val getSettings : GetSettingsUseCase,
@@ -44,7 +45,7 @@ class PaletteViewModel(
         }
     }
 
-    private fun performLoadPalette(palette: com.honyadew.model.Palette){
+    private fun performLoadPalette(palette: Palette){
         val colorsToShow = getColorsByPalette.invoke(palette)
 
         viewState = PaletteState.Show(colorsToShow, palette)

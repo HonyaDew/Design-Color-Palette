@@ -30,7 +30,7 @@ import org.mockito.kotlin.mock
 class SlidersViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private val saveColorSchemeUseCase = mock<SaveColorSchemeUseCase>()
-    lateinit var viewModel: SlidersViewModel
+    private lateinit var viewModel: SlidersViewModel
 
     @BeforeEach()
     fun setUp(){
