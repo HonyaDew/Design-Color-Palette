@@ -10,6 +10,7 @@ import com.honyadew.saved.contact.SavedState
 import com.honyadew.saved.view.SavedViewLoading
 import com.honyadew.saved.view.SavedViewShow
 import com.honyadew.model.ColorInfo
+import com.honyadew.saved.view.SavedViewNoObjects
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,9 @@ fun SavedScreen (
     when (val state = state.value){
         is SavedState.Loading -> {
             SavedViewLoading(state = state)
+        }
+        is SavedState.NoObjects -> {
+            SavedViewNoObjects(state = state)
         }
         is SavedState.Show -> {
             SavedViewShow(

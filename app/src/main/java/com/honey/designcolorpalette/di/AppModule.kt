@@ -9,9 +9,7 @@ val appModule = module {
 
     factory<SlidersViewModel> {
         SlidersViewModel(
-            saveColorScheme = get(),
-            addColorToList = get(),
-            removeColorFromList = get()
+            saveColorScheme = get()
         )
     }
 
@@ -31,7 +29,6 @@ val appModule = module {
     factory<com.honyadew.saved.SavedViewModel> {
         com.honyadew.saved.SavedViewModel(
             getAllSavedColorScheme = get(),
-            filterColorScheme = get(),
             deleteColorScheme = get()
         )
     }
@@ -42,9 +39,7 @@ val appModule = module {
     }
     factory<com.honyadew.image.ImageViewModel> {
         com.honyadew.image.ImageViewModel(
-            saveColorScheme = get(),
-            addColorToList = get(),
-            removeColorFromList = get()
+            saveColorScheme = get()
         )
     }
     factory<MainActivityViewModel> {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 
+// For unit test in ViewModel
 @SuppressLint("RestrictedApi")
 class ArchTaskLooper {
     fun after(){
