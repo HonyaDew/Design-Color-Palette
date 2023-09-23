@@ -1,7 +1,6 @@
 package com.honyadew.sliders
 
-import android.graphics.ColorSpace.Rgb
-import com.honey.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.domain.usecase.SaveColorSchemeUseCase
 import com.honyadew.ArchTaskLooper
 import com.honyadew.model.ColorInfo
 import com.honyadew.model.CustomColorScheme
@@ -10,11 +9,8 @@ import com.honyadew.sliders.contract.SlidersState
 import com.honyadew.sliders.model.SlidersType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach

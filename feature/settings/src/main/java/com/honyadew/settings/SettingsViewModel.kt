@@ -4,8 +4,8 @@ import com.honyadew.base.BaseViewModel
 import com.honyadew.settings.contract.SettingsEffect
 import com.honyadew.settings.contract.SettingsEvent
 import com.honyadew.settings.contract.SettingsState
-import com.honey.domain.usecase.GetSettingsUseCase
-import com.honey.domain.usecase.PutSettingsUseCase
+import com.honyadew.domain.usecase.GetSettingsUseCase
+import com.honyadew.domain.usecase.PutSettingsUseCase
 
 class SettingsViewModel(
     private val getSettings: GetSettingsUseCase,

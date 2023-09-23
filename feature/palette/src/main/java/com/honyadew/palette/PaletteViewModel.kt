@@ -4,9 +4,9 @@ import com.honyadew.base.BaseViewModel
 import com.honyadew.palette.contract.PaletteEffect
 import com.honyadew.palette.contract.PaletteEvent
 import com.honyadew.palette.contract.PaletteState
-import com.honey.domain.usecase.GetColorByPaletteUseCase
-import com.honey.domain.usecase.GetSettingsUseCase
-import com.honey.domain.usecase.PutSettingsUseCase
+import com.honyadew.domain.usecase.GetColorByPaletteUseCase
+import com.honyadew.domain.usecase.GetSettingsUseCase
+import com.honyadew.domain.usecase.PutSettingsUseCase
 import com.honyadew.model.Palette
 
 class PaletteViewModel(

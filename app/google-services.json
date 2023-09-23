@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289749825009",
+    "project_id": "design-color-palette",
+    "storage_bucket": "design-color-palette.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289749825009:android:853c6f880c976c76f10050",
+        "android_client_info": {
+          "package_name": "com.honyadew.designcolorpalette"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxkQUAWBwuD3d3Bmg5k7pBmnJHkEKbqR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

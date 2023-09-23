@@ -59,7 +59,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.honey.harmony.R
+import com.honyadew.harmony.R
 import com.honyadew.harmony.contract.HarmonyMode
 import com.honyadew.harmony.contract.HarmonyState
 import com.honyadew.designsystem.theme.colorSelect

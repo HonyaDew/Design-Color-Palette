@@ -5,7 +5,7 @@ import com.honyadew.harmony.contract.HarmonyEffect
 import com.honyadew.harmony.contract.HarmonyEvent
 import com.honyadew.harmony.contract.HarmonyMode
 import com.honyadew.harmony.contract.HarmonyState
-import com.honey.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.domain.usecase.SaveColorSchemeUseCase
 import kotlinx.coroutines.launch
 
 class HarmonyViewModel(

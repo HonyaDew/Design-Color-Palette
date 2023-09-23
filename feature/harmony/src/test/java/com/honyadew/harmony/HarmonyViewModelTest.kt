@@ -1,7 +1,7 @@
 package com.honyadew.harmony
 
 import androidx.compose.ui.graphics.Color
-import com.honey.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.domain.usecase.SaveColorSchemeUseCase
 import com.honyadew.ArchTaskLooper
 import com.honyadew.harmony.contract.HarmonyEvent
 import com.honyadew.harmony.contract.HarmonyMode

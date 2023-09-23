@@ -2,6 +2,8 @@ object Deps {
 
     object Plugins {
         const val application = "com.android.application"
+        const val gms = "com.google.gms.google-services"
+        const val firebaseCrashlytics = "com.google.firebase.crashlytics"
         const val library = "com.android.library"
         const val javaLibraty = "java-library"
         const val kotlinAndroid = "org.jetbrains.kotlin.android"
@@ -12,15 +14,19 @@ object Deps {
     }
 
     object ClassPath {
-        const val versionGradle = "8.0.2"
+        const val versionGradle = "8.1.1"
         const val versionKotlin = "1.8.20"
         const val versionKsp = "1.8.21-1.0.11"
         const val versionSerialization = "1.5.1"
+        const val versionGms = "4.3.15"
+        const val versionCrashlytics = "2.9.9"
 
         const val androidGradlePlugin = "com.android.tools.build:gradle:$versionGradle"
         const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionKotlin"
         const val kspGradlePlugin = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:$versionKsp"
         const val serializationGradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:$versionSerialization"
+        const val gmsGradlePlugin = "com.google.gms:google-services:$versionGms"
+        const val crashlyticsGradlePlugin = "com.google.firebase:firebase-crashlytics-gradle:$versionCrashlytics"
     }
 
     object Core{
@@ -93,6 +99,19 @@ object Deps {
 
         const val koin = "io.insert-koin:koin-android:$version"
         const val compose = "io.insert-koin:koin-androidx-compose:$versionCompose"
+    }
+
+    object Firebase {
+        object Version{
+            // When using the BoM, don't specify versions in Firebase dependencies
+            const val bom = "32.3.1"
+        }
+        //implementation(platform(...)
+        const val bom = "com.google.firebase:firebase-bom:${Version.bom}"
+
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+
     }
 
     object Thirdparty{

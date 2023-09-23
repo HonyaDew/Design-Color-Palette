@@ -6,8 +6,8 @@ import com.honyadew.saved.contact.SavedEffect
 import com.honyadew.saved.contact.SavedEvent
 import com.honyadew.saved.contact.SavedState
 import com.honyadew.saved.model.SavedTabs
-import com.honey.domain.usecase.DeleteColorSchemeUseCase
-import com.honey.domain.usecase.GetAllColorSchemeUseCase
+import com.honyadew.domain.usecase.DeleteColorSchemeUseCase
+import com.honyadew.domain.usecase.GetAllColorSchemeUseCase
 import com.honyadew.extencion.filterApply
 import com.honyadew.model.ColorSchemeFilters
 import com.honyadew.model.CustomColorScheme

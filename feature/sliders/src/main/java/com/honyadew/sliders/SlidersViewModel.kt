@@ -1,12 +1,11 @@
 package com.honyadew.sliders
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.honyadew.base.BaseViewModel
 import com.honyadew.sliders.contract.SlidersEffect
 import com.honyadew.sliders.contract.SlidersEvent
 import com.honyadew.sliders.contract.SlidersState
-import com.honey.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.domain.usecase.SaveColorSchemeUseCase
 import com.honyadew.extencion.addColor
 import com.honyadew.extencion.removeColor
 import com.honyadew.sliders.model.SlidersType

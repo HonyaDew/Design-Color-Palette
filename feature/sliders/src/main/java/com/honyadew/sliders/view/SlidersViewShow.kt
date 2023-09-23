@@ -36,7 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.honey.sliders.R
+import com.honyadew.sliders.R
 import com.honyadew.designsystem.view.DcpSlider
 import com.honyadew.designsystem.view.RowToSave
 import com.honyadew.sliders.contract.SlidersState
@@ -44,8 +44,6 @@ import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.string
 import com.honyadew.extencion.toHexString
 import com.honyadew.extencion.toStringRGBA
-import com.honyadew.model.ColorInfo
-import com.honyadew.model.CustomColorScheme
 import com.honyadew.sliders.model.SlidersType
 import kotlin.math.roundToInt
 

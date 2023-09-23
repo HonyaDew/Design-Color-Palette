@@ -70,7 +70,7 @@ import androidx.compose.ui.unit.sp
 import com.github.skydoves.colorpicker.compose.ColorPickerController
 import com.github.skydoves.colorpicker.compose.ImageColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
-import com.honey.image.R
+import com.honyadew.image.R
 import com.honyadew.extencion.extractColors
 import com.honyadew.designsystem.view.DcpSlider
 import com.honyadew.designsystem.view.RowToSave

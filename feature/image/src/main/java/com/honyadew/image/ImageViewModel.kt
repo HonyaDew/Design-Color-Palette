@@ -6,8 +6,8 @@ import com.honyadew.base.BaseViewModel
 import com.honyadew.image.contract.ImageEffect
 import com.honyadew.image.contract.ImageEvent
 import com.honyadew.image.contract.ImageState
-import com.honey.domain.usecase.SaveColorSchemeUseCase
-import com.honey.image.R
+import com.honyadew.domain.usecase.SaveColorSchemeUseCase
+import com.honyadew.image.R
 import com.honyadew.extencion.addColor
 import com.honyadew.extencion.removeColor
 import com.honyadew.extencion.string

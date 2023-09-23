@@ -2,7 +2,7 @@ package com.honyadew.saved.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.honey.saved.R
+import com.honyadew.saved.R
 import com.honyadew.model.ColorSchemeFilters
 
 enum class SavedTabs(

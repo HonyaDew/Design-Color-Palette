@@ -3,7 +3,7 @@ package com.honyadew.harmony.contract
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
-import com.honey.harmony.R
+import com.honyadew.harmony.R
 import com.honyadew.harmony_color_picker.model.ColorHarmonyMode
 
 sealed class HarmonyState : com.honyadew.base.ViewState {

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.model.ColorOfMaterial
 import com.honyadew.model.Palette
+import com.honyadew.settings.R
 import com.honyadew.model.ThemeConfig
-import com.honey.settings.R
 
 @Composable
 fun SettingsView(

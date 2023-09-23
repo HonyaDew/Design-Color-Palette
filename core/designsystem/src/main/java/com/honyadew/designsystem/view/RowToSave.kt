@@ -34,7 +34,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.honey.designsystem.R
+import com.honyadew.designsystem.R
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.color
 import com.honyadew.model.ColorInfo

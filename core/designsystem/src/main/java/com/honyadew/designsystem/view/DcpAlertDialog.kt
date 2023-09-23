@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.honey.designsystem.R
+import com.honyadew.designsystem.R
 import com.honyadew.designsystem.theme.colorSelect
 
 @Composable

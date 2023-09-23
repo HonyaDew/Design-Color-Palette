@@ -9,7 +9,8 @@ buildscript {
         classpath(Deps.ClassPath.kotlinGradlePlugin)
         classpath(Deps.ClassPath.kspGradlePlugin)
         classpath(Deps.ClassPath.serializationGradlePlugin)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
+        classpath(Deps.ClassPath.gmsGradlePlugin)
+        classpath(Deps.ClassPath.crashlyticsGradlePlugin)
     }
 }
 

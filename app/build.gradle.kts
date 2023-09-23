@@ -1,5 +1,7 @@
 plugins {
     id(Deps.Plugins.application)
+    id(Deps.Plugins.gms)
+    id(Deps.Plugins.firebaseCrashlytics)
     id(Deps.Plugins.kotlinAndroid)
     id(Deps.Plugins.ksp)
 }
@@ -95,6 +97,10 @@ dependencies {
     implementation(Deps.Koin.koin)
     implementation(Deps.Koin.compose)
 
+    implementation(platform(Deps.Firebase.bom))
+    implementation(Deps.Firebase.analytics)
+    implementation(Deps.Firebase.crashlytics)
+
     implementation(Deps.Thirdparty.imageCrop)
     implementation(Deps.Thirdparty.imagePicker)
     implementation(Deps.Thirdparty.paletteApi)
@@ -105,6 +111,7 @@ dependencies {
     testImplementation(Deps.Test.mockitoKotlin)
     testImplementation(Deps.Test.mockitoInline)
     testRuntimeOnly(Deps.Test.mockitoRuntimeOnly)
+
 
 //    testImplementation(Deps.Test.junit)
 //    testImplementation(Deps.Test.mockk)

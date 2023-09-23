@@ -1,7 +1,7 @@
 package com.honyadew.settings
 
-import com.honey.domain.usecase.GetSettingsUseCase
-import com.honey.domain.usecase.PutSettingsUseCase
+import com.honyadew.domain.usecase.GetSettingsUseCase
+import com.honyadew.domain.usecase.PutSettingsUseCase
 import com.honyadew.ArchTaskLooper
 import com.honyadew.model.EditableSettings
 import com.honyadew.model.Palette

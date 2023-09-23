@@ -3,7 +3,7 @@ package com.honyadew.extencion
 import android.graphics.Bitmap
 import androidx.compose.ui.graphics.Color
 import androidx.palette.graphics.Palette
-import com.honey.common.R
+import com.honyadew.common.R
 import com.honyadew.model.ExtractColor
 
 fun Bitmap.extractColors() : List<ExtractColor> {

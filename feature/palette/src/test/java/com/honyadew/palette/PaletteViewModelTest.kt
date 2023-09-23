@@ -1,8 +1,8 @@
 package com.honyadew.palette
 
-import com.honey.domain.usecase.GetColorByPaletteUseCase
-import com.honey.domain.usecase.GetSettingsUseCase
-import com.honey.domain.usecase.PutSettingsUseCase
+import com.honyadew.domain.usecase.GetColorByPaletteUseCase
+import com.honyadew.domain.usecase.GetSettingsUseCase
+import com.honyadew.domain.usecase.PutSettingsUseCase
 import com.honyadew.ArchTaskLooper
 import com.honyadew.model.ColorInfo
 import com.honyadew.model.ColorOfMaterial
