@@ -2,6 +2,7 @@ package com.honyadew.designcolorpalette
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.honyadew.GlobalSignals
 import com.honyadew.base.ViewState
 import com.honyadew.domain.usecase.GetSettingsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,7 @@ class MainActivityViewModel(
 
     init {
         viewModelScope.launch {
-            showSettingsState.collect(){
+            GlobalSignals.showSettingsState.collect(){
                 _viewState.value = MainActivityState.Show(editableSettings = getSettings.invoke())
             }
         }

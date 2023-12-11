@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,9 +33,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//TODO maybe should find another way
-var isDarkTheme : Boolean = false
-val showSettingsState = MutableStateFlow(false)
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
@@ -56,6 +56,8 @@ class MainActivity : ComponentActivity() {
             MainActivityState.Loading -> {splashScreen.setKeepOnScreenCondition{true}}
             is MainActivityState.Show -> {
                 setContent {
+                    var isDarkTheme by remember { mutableStateOf(false) }
+
                     isDarkTheme = shouldDarkTheme(state = state)
 
                     val systemUiController = rememberSystemUiController()
@@ -71,7 +73,6 @@ class MainActivity : ComponentActivity() {
                         DcpApp(
                             windowSizeClass = calculateWindowSizeClass(this)
                         )
-//                        Box(modifier = Modifier.size(128.dp).background(colorSelect()))
                     }
                 }
             }
@@ -104,10 +105,6 @@ fun shouldDarkTheme(
     }
 }
 
-//private fun main(){
-//    //simple convert colors to DcpColorString
-//    println("--50 ${Color(0xFF).string()}")
-//}
 
 
 

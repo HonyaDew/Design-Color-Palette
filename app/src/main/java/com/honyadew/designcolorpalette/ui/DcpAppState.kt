@@ -1,5 +1,6 @@
 package com.honyadew.designcolorpalette.ui
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
@@ -9,12 +10,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.honyadew.designcolorpalette.showSettingsState
+import com.honyadew.GlobalSignals
 import com.honyadew.designcolorpalette.ui.navigation.TopLevelDestination
 import com.honyadew.harmony.navigation.navigateToHarmony
 import com.honyadew.image.navigation.navigateToImage
 import com.honyadew.palette.navigation.navigateToPalette
-import com.honyadew.palette.showSettingsInfo
 import com.honyadew.saved.navigation.navigateToSaved
 import com.honyadew.sliders.navigation.navigateToSliders
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +37,7 @@ class DcpAppState(
     val windowSizeClass: WindowSizeClass
 ) {
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
+
 
     val currentDestination: NavDestination?
         @Composable get() = navController
@@ -63,8 +64,7 @@ class DcpAppState(
     val showSettingsDialog : State<Boolean> = _showSettingsDialog
     fun setShowSettingsDialog(show: Boolean) {
         _showSettingsDialog.value = show
-        showSettingsState.value = show
-        showSettingsInfo.value = show
+        GlobalSignals.showSettingsState.value = show
     }
 
 

@@ -11,9 +11,7 @@ import com.honyadew.database.unil.ColorInfoConverter
 import com.honyadew.database.unil.PaletteTypeConverter
 import com.honyadew.database.unil.SourceConverter
 
-//TODO remove type converters
 @Dao
-//@TypeConverters(ColorInfoConverter::class, SourceConverter::class, PaletteTypeConverter::class)
 interface SavedDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -17,9 +17,9 @@ import com.honyadew.database.unil.SourceConverter
         CustomColorSchemeEntity::class
     ],
     version = 2,
-    autoMigrations = [
-        AutoMigration(from = 1, to = 2)
-    ],
+//    autoMigrations = [
+//        AutoMigration(from = 1, to = 2)
+//    ],
     exportSchema = true
 )
 @TypeConverters(

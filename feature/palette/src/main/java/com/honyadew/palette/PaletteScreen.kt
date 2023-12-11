@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
+import com.honyadew.GlobalSignals
 import com.honyadew.palette.contract.PaletteEffect
 import com.honyadew.palette.contract.PaletteEvent
 import com.honyadew.palette.contract.PaletteState
@@ -13,8 +14,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-
-val showSettingsInfo = MutableStateFlow(false)
 
 @Composable
 fun PaletteScreen(
@@ -55,8 +54,7 @@ fun PaletteScreen(
     //Perform reload palettes, when settings dialog is closing
     SideEffect {
         coroutine.launch {
-            //TODO try find another way
-            showSettingsInfo.collect(){ show->
+            GlobalSignals.showSettingsState.collect(){ show->
                 if (!show) onEventSend.invoke(PaletteEvent.UpdatePalette)
             }
         }

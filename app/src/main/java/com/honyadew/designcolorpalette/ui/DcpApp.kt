@@ -5,13 +5,17 @@ import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import com.honyadew.GlobalSignals
 import com.honyadew.designcolorpalette.R
 import com.honyadew.designcolorpalette.ui.navigation.DcpNavHost
 import com.honyadew.designcolorpalette.ui.navigation.TopLevelDestination
@@ -25,8 +29,18 @@ fun DcpApp(
     windowSizeClass: WindowSizeClass,
     appState: DcpAppState = rememberDcpAppState(windowSizeClass = windowSizeClass)
 ){
-    DcpBackground {
+    val snackbarHostState = remember {SnackbarHostState()}
+    val snackbarText = GlobalSignals.snackbarHostState.collectAsState()
+    LaunchedEffect(snackbarText) {
+        if (snackbarText.value.isNotEmpty()){
+            snackbarHostState.showSnackbar(
+                message = snackbarText.value,
+                duration = SnackbarDuration.Short
+            )
+        }
+    }
 
+    DcpBackground {
         if (appState.showSettingsDialog.value){
             com.honyadew.settings.SettingsDialogRoute(onDismiss = {
                 appState.setShowSettingsDialog(
@@ -39,7 +53,9 @@ fun DcpApp(
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.onBackground,
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
-            snackbarHost = {/*TODO*/},
+            snackbarHost = {
+                SnackbarHost(hostState = snackbarHostState)
+            },
             bottomBar = {
                 if (appState.showBottomBar){
                     DcpBottomBar(
@@ -165,4 +181,10 @@ fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestin
         it.route?.contains(destination.name, true) ?: false
     } ?: false
 
+@Composable
+fun DcpSnackbar(
+    snackbarHostState: SnackbarHostState
+) {
+    SnackbarHost(hostState = snackbarHostState)
+}
 
