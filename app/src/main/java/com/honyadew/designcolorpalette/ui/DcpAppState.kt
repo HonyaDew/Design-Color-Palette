@@ -18,6 +18,8 @@ import com.honyadew.palette.navigation.navigateToPalette
 import com.honyadew.saved.navigation.navigateToSaved
 import com.honyadew.sliders.navigation.navigateToSliders
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @Composable
 fun rememberDcpAppState(
@@ -37,7 +39,6 @@ class DcpAppState(
     val windowSizeClass: WindowSizeClass
 ) {
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
-
 
     val currentDestination: NavDestination?
         @Composable get() = navController

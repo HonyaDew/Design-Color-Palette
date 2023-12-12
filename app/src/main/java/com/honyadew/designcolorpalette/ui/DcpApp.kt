@@ -31,12 +31,13 @@ fun DcpApp(
 ){
     val snackbarHostState = remember {SnackbarHostState()}
     val snackbarText = GlobalSignals.snackbarHostState.collectAsState()
-    LaunchedEffect(snackbarText) {
+    LaunchedEffect(snackbarText.value) {
         if (snackbarText.value.isNotEmpty()){
             snackbarHostState.showSnackbar(
                 message = snackbarText.value,
                 duration = SnackbarDuration.Short
             )
+            GlobalSignals.snackbarHostState.emit("")
         }
     }
 

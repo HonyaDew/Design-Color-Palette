@@ -30,10 +30,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.honyadew.GlobalSignals
 import com.honyadew.designsystem.R
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.color
@@ -122,6 +125,7 @@ fun RowToSave(
                     IconButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
+                            GlobalSignals.snackbarHostState.tryEmit("Saved")
                             onSaveColorScheme.invoke(
                                 CustomColorScheme(
                                     colors = colorsToSave,
@@ -137,4 +141,14 @@ fun RowToSave(
         }
 
     }
+}
+
+@Preview
+@Composable
+private fun RowToSavePreview() {
+    RowToSave(
+        colorsToSave = listOf(ColorInfo(value = Color.Blue.toString(), name = "")),
+        onSaveColorScheme = {},
+        onRemoveFromToSaveList = {}
+    )
 }
