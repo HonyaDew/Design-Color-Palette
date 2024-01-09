@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.honyadew.GlobalSignals
 import com.honyadew.sliders.R
 import com.honyadew.designsystem.view.DcpSlider
 import com.honyadew.designsystem.view.RowToSave
@@ -44,6 +45,7 @@ import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.string
 import com.honyadew.extencion.toHexString
 import com.honyadew.extencion.toStringRGBA
+import com.honyadew.model.ColorInfo
 import com.honyadew.sliders.model.SlidersType
 import kotlin.math.roundToInt
 
@@ -251,7 +253,11 @@ private fun CopyAndStatsSliders(
             val hex = totalColor.toHexString()
 
             Button(
-                onClick = { clipboardManager.setText(AnnotatedString(buildString { append(rgbaOrHsv) })) },
+                onClick = {
+                    clipboardManager.setText(AnnotatedString(buildString { append(rgbaOrHsv) }))
+                    GlobalSignals.snackbarHostState.tryEmit("Copied: $rgbaOrHsv")
+
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier
                     .weight(0.6f)
@@ -264,7 +270,10 @@ private fun CopyAndStatsSliders(
             }
             Spacer(modifier = Modifier.weight(0.05f))
             Button(
-                onClick = { clipboardManager.setText(AnnotatedString(buildString { append(hex) })) },
+                onClick = {
+                    clipboardManager.setText(AnnotatedString(buildString { append(hex) }))
+                    GlobalSignals.snackbarHostState.tryEmit("Copied: $hex")
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier
                     .weight(0.6f)
@@ -287,7 +296,7 @@ private fun SlidersCell(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
-    onAddToSaveList: (color: com.honyadew.model.ColorInfo) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
@@ -296,7 +305,7 @@ private fun SlidersCell(
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier.padding(start = 8.dp),
                 onClick = { onAddToSaveList.invoke(
-                    com.honyadew.model.ColorInfo(
+                    ColorInfo(
                         value = getColorBySliders(
                             state.type,
                             state.sliderOne,

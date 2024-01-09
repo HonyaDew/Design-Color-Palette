@@ -26,8 +26,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,6 +44,7 @@ import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.color
 import com.honyadew.model.ColorInfo
 import com.honyadew.model.CustomColorScheme
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -53,6 +56,13 @@ fun RowToSave(
     showNameField: MutableState<Boolean> = remember{ mutableStateOf(false) },
     textNameField: MutableState<String> = remember{ mutableStateOf("") }
 ) {
+    var clean by remember { mutableStateOf(false) }
+    LaunchedEffect(clean){
+        delay(600)
+        textNameField.value = ""
+        showNameField.value = false
+    }
+
     AnimatedVisibility(
         modifier = modifier,
         visible =  colorsToSave.isNotEmpty(),
@@ -125,13 +135,14 @@ fun RowToSave(
                     IconButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            GlobalSignals.snackbarHostState.tryEmit("Saved")
                             onSaveColorScheme.invoke(
                                 CustomColorScheme(
                                     colors = colorsToSave,
                                     name = textNameField.value,
                                 )
                             )
+                            GlobalSignals.snackbarHostState.tryEmit("Saved")
+                            clean = !clean
                         }
                     ) {
                         Icon(painter = painterResource(id = R.drawable.ic_save_24), contentDescription = "Save")

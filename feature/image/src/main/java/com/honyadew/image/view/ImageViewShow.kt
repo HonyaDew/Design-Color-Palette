@@ -70,6 +70,7 @@ import androidx.compose.ui.unit.sp
 import com.github.skydoves.colorpicker.compose.ColorPickerController
 import com.github.skydoves.colorpicker.compose.ImageColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
+import com.honyadew.GlobalSignals
 import com.honyadew.image.R
 import com.honyadew.extencion.extractColors
 import com.honyadew.designsystem.view.DcpSlider
@@ -330,10 +331,14 @@ private fun FunctionalRow(
     Column(modifier = modifier, verticalArrangement = Arrangement.SpaceBetween) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.padding(16.dp)) {
             Button(
-                onClick = { clipboardManager.setText(AnnotatedString(buildString {
-                    append(selectedColor.copy(alpha = alphaValueState.value)
-                        .toStringRGBA())
-                })) },
+                onClick = {
+                    val value = selectedColor.copy(alpha = alphaValueState.value).toStringRGBA()
+                    clipboardManager.setText(AnnotatedString(buildString {
+                        append(value)
+                    }))
+                    GlobalSignals.snackbarHostState.tryEmit("Copied: $value")
+
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier
                     .weight(0.6f)
@@ -347,10 +352,13 @@ private fun FunctionalRow(
             }
             Spacer(modifier = Modifier.weight(0.05f))
             Button(
-                onClick = { clipboardManager.setText(AnnotatedString(buildString {
-                    append(selectedColor.copy(alpha = alphaValueState.value)
-                        .toHexString())
-                })) },
+                onClick = {
+                    val value = selectedColor.copy(alpha = alphaValueState.value).toHexString()
+                    clipboardManager.setText(AnnotatedString(buildString {
+                        append(value)
+                    }))
+                    GlobalSignals.snackbarHostState.tryEmit("Copied: $value")
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = colorSelect(saturation = 90)),
                 modifier = Modifier
                     .weight(0.6f)
