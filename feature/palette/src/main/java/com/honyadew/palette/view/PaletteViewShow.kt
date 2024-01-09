@@ -109,7 +109,7 @@ fun SubPaletteMaterialDialog(
 ) {
     DcpAlertDialog(
         title = stringResource(id = R.string.colors_of_material),
-        onDismiss = onDismiss
+        onDismiss = onDismiss,
     ) {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 96.dp),

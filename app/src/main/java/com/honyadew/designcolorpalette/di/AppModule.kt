@@ -29,7 +29,8 @@ val appModule = module {
     factory<com.honyadew.saved.SavedViewModel> {
         com.honyadew.saved.SavedViewModel(
             getAllSavedColorScheme = get(),
-            deleteColorScheme = get()
+            deleteColorScheme = get(),
+            changeSchemeTitle = get()
         )
     }
     factory<com.honyadew.harmony.HarmonyViewModel> {

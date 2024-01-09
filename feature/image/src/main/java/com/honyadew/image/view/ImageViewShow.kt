@@ -490,7 +490,7 @@ fun TabOfDropDownMenu(
                         CustomColorScheme(
                             colors = extractedColors,
                             name = basicName,
-                            source = com.honyadew.model.ColorSchemeSource.ExtractAuto
+                            source = ColorSchemeSource.ExtractAuto
                         )
                     )
                 }
@@ -576,7 +576,7 @@ fun DropDownMenu(
                                 CustomColorScheme(
                                     colors = extractedColors,
                                     name = textNameField.value,
-                                    source = com.honyadew.model.ColorSchemeSource.ExtractAuto
+                                    source = ColorSchemeSource.ExtractAuto
                                 )
                             )
                         },

@@ -44,6 +44,9 @@ fun SavedScreen (
                 },
                 onChangeTab = {newTab -> 
                     onEventSend.invoke(SavedEvent.ChangeFilterTab(newTab))
+                },
+                onEditTitle = {newTitle, scheme ->
+                    onEventSend.invoke(SavedEvent.SetNewTitle(newTitle, scheme))
                 }
             )
         }

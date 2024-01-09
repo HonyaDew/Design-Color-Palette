@@ -42,16 +42,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun SavedViewShow(
     state: SavedState.Show,
-    onDeleteClick: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
-    onOpenColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
+    onDeleteClick: (colorScheme: CustomColorScheme) -> Unit,
+    onOpenColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     onDismissOpen: () -> Unit,
-    onChangeTab: (newTab: SavedTabs) -> Unit
+    onChangeTab: (newTab: SavedTabs) -> Unit,
+    onEditTitle: (newTitle: String, scheme: CustomColorScheme) -> Unit
 ) {
 
     Box(modifier = Modifier.fillMaxSize()){
         state.openedColorScheme?.let { colorScheme ->
-            //TODO, add a way to edit name (for example pass here nullable function)
-            SavedDialog(colorScheme = colorScheme, onDismiss = onDismissOpen)
+            SavedDialog(colorScheme = colorScheme, onDismiss = onDismissOpen, onEditTitle = onEditTitle)
         }
         Column {
             SavedTabRow(
@@ -70,9 +70,9 @@ fun SavedViewShow(
 //TODO MAKE THIS REAL HORIZONTAL_PAGER, USING rememberPagerState and others
 @Composable
 private fun SavedPager(
-    colorSchemes : List<com.honyadew.model.CustomColorScheme>,
-    onDeleteClick: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
-    onOpenColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
+    colorSchemes : List<CustomColorScheme>,
+    onDeleteClick: (colorScheme: CustomColorScheme) -> Unit,
+    onOpenColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box( modifier = modifier) {
@@ -106,13 +106,15 @@ private fun SavedPager(
 
 @Composable
 private fun SavedDialog(
-    colorScheme: com.honyadew.model.CustomColorScheme,
+    colorScheme: CustomColorScheme,
     onDismiss: () -> Unit,
+    onEditTitle: (newTitle: String, scheme: CustomColorScheme) -> Unit,
     modifier: Modifier = Modifier
 ) {
     DcpAlertDialog(
         title = colorScheme.name,
         onDismiss = onDismiss,
+        onEditTitle = {onEditTitle(it, colorScheme)}
     ) {
         LazyVerticalGrid(columns = GridCells.Adaptive(minOf(96.dp))){
             colorScheme.colors.forEach { colorInfo ->
@@ -250,7 +252,8 @@ private fun PreviewSavedViewShow(){
         onDeleteClick = {},
         onOpenColorScheme = {},
         onDismissOpen = { /*TODO*/ },
-        onChangeTab = {}
+        onChangeTab = {},
+        onEditTitle = {it1,it2 ->}
     )
 }
 

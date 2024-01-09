@@ -1,5 +1,6 @@
 package com.honyadew.saved.contact
 
+import com.honyadew.model.CustomColorScheme
 import com.honyadew.saved.model.SavedTabs
 
 sealed class SavedEvent: com.honyadew.base.ViewEvent {
@@ -8,5 +9,6 @@ sealed class SavedEvent: com.honyadew.base.ViewEvent {
     object CloseColorScheme : SavedEvent()
     object Refresh : SavedEvent()
     data class ChangeFilterTab(val tab: SavedTabs) : SavedEvent()
+    data class SetNewTitle(val title: String, val scheme: CustomColorScheme) : SavedEvent()
 
 }

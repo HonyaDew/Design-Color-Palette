@@ -2,6 +2,7 @@ package com.honyadew.saved
 
 import androidx.lifecycle.viewModelScope
 import com.honyadew.base.BaseViewModel
+import com.honyadew.domain.usecase.ChangeSchemeTitleUseCase
 import com.honyadew.saved.contact.SavedEffect
 import com.honyadew.saved.contact.SavedEvent
 import com.honyadew.saved.contact.SavedState
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 
 class SavedViewModel(
     private val getAllSavedColorScheme: GetAllColorSchemeUseCase,
-    private val deleteColorScheme: DeleteColorSchemeUseCase
+    private val deleteColorScheme: DeleteColorSchemeUseCase,
+    private val changeSchemeTitle: ChangeSchemeTitleUseCase
 ) : BaseViewModel<SavedEvent, SavedState, SavedEffect>(initialState = SavedState.Loading) {
 
     private val allColorSchemesState = MutableStateFlow<List<CustomColorScheme>?>(null)
@@ -79,7 +81,17 @@ class SavedViewModel(
             SavedEvent.CloseColorScheme -> {
                 performOpenScheme(state)
             }
+            is SavedEvent.SetNewTitle -> {
+               performSetNewTitle(event.title, event.scheme)
+            }
             else -> {}
+        }
+    }
+
+    private fun performSetNewTitle(newTitle: String, scheme: CustomColorScheme) {
+        viewModelScope.launch {
+            changeSchemeTitle.invoke(newTitle, scheme)
+            loadColorSchemes()
         }
     }
 
