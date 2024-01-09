@@ -20,6 +20,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.honyadew.GlobalSignals
 import com.honyadew.designsystem.R
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.color
@@ -102,9 +103,10 @@ fun DcpColorCard(
                 Text(text = color.value.color().toHexString(), color = colorSelect(inverse = true))
             }
             IconButton(onClick = {
+                GlobalSignals.snackbarHostState.tryEmit("Copied: ${color.value.color().toHexString()}")
                 clipboardManager.setText(
                     AnnotatedString(buildString {
-                        //In future here can be another export types
+                        //TODO In future here can be another export types
                         append(color.value.color().toHexString())
                     })
                 )

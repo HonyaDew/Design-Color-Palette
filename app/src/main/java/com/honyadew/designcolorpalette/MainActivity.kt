@@ -1,6 +1,8 @@
 package com.honyadew.designcolorpalette
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -29,6 +31,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.honyadew.designcolorpalette.ui.DcpApp
 import com.honyadew.designsystem.theme.DcpTheme
 import com.honyadew.designsystem.theme.isDarkThemeColorSelect
+import com.honyadew.model.ThemeConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -65,7 +68,7 @@ class MainActivity : ComponentActivity() {
 
                     WindowCompat.setDecorFitsSystemWindows(window, false)
 
-                    LightStatusBar(darkTheme = isDarkTheme)
+                    LightStatusBar(darkTheme = isDarkTheme, window)
 
                     isDarkThemeColorSelect = isDarkTheme
 
@@ -82,13 +85,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LightStatusBar(
-    darkTheme : Boolean
+    darkTheme : Boolean,
+    window: Window
 ){
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            //TODO
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 }
@@ -99,9 +102,9 @@ fun shouldDarkTheme(
 ) : Boolean = when(state){
     MainActivityState.Loading -> isSystemInDarkTheme()
     is MainActivityState.Show -> when(state.editableSettings.themeConfig){
-        com.honyadew.model.ThemeConfig.LIGHT -> false
-        com.honyadew.model.ThemeConfig.DARK -> true
-        com.honyadew.model.ThemeConfig.DEFAULT -> isSystemInDarkTheme()
+        ThemeConfig.LIGHT -> false
+        ThemeConfig.DARK -> true
+        ThemeConfig.DEFAULT -> isSystemInDarkTheme()
     }
 }
 

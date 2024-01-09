@@ -26,7 +26,6 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color.Black
 )
 
-//TODO Find another way
 var isDarkThemeColorSelect : Boolean = false
 //Using this color select only for reason - we can use only black and white
 @Composable

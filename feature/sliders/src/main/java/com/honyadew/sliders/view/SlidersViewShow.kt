@@ -325,28 +325,35 @@ private fun SlidersCell(
             onValueChange = onFirstSliderChange,
             steps = state.type.assetOfFirst.steps,
             color = state.type.assetOfFirst.color ?: colorSelect(inverse = true),
-            leadingName = state.type.assetOfFirst.name
+            leadingName = state.type.assetOfFirst.name,
+            fullName = state.type.assetOfFirst.fullName
         )
         DcpSlider(
             value = state.sliderTwo,
             onValueChange = onSecondSliderChange,
             steps = state.type.assetOfSecond.steps,
             color = state.type.assetOfSecond.color ?: colorSelect(inverse = true),
-            leadingName = state.type.assetOfSecond.name
+            leadingName = state.type.assetOfSecond.name,
+            fullName = state.type.assetOfSecond.fullName
+
         )
         DcpSlider(
             value = state.sliderThree,
             onValueChange = onThirdSliderChange,
             steps = state.type.assetOfThird.steps,
             color = state.type.assetOfThird.color ?: colorSelect(inverse = true),
-            leadingName = state.type.assetOfThird.name
+            leadingName = state.type.assetOfThird.name,
+            fullName = state.type.assetOfThird.fullName
+
         )
         DcpSlider(
             value = state.sliderAlpha,
             onValueChange = onAlphaSliderChange,
             steps = state.type.assetOfAlpha.steps,
             color = state.type.assetOfAlpha.color ?: colorSelect(inverse = true),
-            leadingName = state.type.assetOfAlpha.name
+            leadingName = state.type.assetOfAlpha.name,
+            fullName = state.type.assetOfAlpha.fullName
+
         )
 
     }

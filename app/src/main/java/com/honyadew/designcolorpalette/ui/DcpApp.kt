@@ -20,6 +20,7 @@ import com.honyadew.designcolorpalette.R
 import com.honyadew.designcolorpalette.ui.navigation.DcpNavHost
 import com.honyadew.designcolorpalette.ui.navigation.TopLevelDestination
 import com.honyadew.designsystem.view.DcpBackground
+import com.honyadew.settings.SettingsDialogRoute
 
 val LocalActiveColor = compositionLocalOf<Boolean> { false }
 
@@ -43,7 +44,7 @@ fun DcpApp(
 
     DcpBackground {
         if (appState.showSettingsDialog.value){
-            com.honyadew.settings.SettingsDialogRoute(onDismiss = {
+            SettingsDialogRoute(onDismiss = {
                 appState.setShowSettingsDialog(
                     false
                 )

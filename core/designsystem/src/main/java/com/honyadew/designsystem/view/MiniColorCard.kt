@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.honyadew.GlobalSignals
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.color
 import com.honyadew.extencion.string
@@ -40,6 +41,7 @@ fun MiniColorCard(
         modifier = modifier
             .widthIn(min = 64.dp, max = 128.dp)
             .clickable {
+                GlobalSignals.snackbarHostState.tryEmit("Copied: ${color.value.color().toHexString()}")
                 clipboardManager.setText(
                     AnnotatedString(buildString {
                         append(

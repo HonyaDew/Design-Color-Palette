@@ -414,7 +414,8 @@ private fun FunctionalRow(
                 alphaValueState.value = newValue
             },
             steps = 100,
-            color = colorSelect(saturation = 80, inverse = true)
+            color = colorSelect(saturation = 80, inverse = true),
+            fullName = "Alpha"
         )
     }
 }

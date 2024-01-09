@@ -60,7 +60,6 @@ class DcpAppState(
     val showNavRail: Boolean
         get() = !showBottomBar
 
-    //TODO idk this looks ugly and I don't know for what
     private val _showSettingsDialog = mutableStateOf(false)
     val showSettingsDialog : State<Boolean> = _showSettingsDialog
     fun setShowSettingsDialog(show: Boolean) {
