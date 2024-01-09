@@ -83,17 +83,19 @@ import com.honyadew.extencion.string
 import com.honyadew.extencion.toHexString
 import com.honyadew.extencion.toStringRGBA
 import com.honyadew.model.ColorInfo
+import com.honyadew.model.ColorSchemeSource
+import com.honyadew.model.CustomColorScheme
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ImageViewShow(
     state: ImageState.Show,
-    onSaveColorScheme: (colorScheme : com.honyadew.model.CustomColorScheme) -> Unit,
+    onSaveColorScheme: (colorScheme : CustomColorScheme) -> Unit,
     onRemoveFromToSave: (colorInfo: ColorInfo) -> Unit,
     onMoveToSave: (colorInfo: ColorInfo) -> Unit,
     onChangeSelectedColor: (color: Color) -> Unit,
-    onExtractColor: (extractedColors: List<com.honyadew.model.ExtractColor>) -> Unit,
+    onExtractColor: (extractedColors: List<ColorInfo>) -> Unit,
     onSetBitmap: (bitmap: Bitmap)-> Unit,
     activity: Activity = LocalContext.current as Activity,
     pickerController: ColorPickerController = rememberColorPickerController(),
@@ -156,7 +158,7 @@ fun ImageViewShow(
         }
         AnimatedVisibility(
             modifier = Modifier
-                .padding(top = 16.dp)
+                .padding(top = 20.dp)
                 .align(
                     if (portraitMode) Alignment.TopStart else Alignment.TopEnd
                 ),
@@ -181,7 +183,7 @@ fun ImageViewShow(
 fun PortraitImageViewShow(
     state: ImageState.Show,
     showDropDownMenu : Boolean,
-    onSaveColorScheme: (colorScheme : com.honyadew.model.CustomColorScheme) -> Unit,
+    onSaveColorScheme: (colorScheme : CustomColorScheme) -> Unit,
     onRemoveFromToSave: (colorInfo: ColorInfo) -> Unit,
     onMoveToSave: (colorInfo: ColorInfo) -> Unit,
     onChangeSelectedColor: (color: Color) -> Unit,
@@ -251,7 +253,7 @@ fun PortraitImageViewShow(
 fun LandscapeImageViewShow(
     state: ImageState.Show,
     showDropDownMenu: Boolean,
-    onSaveColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     onRemoveFromToSave: (colorInfo: ColorInfo) -> Unit,
     onMoveToSave: (colorInfo: ColorInfo) -> Unit,
     onChangeSelectedColor: (color: Color) -> Unit,
@@ -318,7 +320,6 @@ fun LandscapeImageViewShow(
     }
 }
 
-//TODO maybe should add a Icons for buttons
 @Composable
 private fun FunctionalRow(
     selectedColor: Color,
@@ -431,8 +432,8 @@ private fun FunctionalRow(
 @Composable
 fun TabOfDropDownMenu(
     showDropDownMenu : Boolean,
-    extractedColors: List<com.honyadew.model.ExtractColor>,
-    onSaveColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
+    extractedColors: List<ColorInfo>,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     onOpenDropDownMenu : (open: Boolean) -> Unit,
     modifier : Modifier = Modifier
 ) {
@@ -474,25 +475,20 @@ fun TabOfDropDownMenu(
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .background(colorInfo.color.color())
+                                .background(colorInfo.value.color())
                                 .height(48.dp)
                         )
                     }
                 }
             }
             val basicName = stringResource(id = R.string.extracted_colors)
-            val colorInfoList = extractedColors.map {
-                ColorInfo(
-                    value = it.color,
-                    stringResource(id = it.stringId)
-                )
-            }
+
             IconButton(
                 modifier = Modifier.weight(0.1f),
                 onClick = {
                     onSaveColorScheme.invoke(
-                        com.honyadew.model.CustomColorScheme(
-                            colors = colorInfoList,
+                        CustomColorScheme(
+                            colors = extractedColors,
                             name = basicName,
                             source = com.honyadew.model.ColorSchemeSource.ExtractAuto
                         )
@@ -505,12 +501,11 @@ fun TabOfDropDownMenu(
     }
 }
 
-//TODO it's incredible disgusting thing
 @Composable
 fun DropDownMenu(
     modifier: Modifier = Modifier,
-    extractedColors: List<com.honyadew.model.ExtractColor>,
-    onSaveColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
+    extractedColors: List<ColorInfo>,
+    onSaveColorScheme: (colorScheme: CustomColorScheme) -> Unit,
     onCloseDropDownMenu: () -> Unit,
     textNameField: MutableState<String> = remember{ mutableStateOf("") },
     focusRequester: FocusRequester = FocusRequester(),
@@ -537,10 +532,7 @@ fun DropDownMenu(
                         modifier = Modifier
                             .weight(1f)
                             .padding(4.dp),
-                        color = ColorInfo(
-                            value = extract.color,
-                            name = stringResource(id = extract.stringId)
-                        ),
+                        color = extract,
                         hexFontWeight = 12.sp
                     )
                 }
@@ -551,22 +543,14 @@ fun DropDownMenu(
                         modifier = Modifier
                             .weight(1f)
                             .padding(4.dp),
-                        color = ColorInfo(
-                            value = extract.color,
-                            name = stringResource(id = extract.stringId)
-                        ),
+                        color = extract,
                         hexFontWeight = 12.sp
 
                     )
                 }
             }
             Row(modifier = Modifier.padding(bottom = 4.dp, start = 4.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                val colorInfoList = extractedColors.map {
-                    ColorInfo(
-                        value = it.color,
-                        stringResource(id = it.stringId)
-                    )
-                }
+
                 OutlinedTextField(
                     value = textNameField.value,
                     onValueChange = {newValue ->
@@ -589,8 +573,8 @@ fun DropDownMenu(
                     keyboardActions = KeyboardActions (
                         onDone = {
                             onSaveColorScheme.invoke(
-                                com.honyadew.model.CustomColorScheme(
-                                    colors = colorInfoList,
+                                CustomColorScheme(
+                                    colors = extractedColors,
                                     name = textNameField.value,
                                     source = com.honyadew.model.ColorSchemeSource.ExtractAuto
                                 )
@@ -602,10 +586,10 @@ fun DropDownMenu(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         onSaveColorScheme.invoke(
-                            com.honyadew.model.CustomColorScheme(
-                                colors = colorInfoList,
+                            CustomColorScheme(
+                                colors = extractedColors,
                                 name = textNameField.value,
-                                source = com.honyadew.model.ColorSchemeSource.ExtractAuto
+                                source = ColorSchemeSource.ExtractAuto
                             )
                         )
                     }

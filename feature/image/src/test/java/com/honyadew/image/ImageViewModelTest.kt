@@ -8,7 +8,6 @@ import com.honyadew.image.contract.ImageEvent
 import com.honyadew.image.contract.ImageState
 import com.honyadew.model.ColorInfo
 import com.honyadew.model.CustomColorScheme
-import com.honyadew.model.ExtractColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -104,16 +103,4 @@ class ImageViewModelTest {
         Mockito.verify(saveColorSchemeUseCase, Mockito.times(1)).invoke(testScheme)
     }
 
-    @Test
-    fun `should set extracted`(){
-        val state = viewModel.getViewState().value as ImageState.Show
-        val extractedColors = listOf<ExtractColor>(ExtractColor(1,"test"))
-
-        viewModel.obtainEvent(ImageEvent.SetExtractedColors(extractedColors))
-
-        val actual = (viewModel.getViewState().value as ImageState.Show).extractedColors
-        val expected = extractedColors
-
-        Assertions.assertEquals(expected, actual)
-    }
 }

@@ -58,9 +58,9 @@ fun SlidersViewShow(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
-    onAddToSaveList: (color: com.honyadew.model.ColorInfo) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
     onSaveColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
-    onRemoveFromToSaveList : (color : com.honyadew.model.ColorInfo) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
 ) {
     val portraitMode: Boolean =
         (LocalContext.current as Activity)
@@ -120,9 +120,9 @@ private fun PortraitSlidersViewShow(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
-    onAddToSaveList: (color: com.honyadew.model.ColorInfo) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
     onSaveColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
-    onRemoveFromToSaveList : (color : com.honyadew.model.ColorInfo) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -174,9 +174,9 @@ private fun LandscapeSlidersViewShow(
     onThirdSliderChange: (newValue: Float) -> Unit,
     onAlphaSliderChange: (newValue: Float) -> Unit,
     onChangeSlidersType: (type: SlidersType) -> Unit,
-    onAddToSaveList: (color: com.honyadew.model.ColorInfo) -> Unit,
+    onAddToSaveList: (color: ColorInfo) -> Unit,
     onSaveColorScheme: (colorScheme: com.honyadew.model.CustomColorScheme) -> Unit,
-    onRemoveFromToSaveList : (color : com.honyadew.model.ColorInfo) -> Unit,
+    onRemoveFromToSaveList : (color : ColorInfo) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -368,9 +368,6 @@ private fun SlidersCell(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-
-
 private fun getColorBySliders(
     slidersType: SlidersType,
     firstValue: Float,
@@ -420,11 +417,11 @@ private fun PreviewSliderViewShow() {
         state = SlidersState.Show(
             type = SlidersType.RGB,
             colorsToSave = listOf(
-                com.honyadew.model.ColorInfo(value = Color.Green.string(), name = ""),
-                com.honyadew.model.ColorInfo(value = Color.Yellow.string(), name = ""),
-                com.honyadew.model.ColorInfo(value = Color.Red.string(), name = ""),
-                com.honyadew.model.ColorInfo(value = Color.Transparent.string(), name = ""),
-                com.honyadew.model.ColorInfo(value = Color.Black.string(), name = ""),
+                ColorInfo(value = Color.Green.string(), name = ""),
+                ColorInfo(value = Color.Yellow.string(), name = ""),
+                ColorInfo(value = Color.Red.string(), name = ""),
+                ColorInfo(value = Color.Transparent.string(), name = ""),
+                ColorInfo(value = Color.Black.string(), name = ""),
             )
         ),
         onAlphaSliderChange = {},
