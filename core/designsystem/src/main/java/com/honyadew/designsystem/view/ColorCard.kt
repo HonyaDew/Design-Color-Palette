@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
@@ -93,7 +94,7 @@ fun DcpColorCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+            Column(modifier = Modifier.weight(0.8f)) {
                 Text(
                     text = color.name,
                     color = colorSelect(inverse = true),
@@ -102,20 +103,22 @@ fun DcpColorCard(
                 )
                 Text(text = color.value.color().toHexString(), color = colorSelect(inverse = true))
             }
-            IconButton(onClick = {
-                GlobalSignals.snackbarHostState.tryEmit("Copied: ${color.value.color().toHexString()}")
-                clipboardManager.setText(
-                    AnnotatedString(buildString {
-                        append(color.value.color().toHexString())
-                    })
-                )
-            }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_copy),
-                    contentDescription = "CopyIcon",
-                    modifier = Modifier.size(32.dp),
-                    tint = colorSelect(inverse = true)
-                )
+            Box(modifier = Modifier.weight(0.2f)){
+                IconButton(onClick = {
+                    GlobalSignals.snackbarHostState.tryEmit("Copied: ${color.value.color().toHexString()}")
+                    clipboardManager.setText(
+                        AnnotatedString(buildString {
+                            append(color.value.color().toHexString())
+                        })
+                    )
+                }, modifier = Modifier.align(Alignment.CenterEnd)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_copy),
+                        contentDescription = "CopyIcon",
+                        modifier = Modifier.size(32.dp),
+                        tint = colorSelect(inverse = true)
+                    )
+                }
             }
         }
     }

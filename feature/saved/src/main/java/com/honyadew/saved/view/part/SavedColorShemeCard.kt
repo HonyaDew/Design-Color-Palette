@@ -37,6 +37,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.honyadew.GlobalSignals
 import com.honyadew.saved.R
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.extencion.color
@@ -125,12 +126,12 @@ fun SavedColorSchemeCard(
                         Column(
                             modifier = Modifier
                                 .clickable {
+                                    val hexString: String = colorInfo.value.color().toHexString()
+                                    GlobalSignals.snackbarHostState.tryEmit("Copied: $hexString")
                                     clipboardManager.setText(
                                         AnnotatedString(buildString {
                                             append(
-                                                colorInfo.value
-                                                    .color()
-                                                    .toHexString()
+                                                hexString
                                             )
                                         })
                                     )
@@ -156,19 +157,26 @@ fun SavedColorSchemeCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Column {
-                        Text(text = paletteInfo.name, fontWeight = FontWeight.SemiBold)
+
+                    Column(modifier = Modifier.weight(0.8f)) {
+                        Text(text = paletteInfo.name, fontWeight = FontWeight.SemiBold, maxLines = 1)
                         Text(
                             text = paletteInfo.colors.size.toString() + " " + stringResource(id = R.string.colors),
                             maxLines = 1
                         )
                     }
-                    IconButton(onClick = { onPaletteClick.invoke(paletteInfo) }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_open_24),
-                            contentDescription = "Open"
-                        )
+                    Box(modifier = Modifier.weight(0.2f)){
+                        IconButton(
+                            onClick = { onPaletteClick.invoke(paletteInfo) },
+                            modifier = Modifier.align(Alignment.CenterEnd)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_open_24),
+                                contentDescription = "Open"
+                            )
+                        }
                     }
+
                 }
             }
 

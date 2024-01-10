@@ -106,7 +106,6 @@ private fun SavedPager(
         state = pagerState,
         modifier = Modifier.fillMaxSize()
     ) {page ->
-//        onChangeTab.invoke(SavedTabs.values()[page])
         LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 512.dp),modifier = Modifier.fillMaxSize()) {
             colorSchemes.filterApply(
                 when(page){

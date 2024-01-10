@@ -66,6 +66,7 @@ fun DcpAlertDialog(
                     disabledTextColor = colorSelect(inverse = true),
                     cursorColor = colorSelect(inverse = true, saturation = 90)
                 ),
+                maxLines = 3,
                 trailingIcon = {
                     if (onEditTitle != null){
                         Icon(
