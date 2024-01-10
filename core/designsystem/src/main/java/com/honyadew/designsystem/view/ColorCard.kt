@@ -106,7 +106,6 @@ fun DcpColorCard(
                 GlobalSignals.snackbarHostState.tryEmit("Copied: ${color.value.color().toHexString()}")
                 clipboardManager.setText(
                     AnnotatedString(buildString {
-                        //TODO In future here can be another export types
                         append(color.value.color().toHexString())
                     })
                 )

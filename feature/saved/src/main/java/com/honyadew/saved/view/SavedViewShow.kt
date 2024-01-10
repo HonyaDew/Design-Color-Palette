@@ -289,7 +289,7 @@ private fun PreviewSavedViewShow(){
         ),
         onDeleteClick = {},
         onOpenColorScheme = {},
-        onDismissOpen = { /*TODO*/ },
+        onDismissOpen = { },
         onChangeTab = {},
         onEditTitle = {it1,it2 ->}
     )

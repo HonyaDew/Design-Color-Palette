@@ -2,7 +2,6 @@ plugins {
     id(Deps.Plugins.javaLibraty)
     id(Deps.Plugins.kotlinJvm)
     id(Deps.Plugins.ksp)
-    id(Deps.Plugins.serialization)
 }
 
 java {
@@ -17,8 +16,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 dependencies {
     implementation(project(":core:model"))
-    //TODO try to remove with plugins too
-    implementation(Deps.Json.serialization)
 
     testImplementation(Deps.Test.jUnit)
     testImplementation(Deps.Test.mockitoCore)
