@@ -1,14 +1,15 @@
-package com.honyadew.saved.contact
+package com.honyadew.saved.contract
 
 import com.honyadew.base.ViewState
+import com.honyadew.model.CustomColorScheme
 import com.honyadew.saved.model.SavedTabs
 
 sealed class SavedState : ViewState {
     object Loading : SavedState()
     object NoObjects : SavedState()
     data class Show(
-        val colorsToShow : List<com.honyadew.model.CustomColorScheme>,
+        val allSchemes : List<CustomColorScheme>,
         val selectedTab : SavedTabs,
-        val openedColorScheme : com.honyadew.model.CustomColorScheme? = null
+        val openedColorScheme : CustomColorScheme? = null
     ) : SavedState()
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Tab
@@ -19,7 +20,13 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -29,16 +36,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.honyadew.designsystem.view.DcpAlertDialog
 import com.honyadew.designsystem.view.DcpColorCard
-import com.honyadew.saved.contact.SavedState
+import com.honyadew.saved.contract.SavedState
 import com.honyadew.saved.model.SavedTabs
 import com.honyadew.saved.view.part.SavedColorSchemeCard
 import com.honyadew.designsystem.theme.colorSelect
 import com.honyadew.designsystem.view.MiniColorCard
+import com.honyadew.extencion.filterApply
 import com.honyadew.extencion.string
 import com.honyadew.model.ColorInfo
+import com.honyadew.model.ColorSchemeFilters
 import com.honyadew.model.CustomColorScheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SavedViewShow(
     state: SavedState.Show,
@@ -48,6 +59,16 @@ fun SavedViewShow(
     onChangeTab: (newTab: SavedTabs) -> Unit,
     onEditTitle: (newTitle: String, scheme: CustomColorScheme) -> Unit
 ) {
+    val pagerState = rememberPagerState(initialPage = SavedTabs.values().indexOf(state.selectedTab))
+
+    LaunchedEffect(state.selectedTab){
+        pagerState.scrollToPage(SavedTabs.values().indexOf(state.selectedTab))
+    }
+
+    LaunchedEffect(pagerState.currentPage){
+        delay(600)
+        onChangeTab.invoke(SavedTabs.values()[pagerState.currentPage])
+    }
 
     Box(modifier = Modifier.fillMaxSize()){
         state.openedColorScheme?.let { colorScheme ->
@@ -55,33 +76,49 @@ fun SavedViewShow(
         }
         Column {
             SavedTabRow(
-                selectedTab = state.selectedTab,
+                selectedTab = SavedTabs.values()[pagerState.currentPage],
                 onChangeTab = onChangeTab
             )
             SavedPager(
-                colorSchemes = state.colorsToShow,
+                colorSchemes = state.allSchemes,
                 onDeleteClick = onDeleteClick,
-                onOpenColorScheme = onOpenColorScheme
+                onOpenColorScheme = onOpenColorScheme,
+                pagerState = pagerState,
+                onChangeTab = onChangeTab
+
             )
         }
     }
 }
 
-//TODO MAKE THIS REAL HORIZONTAL_PAGER, USING rememberPagerState and others
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun SavedPager(
     colorSchemes : List<CustomColorScheme>,
+    pagerState: PagerState,
     onDeleteClick: (colorScheme: CustomColorScheme) -> Unit,
     onOpenColorScheme: (colorScheme: CustomColorScheme) -> Unit,
+    onChangeTab: (newTab: SavedTabs) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box( modifier = modifier) {
-        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 512.dp)){
-            colorSchemes.forEach {colorScheme ->
+    HorizontalPager(
+        pageCount = 3,
+        state = pagerState,
+        modifier = Modifier.fillMaxSize()
+    ) {page ->
+//        onChangeTab.invoke(SavedTabs.values()[page])
+        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 512.dp),modifier = Modifier.fillMaxSize()) {
+            colorSchemes.filterApply(
+                when(page){
+                    0 -> ColorSchemeFilters.SingleColor
+                    1 -> ColorSchemeFilters.UpToFourColors
+                    else -> ColorSchemeFilters.MultiColors
+                }
+            ).forEach{colorScheme ->
                 item {
                     if (colorScheme.colors.size == 1) {
                         DcpColorCard(
-                            color = com.honyadew.model.ColorInfo(
+                            color = ColorInfo(
                                 value = colorScheme.colors[0].value,
                                 name = colorScheme.name
                             ),
@@ -101,6 +138,7 @@ private fun SavedPager(
                 }
             }
         }
+
     }
 }
 
@@ -178,7 +216,7 @@ private fun SavedTabRow(
 private fun PreviewSavedViewShow(){
     SavedViewShow(
         state = SavedState.Show(
-            colorsToShow = listOf(
+            allSchemes = listOf(
                 CustomColorScheme(
                     colors = listOf(
                         ColorInfo(

@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberCoroutineScope
-import com.honyadew.saved.contact.SavedEffect
-import com.honyadew.saved.contact.SavedEvent
-import com.honyadew.saved.contact.SavedState
+import com.honyadew.saved.contract.SavedEffect
+import com.honyadew.saved.contract.SavedEvent
+import com.honyadew.saved.contract.SavedState
 import com.honyadew.saved.view.SavedViewLoading
 import com.honyadew.saved.view.SavedViewShow
 import com.honyadew.model.ColorInfo

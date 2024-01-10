@@ -3,10 +3,11 @@ package com.honyadew.saved
 import com.honyadew.domain.usecase.DeleteColorSchemeUseCase
 import com.honyadew.domain.usecase.GetAllColorSchemeUseCase
 import com.honyadew.ArchTaskLooper
+import com.honyadew.domain.usecase.ChangeSchemeTitleUseCase
 import com.honyadew.model.ColorInfo
 import com.honyadew.model.CustomColorScheme
-import com.honyadew.saved.contact.SavedEvent
-import com.honyadew.saved.contact.SavedState
+import com.honyadew.saved.contract.SavedEvent
+import com.honyadew.saved.contract.SavedState
 import com.honyadew.saved.model.SavedTabs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,6 +29,7 @@ class SavedViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private val getAllColorSchemeUseCase = mock<GetAllColorSchemeUseCase>()
     private val deleteColorSchemeUseCase = mock<DeleteColorSchemeUseCase>()
+    private val changeSchemeTitleUseCase = mock<ChangeSchemeTitleUseCase>()
     private lateinit var viewModel : SavedViewModel
 
     @BeforeEach
@@ -41,6 +43,7 @@ class SavedViewModelTest {
         Dispatchers.resetMain()
         Mockito.reset(getAllColorSchemeUseCase)
         Mockito.reset(deleteColorSchemeUseCase)
+        Mockito.reset(changeSchemeTitleUseCase)
         ArchTaskLooper().after()
     }
 
@@ -57,11 +60,13 @@ class SavedViewModelTest {
         )
         Mockito.`when`(getAllColorSchemeUseCase.invoke()).thenReturn(testData)
         viewModel = SavedViewModel(
-            getAllColorSchemeUseCase, deleteColorSchemeUseCase
+            getAllColorSchemeUseCase, deleteColorSchemeUseCase, changeSchemeTitleUseCase
         )
+        viewModel.loadColorSchemes()
+
         delay(1000)
 
-        val expected = SavedState.Show(colorsToShow = listOf(testData[0]), selectedTab = SavedTabs.ONE_COLOR)
+        val expected = SavedState.Show(allSchemes = testData, selectedTab = SavedTabs.ONE_COLOR)
         val actual = viewModel.getViewState().value
 
         Assertions.assertEquals(expected, actual)
@@ -74,10 +79,12 @@ class SavedViewModelTest {
             colors = listOf(ColorInfo(value = "t", name = "t")), name = "t"
         )
         Mockito.`when`(getAllColorSchemeUseCase.invoke()).thenReturn(listOf(testData))
-        viewModel = SavedViewModel(getAllColorSchemeUseCase, deleteColorSchemeUseCase)
+        viewModel = SavedViewModel(getAllColorSchemeUseCase, deleteColorSchemeUseCase, changeSchemeTitleUseCase)
+        viewModel.loadColorSchemes()
 
         Mockito.`when`(getAllColorSchemeUseCase.invoke()).thenReturn(emptyList())
         viewModel.obtainEvent(event = SavedEvent.DeleteColorScheme(testData))
+
 
         val expected = SavedState.NoObjects
         val actual = viewModel.getViewState().value
@@ -87,46 +94,5 @@ class SavedViewModelTest {
         Mockito.verify(deleteColorSchemeUseCase, times(1)).invoke(testData)
     }
 
-    @Test
-    fun `should change tab and filter`() = runTest {
-        val testData = listOf<CustomColorScheme>(
-            CustomColorScheme(colors = listOf(
-                ColorInfo(value = "t", name = "t")
-            ), name = "t"),
-            CustomColorScheme(colors = listOf(
-                ColorInfo(value = "t2", name = "t2"),
-                ColorInfo(value = "t3", name = "t3")
-            ), name = "t2"),
-            CustomColorScheme(colors = listOf(
-                ColorInfo(value = "t4", name = "t4"),
-                ColorInfo(value = "t5", name = "t5"),
-                ColorInfo(value = "t6", name = "t6"),
-                ColorInfo(value = "t7", name = "t7"),
-                ColorInfo(value = "t8", name = "t8")
-            ), name = "t3"),
-        )
 
-        Mockito.`when`(getAllColorSchemeUseCase.invoke()).thenReturn(testData)
-        viewModel = SavedViewModel(
-            getAllColorSchemeUseCase, deleteColorSchemeUseCase
-        )
-
-        val expected = testData[0]
-        val actual = (viewModel.getViewState().value as SavedState.Show).colorsToShow[0]
-        Assertions.assertEquals(expected, actual)
-
-        viewModel.obtainEvent(SavedEvent.ChangeFilterTab(tab = SavedTabs.SMALL_SCHEME))
-
-        val expected2 = testData[1]
-        val actual2 = (viewModel.getViewState().value as SavedState.Show).colorsToShow[0]
-        Assertions.assertEquals(expected2, actual2)
-
-        viewModel.obtainEvent(SavedEvent.ChangeFilterTab(tab = SavedTabs.BIG_SCHEME))
-
-        val expected3 = testData[2]
-        val actual3 = (viewModel.getViewState().value as SavedState.Show).colorsToShow[0]
-        Assertions.assertEquals(expected3, actual3)
-
-        Mockito.verify(getAllColorSchemeUseCase, times(1)).invoke()
-    }
 }

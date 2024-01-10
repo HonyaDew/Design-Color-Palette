@@ -1,4 +1,4 @@
-package com.honyadew.saved.contact
+package com.honyadew.saved.contract
 
 import com.honyadew.model.CustomColorScheme
 import com.honyadew.saved.model.SavedTabs

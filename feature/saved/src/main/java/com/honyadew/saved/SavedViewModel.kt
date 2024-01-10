@@ -3,14 +3,12 @@ package com.honyadew.saved
 import androidx.lifecycle.viewModelScope
 import com.honyadew.base.BaseViewModel
 import com.honyadew.domain.usecase.ChangeSchemeTitleUseCase
-import com.honyadew.saved.contact.SavedEffect
-import com.honyadew.saved.contact.SavedEvent
-import com.honyadew.saved.contact.SavedState
+import com.honyadew.saved.contract.SavedEffect
+import com.honyadew.saved.contract.SavedEvent
+import com.honyadew.saved.contract.SavedState
 import com.honyadew.saved.model.SavedTabs
 import com.honyadew.domain.usecase.DeleteColorSchemeUseCase
 import com.honyadew.domain.usecase.GetAllColorSchemeUseCase
-import com.honyadew.extencion.filterApply
-import com.honyadew.model.ColorSchemeFilters
 import com.honyadew.model.CustomColorScheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -32,12 +30,10 @@ class SavedViewModel(
                     } else {
                         when (val state = viewState) {
                             is SavedState.Show -> {
-                                val filtered = colorSchemes.filterApply(filter = state.selectedTab.filter)
-                                state.copy(filtered)
+                                state.copy(colorSchemes)
                             }
                             else -> {
-                                val filtered = colorSchemes.filterApply(filter = ColorSchemeFilters.SingleColor)
-                                SavedState.Show(filtered, SavedTabs.ONE_COLOR)
+                                SavedState.Show(colorSchemes, SavedTabs.ONE_COLOR)
                             }
                         }
                     }
@@ -46,7 +42,6 @@ class SavedViewModel(
         }
 
         //For tests
-        loadColorSchemes()
     }
 
     override fun obtainEvent(event: SavedEvent) {
@@ -108,8 +103,7 @@ class SavedViewModel(
 
     private fun performChangeFilterTab(filterTab: SavedTabs, state: SavedState.Show){
         allColorSchemesState.value?.let { colorScheme ->
-            val filtered = colorScheme.filterApply(filter = filterTab.filter)
-            viewState = state.copy(colorsToShow = filtered, selectedTab = filterTab)
+            viewState = state.copy(selectedTab = filterTab)
         }
     }
 

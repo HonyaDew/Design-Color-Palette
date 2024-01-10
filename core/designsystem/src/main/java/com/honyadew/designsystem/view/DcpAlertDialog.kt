@@ -88,39 +88,6 @@ fun DcpAlertDialog(
 
 
             )
-
-//            if (onEditTitle == null) {
-//                Text(text = title, maxLines = 1)
-//            } else {
-//                Row {
-//                    if (!editMode) {
-//                        Icon(
-//                            painter = painterResource(id = R.drawable.ic_edit),
-//                            contentDescription = "Edit",
-//                            modifier = Modifier.clickable { editMode = true }
-//                        )
-//                        Text(
-//                            text = title,
-//                            modifier = Modifier.clickable { editMode = true },
-//                            maxLines = 1
-//                        )
-//                    } else {
-//                        var textFieldValue by remember { mutableStateOf(title) }
-//                        Icon(
-//                            painter = painterResource(id = R.drawable.ic_save_24),
-//                            contentDescription = "Save"
-//                        )
-//                        TextField(
-//                            value = textFieldValue,
-//                            onValueChange = { newValue ->
-//                                textFieldValue = newValue
-//                            },
-//                            singleLine = true
-//                        )
-//                    }
-//
-//                }
-//            }
         },
         text = {
             Column {
